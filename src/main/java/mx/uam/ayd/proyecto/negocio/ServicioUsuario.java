@@ -64,9 +64,15 @@ public class ServicioUsuario {
 
 	}
 
+	/**
+	 * Recupera todos los usuarios existentes
+	 * 
+	 * @return Una lista con los usuarios (o lista vacía)
+	 */
 	public List <Usuario> recuperaUsuarios() {
 
 		
+		System.out.println("usuarioRepository = "+usuarioRepository);
 		
 		List <Usuario> usuarios = new ArrayList<>();
 		

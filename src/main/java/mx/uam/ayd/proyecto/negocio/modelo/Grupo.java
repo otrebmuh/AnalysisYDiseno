@@ -33,7 +33,27 @@ public class Grupo {
     @JoinColumn(name = "idGrupo")
 	private final List <Usuario> usuarios = new ArrayList <> ();
 	
+	/**
+	 * 
+	 * Permite agregar un usuario al grupo
+	 * Nota: un mismo usuario no puede estar dos veces en el grupo
+	 * 
+	 * @param usuario el usuario que deseo agregar al grupo
+	 * @return true si el usuario se agregó correctamente, false si no
+	 * @throws IllegalArgumentException si el usuario es nulo
+	 */
 	public boolean addUsuario(Usuario usuario) {
+
+		if(usuario == null) {
+			throw new IllegalArgumentException("El usuario no puede ser null");
+		}
+		
+		if(usuarios.contains(usuario)) {
+			// Checo si el usuario está en el grupo por que no se puede agregar un usuario dos veces
+			return false;
+		}
+		
 		return usuarios.add(usuario);
+				
 	}
 }

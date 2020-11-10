@@ -13,5 +13,6 @@ import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 public interface GrupoRepository extends CrudRepository <Grupo, Long> {
 	
 	public Grupo findByNombre(String nombre);
+	
 
 }
