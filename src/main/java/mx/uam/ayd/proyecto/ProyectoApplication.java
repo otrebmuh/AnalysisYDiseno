@@ -27,7 +27,9 @@ public class ProyectoApplication {
 	GrupoRepository grupoRepository;
 	
 	/**
+	 * 
 	 * Método principal
+	 * 
 	 */
 	public static void main(String[] args) {
 		
@@ -57,6 +59,8 @@ public class ProyectoApplication {
 	 * 
 	 */
 	public void inicializaBD() {
+		
+		// Vamos a crear los dos grupos de usuarios
 		
 		Grupo grupoAdmin = new Grupo();
 		grupoAdmin.setNombre("Administradores");
