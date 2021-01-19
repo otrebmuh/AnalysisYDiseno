@@ -26,6 +26,9 @@ public class ProyectoApplication {
 	@Autowired
 	GrupoRepository grupoRepository;
 	
+	/**
+	 * Método principal
+	 */
 	public static void main(String[] args) {
 		
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(ProyectoApplication.class);
