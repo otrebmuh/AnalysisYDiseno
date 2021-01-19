@@ -12,6 +12,12 @@ import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
  */
 public interface GrupoRepository extends CrudRepository <Grupo, Long> {
 	
+	/**
+	 * Encuentra un grupo a partir de un nombre
+	 * 
+	 * @param nombre
+	 * @return
+	 */
 	public Grupo findByNombre(String nombre);
 	
 
