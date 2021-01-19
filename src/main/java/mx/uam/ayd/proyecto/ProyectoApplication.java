@@ -35,6 +35,9 @@ public class ProyectoApplication {
 		builder.run(args);
 	}
 
+	/**
+	 * Metodo que arranca la aplicacion
+	 */
 	@PostConstruct
 	public void inicia() {
 		
