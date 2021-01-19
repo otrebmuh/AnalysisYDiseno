@@ -12,8 +12,8 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
 
 /**
  * 
- * Clase principal que arranca la aplicación
- * construida usando el principio de inversión de control
+ * Clase principal que arranca la aplicación construida 
+ * usando el principio de inversión de control
  * 
  * @author humbertocervantes
  *
