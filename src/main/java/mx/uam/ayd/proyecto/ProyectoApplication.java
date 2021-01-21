@@ -47,6 +47,7 @@ public class ProyectoApplication {
 	/**
 	 * Metodo que arranca la aplicacion
 	 * inicializa la bd y arranca el controlador
+	 * otro comentario
 	 */
 	@PostConstruct
 	public void inicia() {
