@@ -16,7 +16,7 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
  * construida usando el principio de 
  * inversión de control
  * 
- * Ejemplo de cambio en Rama
+ * Ejemplo de cambio en Rama 2
  * 
  * @author humbertocervantes
  *
