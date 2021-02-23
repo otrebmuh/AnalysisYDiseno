@@ -7,20 +7,27 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * 
+ * Prueba unitaria de la entidad Grupo
+ * 
+ * @author humbertocervantes
+ *
+ */
 class GrupoTest {
 
-	private Usuario usuario;
+	private Grupo grupo = new Grupo(); // Este es el elemento que probamos
+
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		// Este método se ejecuta antes de la ejecución
 		// de cada metodo de prueba, es útil para
-		// establecer las precondiciones
+		// establecer las precondiciones generales
 		
-		usuario = new Usuario();
-		usuario.setNombre("Juan");
-		usuario.setApellido("Perez");
-		usuario.setEdad(20);
+		grupo.setNombre("CK01"); // Esto también es una precondición
+
+		
 
 	}
 
@@ -34,20 +41,26 @@ class GrupoTest {
 	@Test
 	void testAddUsuario() {
 		
-		Grupo grupo = new Grupo();
-		grupo.setNombre("CK01");
+		// Precondiciones específicas para este caso de prueba
+		Usuario usuario;
+		usuario = new Usuario();
+		usuario.setNombre("Juan");
+		usuario.setApellido("Perez");
+		usuario.setEdad(20);
+
 		
-		// Prueba 1: Corroborar que addUsuario funciona correctamente si no hay usuarios en el grupo
+		
+		// Caso de prueba 1: Corroborar que addUsuario funciona correctamente si no hay usuarios en el grupo
 		boolean resultado = grupo.addUsuario(usuario);
 		
-		assertEquals(true,resultado);
+		assertEquals(true,resultado); // assert permite corroborar que el valor que regresó es el que espero
 		
-		// Prueba 2: Corroborar que no es posible agregar un mismo usuario dos veces al grupo
+		// Caso de prueba 2: Corroborar que no es posible agregar un mismo usuario dos veces al grupo
 		resultado = grupo.addUsuario(usuario);
 
 		assertEquals(false,resultado);
 		
-		// Prueba 3: Corroborar que no se puede pasar null como parámetro
+		// Caso de Prueba 3: Corroborar que no se puede pasar null como parámetro
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
 
 			grupo.addUsuario(null);
@@ -55,9 +68,7 @@ class GrupoTest {
 
 		});
 		
-		
-
-		
 	}
+	
 
 }

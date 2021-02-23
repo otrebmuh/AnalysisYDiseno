@@ -1,7 +1,10 @@
 package mx.uam.ayd.proyecto.negocio;
 
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import org.mockito.stubbing.Answer;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,10 +15,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import mx.uam.ayd.proyecto.datos.GrupoRepository;
 import mx.uam.ayd.proyecto.datos.UsuarioRepository;
+import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,6 +40,7 @@ class ServicioUsuarioTest {
 	@InjectMocks
 	private ServicioUsuario servicio;
 
+	
 	@BeforeEach
 	void setUp() throws Exception {
 	}
@@ -43,16 +49,11 @@ class ServicioUsuarioTest {
 	void tearDown() throws Exception {
 	}
 
-	//@Test
-	void testAgregaUsuario() {
-		fail("Not yet implemented");
-	}
-
 	@Test
 	void testRecuperaUsuarios() {
 
 		
-		// Prueba 1: corroborar que regresa una lista vacía si no hay usuarios en la BD
+		// Prueba 1: corroborar que regresa una lista vacía si no hay usuarios en la "BD"
 		
 		// en este momento, la invocación a usuarioRepository.findAll() regresa una lista vacía
 		List <Usuario> usuarios = servicio.recuperaUsuarios();
@@ -91,4 +92,39 @@ class ServicioUsuarioTest {
 
 	}
 
+	@Test
+	void testAgregaUsuario() {
+		
+		String nombre = "Juan";
+		String apellido = "Perez";
+		String idGrupo = "CK53";
+		
+		Grupo grupo = new Grupo();
+		grupo.setNombre(idGrupo);
+		
+
+		
+		when(grupoRepository.findByNombre(idGrupo)).thenReturn(grupo);
+		
+		when(usuarioRepository.save(any(Usuario.class))).thenAnswer(new Answer <Usuario> () {
+
+			@Override
+			public Usuario answer(InvocationOnMock invocation) throws Throwable {
+				
+
+				Usuario usuario = invocation.getArgument(0);
+				
+				assertEquals(nombre,usuario.getNombre());
+				assertEquals(apellido,usuario.getApellido());
+				//System.out.println("Guardando usuario: "+usuario);
+				
+				return usuario;
+			}
+			
+		});
+		
+		
+		assertEquals(true,servicio.agregaUsuario(nombre,apellido,idGrupo));
+	}
+	
 }

@@ -31,7 +31,7 @@ public class ServicioUsuario {
 	 * @param grupo
 	 * @return
 	 */
-	public void agregaUsuario(String nombre, String apellido, String nombreGrupo) {
+	public boolean agregaUsuario(String nombre, String apellido, String nombreGrupo) {
 		
 		// Regla de negocio: No se permite agregar dos usuarios con el mismo nombre y apellido
 		
@@ -54,14 +54,18 @@ public class ServicioUsuario {
 		usuario.setNombre(nombre);
 		usuario.setApellido(apellido);
 		
-		usuarioRepository.save(usuario);
-		
+		Usuario u = usuarioRepository.save(usuario);
+
+		//;
+
 		grupo.addUsuario(usuario);
 		
+		if(u != null) {
+			return true;
+		} else {
+			return false;
+		}
 		
-		grupoRepository.save(grupo);
-		
-
 	}
 
 	/**
@@ -72,7 +76,7 @@ public class ServicioUsuario {
 	public List <Usuario> recuperaUsuarios() {
 
 		
-		System.out.println("usuarioRepository = "+usuarioRepository);
+		//System.out.println("usuarioRepository = "+usuarioRepository);
 		
 		List <Usuario> usuarios = new ArrayList<>();
 		
