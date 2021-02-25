@@ -23,6 +23,13 @@ import mx.uam.ayd.proyecto.datos.UsuarioRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 
+/**
+ * 
+ * Pruebas unitarias del servicio
+ * 
+ * @author humbertocervantes
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 class ServicioUsuarioTest {
 	
@@ -43,10 +50,12 @@ class ServicioUsuarioTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
+		// Este método se ejecuta antes de cada caso de prueba
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
+		// Este método se ejecuta después de cada caso de prueba
 	}
 
 	@Test
