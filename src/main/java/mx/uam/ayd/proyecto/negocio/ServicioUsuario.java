@@ -31,7 +31,7 @@ public class ServicioUsuario {
 	 * @param grupo
 	 * @return
 	 */
-	public void agregaUsuario(String nombre, String apellido, String nombreGrupo) {
+	public Usuario agregaUsuario(String nombre, String apellido, String nombreGrupo) {
 		
 		// Regla de negocio: No se permite agregar dos usuarios con el mismo nombre y apellido
 		
@@ -60,6 +60,8 @@ public class ServicioUsuario {
 		
 		
 		grupoRepository.save(grupo);
+		
+		return usuario;
 		
 
 	}
