@@ -17,7 +17,7 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
  * inversión de control
  * 
  * 
- * @author humbertocervantes
+ * @author humbertocervantes (c) 2021
  *
  */
 @SpringBootApplication
