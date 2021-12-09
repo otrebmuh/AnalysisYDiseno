@@ -16,8 +16,6 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
  * construida usando el principio de 
  * inversión de control
  * 
- * Para arrancar la aplicación hacerlo desde la línea de comando
- * Esto está hecho con Spring Boot
  * 
  * @author humbertocervantes
  *
