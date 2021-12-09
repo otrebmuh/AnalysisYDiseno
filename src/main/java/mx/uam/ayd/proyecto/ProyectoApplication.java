@@ -16,7 +16,7 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
  * construida usando el principio de 
  * inversión de control
  * 
- * Ejemplo de cambio en Archivo Desarrollador 1
+ * Esto está hecho con Spring Boot
  * 
  * @author humbertocervantes
  *
