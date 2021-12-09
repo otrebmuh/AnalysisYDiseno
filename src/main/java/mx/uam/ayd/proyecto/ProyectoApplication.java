@@ -33,6 +33,8 @@ public class ProyectoApplication {
 	/**
 	 * 
 	 * Método principal
+	 *
+	 * @params args argumentos de la línea de comando
 	 * 
 	 */
 	public static void main(String[] args) {
