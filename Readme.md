@@ -7,4 +7,4 @@ Este proyecto proporciona una base de código para que los alumnos construyan su
 # Consideraciones
 
 - El sistema hace uso de Spring boot
-
+- El sistema hace uso de una base de datos en memoria (m2)
