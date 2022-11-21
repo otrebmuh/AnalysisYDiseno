@@ -17,7 +17,7 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
  * inversión de control
  * 
  * 
- * @author Humberto Cervantes (c) 9 Dic 2021
+ * @author Humberto Cervantes (c) 21 Nov 2022
  *
  */
 @SpringBootApplication
