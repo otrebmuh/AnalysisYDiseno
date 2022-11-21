@@ -18,7 +18,7 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
  * 
  * 
  * @author Humberto Cervantes (c) 21 Nov 2022
- *
+ * Desarrollador 1 cambia por aca
  */
 @SpringBootApplication
 public class ProyectoApplication {
