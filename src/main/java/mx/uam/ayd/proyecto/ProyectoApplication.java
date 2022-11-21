@@ -63,7 +63,7 @@ public class ProyectoApplication {
 	 * 
 	 * Inicializa la BD con datos
 	 * 
-	 * Desarrollador 2 modificó aca.
+	 * Desarrollador 2 hizo otra modificación - Modificación conflictiva.
 	 */
 	public void inicializaBD() {
 		
