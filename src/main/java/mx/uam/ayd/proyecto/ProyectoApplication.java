@@ -18,7 +18,7 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
  * 
  * 
  * @author Humberto Cervantes (c) 21 Nov 2022
- * Desarrollador 1 cambia por aca
+ *
  */
 @SpringBootApplication
 public class ProyectoApplication {
@@ -63,7 +63,6 @@ public class ProyectoApplication {
 	 * 
 	 * Inicializa la BD con datos
 	 * 
-	 * Desarrollador 2 hizo otra modificación - Modificación conflictiva.
 	 */
 	public void inicializaBD() {
 		
