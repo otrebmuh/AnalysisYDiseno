@@ -63,7 +63,7 @@ public class ProyectoApplication {
 	 * 
 	 * Inicializa la BD con datos
 	 * 
-	 * 
+	 * Desarrollador 2 modificó aca.
 	 */
 	public void inicializaBD() {
 		
