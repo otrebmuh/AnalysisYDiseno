@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>mx.uam.ayd</groupId>
 	<artifactId>proyecto</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>proyecto</name>
 	<description>Arquitectura de base para el proyecto</description>
 
