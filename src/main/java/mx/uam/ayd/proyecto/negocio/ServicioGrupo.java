@@ -10,6 +10,12 @@ import mx.uam.ayd.proyecto.datos.GrupoRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 
 @Service
+/**
+ * Servicio relacionado con los grupos
+ * 
+ * @author humbertocervantes
+ *
+ */
 public class ServicioGrupo {
 	
 	@Autowired 

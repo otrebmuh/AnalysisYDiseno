@@ -16,10 +16,9 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
  * construida usando el principio de 
  * inversión de control
  * 
- * Ejemplo de cambio en Rama
  * 
- * @author humbertocervantes
- *
+ * @author Humberto Cervantes (c) 21 Nov 2022
+ * Este cambio es en la rama de trabajo
  */
 @SpringBootApplication
 public class ProyectoApplication {
@@ -33,6 +32,8 @@ public class ProyectoApplication {
 	/**
 	 * 
 	 * Método principal
+	 *
+	 * @params args argumentos de la línea de comando
 	 * 
 	 */
 	public static void main(String[] args) {
@@ -61,7 +62,6 @@ public class ProyectoApplication {
 	/**
 	 * 
 	 * Inicializa la BD con datos
-	 * 
 	 * 
 	 */
 	public void inicializaBD() {
