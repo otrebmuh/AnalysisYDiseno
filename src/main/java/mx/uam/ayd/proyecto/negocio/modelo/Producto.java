@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
@@ -16,8 +18,18 @@ public class Producto {
     private long idProducto;
     private String nombre;
     private String descripcion;
+    private String contenido;
+    private boolean receta;
 
-    CategoriaProducto categoria;
-
+    @ManyToOne
+    @JoinColumn(name = "idCategoria")
+    private CategoriaProducto categoria;
     
+    @ManyToOne
+    @JoinColumn(name = "idIngrediente")
+    private Ingrediente ingrediente;
+
+    @ManyToOne
+    @JoinColumn(name = "idLaboratorio")
+    private Laboratorio laboratorio;
 }

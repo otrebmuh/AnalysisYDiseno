@@ -1,6 +1,5 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +17,15 @@ import lombok.Data;
 
 @Entity
 @Data
-public class CategoriaProducto {
+public class Laboratorio {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idCategoria;
+    private long idLaboratorio;
 
     private String nombre;
 
     @OneToMany(targetEntity = Producto.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "idCategoria")
+    @JoinColumn(name = "idLaboratorio")
     private List<Producto> productos = new ArrayList<Producto>();
     
 }
