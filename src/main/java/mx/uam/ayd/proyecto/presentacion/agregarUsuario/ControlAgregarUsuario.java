@@ -29,6 +29,7 @@ public class ControlAgregarUsuario {
 	@Autowired
 	private VentanaAgregarUsuario ventana;
 	
+	
 	/**
 	 * Inicia la historia de usuario
 	 * 

@@ -2,61 +2,67 @@ package mx.uam.ayd.proyecto.negocio.modelo;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class GrupoTest {
 
-	private Usuario usuario;
-	
+	private Grupo grupoPrueba;
+
 	@BeforeEach
-	void setUp() throws Exception {
-		// Este método se ejecuta antes de la ejecución
-		// de cada metodo de prueba, es útil para
-		// establecer las precondiciones
+	void setUp() {
+		// Este método se ejecuta antes de que se ejecute cada
+		// método de prueba
 		
-		usuario = new Usuario();
-		usuario.setNombre("Juan");
-		usuario.setApellido("Perez");
-		usuario.setEdad(20);
-
+		grupoPrueba = new Grupo();
 	}
+	
 
-	@AfterEach
-	void tearDown() throws Exception {
-		// Este método se ejecuta después de la ejecución
-		// de cada método de prueba, es útil para
-		// dejar todo como estaba antes de la prueba
-	}
 
+	
 	@Test
 	void testAddUsuario() {
 		
-		Grupo grupo = new Grupo();
-		grupo.setNombre("CK01");
+		// Caso de prueba 1: Se agrega un usuario exitosamente al grupo
+		grupoPrueba.setNombre("CK01");
 		
-		// Prueba 1: Corroborar que addUsuario funciona correctamente si no hay usuarios en el grupo
-		boolean resultado = grupo.addUsuario(usuario);
+		Usuario usuarioPrueba = new Usuario();
+		usuarioPrueba.setNombre("Juan");
+		usuarioPrueba.setApellido("Perez");
+		usuarioPrueba.setEdad(20);
 		
-		assertEquals(true,resultado);
+		boolean resultado = grupoPrueba.addUsuario(usuarioPrueba);
 		
-		// Prueba 2: Corroborar que no es posible agregar un mismo usuario dos veces al grupo
-		resultado = grupo.addUsuario(usuario);
-
-		assertEquals(false,resultado);
+			 
+		assertEquals(true,resultado); // Valor esperado, valor obtenido
 		
-		// Prueba 3: Corroborar que no se puede pasar null como parámetro
+		// Caso de prueba 2: Se trata de agregar un usuario que ya estaba en el grupo
+		
+		// Nota: aquí grupoPrueba ya tiene al usuarioPrueba
+		
+		resultado = grupoPrueba.addUsuario(usuarioPrueba);
+		
+		assertEquals(false,resultado,"no se puede agregar dos veces un usuario al grupo"); // Valor esperado, valor obtenido
+		
+		
+		// Caso de prueba 3: Se le pasa un null como parámetro
+		
+		// Checamos que genere un IllegalArgumentException
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
-
-			grupo.addUsuario(null);
-
-
+			grupoPrueba.addUsuario(null);
 		});
+	}
+	
+	@Test
+	void testRemoveUsuario() {
+				
+		// Caso de prueba 1
 		
+		// Caso de prueba 2
 		
-
+		// Caso de prueba n
+		
 		
 	}
 

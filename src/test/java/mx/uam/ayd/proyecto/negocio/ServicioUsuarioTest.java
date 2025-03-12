@@ -3,11 +3,9 @@ package mx.uam.ayd.proyecto.negocio;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,46 +19,28 @@ import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 @ExtendWith(MockitoExtension.class)
 class ServicioUsuarioTest {
 	
-	// Al usar la anotación @Mock, el framework Mockito crea un sustituto
-	// de la clase que regresa valores por default
 	@Mock
 	private UsuarioRepository usuarioRepository;
 	
 	@Mock
 	private GrupoRepository grupoRepository;
 	
-	// Esta anotación hace que se inyecten todos los Mocks al módulo que quiero
-	// probar para que no haya nullPointerException por que las dependencias
-	// no están satisfechas en tiempo de pruebas
 	@InjectMocks
-	private ServicioUsuario servicio;
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
-	//@Test
-	void testAgregaUsuario() {
-		fail("Not yet implemented");
-	}
+	private ServicioUsuario servicioUsuario;
 
 	@Test
 	void testRecuperaUsuarios() {
 
+		// Caso de prueba 1: No hay usuarios guardados, me regresa lista vacía
 		
-		// Prueba 1: corroborar que regresa una lista vacía si no hay usuarios en la BD
+		List <Usuario> usuarios = servicioUsuario.recuperaUsuarios();
 		
-		// en este momento, la invocación a usuarioRepository.findAll() regresa una lista vacía
-		List <Usuario> usuarios = servicio.recuperaUsuarios();
+		assertEquals(0,usuarios.size());
 		
-		assertTrue(usuarios.isEmpty());
+		
+		// Caso de prueba 2: Si hay usuarios guardados, me regresa lista con usuarios
 
-		// Prueba 2: corroborar que regresa una lista con usuarios
-		LinkedList <Usuario> lista = new LinkedList <> ();
+		ArrayList <Usuario> lista = new ArrayList <> ();
 
 		// Tengo que crear un Iterable <Usuario> para que el método 
 		// usuarioRepository.findAll() no me regrese una lista vacía
@@ -75,20 +55,22 @@ class ServicioUsuarioTest {
 		
 		lista.add(usuario1);
 		lista.add(usuario2);
+
+		Iterable <Usuario> listaIterable = lista;
 		
 		// Al usar when, lo que hacemos es que definimos un comportamiento
 		// para la invoación del método.
 		// A partir de este punto, la invocación a usuarioRepository.findAll() ya
 		// no me regresa una lista vacía, si no que me regresa una listaLigada
 		// vista como Iterable que tiene dos elementos
-		when(usuarioRepository.findAll()).thenReturn(lista);
+		when(usuarioRepository.findAll()).thenReturn(listaIterable);
 		
-		usuarios = servicio.recuperaUsuarios();
+		usuarios = servicioUsuario.recuperaUsuarios();
 		
-		assertEquals(2,usuarios.size()); // Corroboro que tenga dos elementos
+		assertEquals(2,usuarios.size());
 		
 		
-
 	}
+
 
 }

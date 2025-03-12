@@ -5,16 +5,19 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.datos.GrupoRepository;
 import mx.uam.ayd.proyecto.datos.UsuarioRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 
-@Slf4j
 @Service
 public class ServicioUsuario {
+	
+	// Define a static logger field
+	private static final Logger log = LoggerFactory.getLogger(ServicioUsuario.class);
 	
 	@Autowired 
 	private UsuarioRepository usuarioRepository;
@@ -26,10 +29,13 @@ public class ServicioUsuario {
 	 * 
 	 * Permite agregar un usuario
 	 * 
-	 * @param nombre
-	 * @param apellido
-	 * @param grupo
-	 * @return
+	 * @param nombre nombre del usuario
+	 * @param apellido apellido del usuario
+	 * @param grupo nombre grupo al que debe pertencer
+	 * @return el usuario que se agregó
+	 * @throws IllegalArgumentException si el usuario ya 
+	 * existe o no existe el grupo
+	 * 
 	 */
 	public Usuario agregaUsuario(String nombre, String apellido, String nombreGrupo) {
 		
@@ -48,18 +54,23 @@ public class ServicioUsuario {
 			throw new IllegalArgumentException("No se encontró el grupo");
 		}
 		
+		// Se validaron correctamente las reglas de negocio
+		
 		log.info("Agregando usuario nombre: "+nombre+" apellido:"+apellido);
+		
+		// Crea el usuario
 		
 		usuario = new Usuario();
 		usuario.setNombre(nombre);
 		usuario.setApellido(apellido);
 		
-		usuarioRepository.save(usuario);
+		//usuarioRepository.save(usuario); // Esto es el create
+		
+		// Conecta al grupo con el usuario
 		
 		grupo.addUsuario(usuario);
 		
-		
-		grupoRepository.save(grupo);
+		grupoRepository.save(grupo); // Esto es el update
 		
 		return usuario;
 		
