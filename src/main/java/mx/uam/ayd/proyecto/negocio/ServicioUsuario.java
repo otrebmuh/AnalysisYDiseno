@@ -33,14 +33,26 @@ public class ServicioUsuario {
 	 * @param apellido apellido del usuario
 	 * @param grupo nombre grupo al que debe pertencer
 	 * @return el usuario que se agregó
-	 * @throws IllegalArgumentException si el usuario ya 
-	 * existe o no existe el grupo
+	 * @throws IllegalArgumentException si el usuario ya existe, no existe el grupo,
+	 *         o si alguno de los parámetros es nulo o vacío
 	 * 
 	 */
 	public Usuario agregaUsuario(String nombre, String apellido, String nombreGrupo) {
 		
-		// Regla de negocio: No se permite agregar dos usuarios con el mismo nombre y apellido
+		// Validar que ningún parámetro sea nulo o vacío
+		if(nombre == null || nombre.trim().isEmpty()) {
+			throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
+		}
 		
+		if(apellido == null || apellido.trim().isEmpty()) {
+			throw new IllegalArgumentException("El apellido no puede ser nulo o vacío");
+		}
+		
+		if(nombreGrupo == null || nombreGrupo.trim().isEmpty()) {
+			throw new IllegalArgumentException("El nombre del grupo no puede ser nulo o vacío");
+		}
+		
+		// Regla de negocio: No se permite agregar dos usuarios con el mismo nombre y apellido
 		
 		Usuario usuario = usuarioRepository.findByNombreAndApellido(nombre, apellido);
 		
@@ -64,8 +76,6 @@ public class ServicioUsuario {
 		usuario.setNombre(nombre);
 		usuario.setApellido(apellido);
 		
-		//usuarioRepository.save(usuario); // Esto es el create
-		
 		// Conecta al grupo con el usuario
 		
 		grupo.addUsuario(usuario);
@@ -74,7 +84,6 @@ public class ServicioUsuario {
 		
 		return usuario;
 		
-
 	}
 
 	/**

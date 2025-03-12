@@ -41,4 +41,31 @@ public class ServicioGrupo {
 		return grupos;
 	}
 
+	/**
+	 * Crea un nuevo grupo
+	 * 
+	 * @param nombre el nombre del grupo a crear
+	 * @return el grupo creado
+	 * @throws IllegalArgumentException si el nombre es nulo o vacío, o si ya existe un grupo con ese nombre
+	 */
+	public Grupo creaGrupo(String nombre) {
+		// Validar que el nombre no sea nulo o vacío
+		if(nombre == null || nombre.trim().isEmpty()) {
+			throw new IllegalArgumentException("El nombre del grupo no puede ser nulo o vacío");
+		}
+
+		// Validar que no exista otro grupo con el mismo nombre
+		Grupo grupoExistente = grupoRepository.findByNombre(nombre);
+		if(grupoExistente != null) {
+			throw new IllegalArgumentException("Ya existe un grupo con el nombre: " + nombre);
+		}
+
+		// Crear el nuevo grupo
+		Grupo grupo = new Grupo();
+		grupo.setNombre(nombre);
+
+		// Guardar el grupo en la base de datos
+		return grupoRepository.save(grupo);
+	}
+
 }
