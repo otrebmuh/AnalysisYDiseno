@@ -1,81 +1,92 @@
 package mx.uam.ayd.proyecto.presentacion.principal;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import org.springframework.stereotype.Component;
 
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-@SuppressWarnings("serial")
+/**
+ * Ventana principal usando JavaFX
+ * 
+ */
 @Component
-public class VentanaPrincipal extends JFrame {
+public class VentanaPrincipal {
 
-	private JPanel contentPane;
-	
+	private Stage stage;
 	private ControlPrincipal control;
+	private boolean initialized = false;
 
 	/**
-	 * Launch the application.
-	 *
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaPrincipal frame = new VentanaPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
-	 * Create the frame.
+	 * Constructor without UI initialization
 	 */
 	public VentanaPrincipal() {
+		// Don't initialize JavaFX components in constructor
+	}
+	
+	/**
+	 * Initialize UI components on the JavaFX application thread
+	 */
+	private void initializeUI() {
+		if (initialized) {
+			return;
+		}
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		// Create UI only if we're on JavaFX thread
+		if (!Platform.isFxApplicationThread()) {
+			Platform.runLater(this::initializeUI);
+			return;
+		}
 		
-		JLabel lblMiAplicacin = new JLabel("Mi Aplicación");
-		lblMiAplicacin.setBounds(5, 5, 440, 16);
-		contentPane.add(lblMiAplicacin);
+		stage = new Stage();
+		stage.setTitle("Mi Aplicación");
 		
-		JButton btnAgregarUsuario = new JButton("Agregar usuario");
-		btnAgregarUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		// Create UI components
+		Label lblMiAplicacion = new Label("Mi Aplicación");
+		
+		Button btnAgregarUsuario = new Button("Agregar usuario");
+		btnAgregarUsuario.setOnAction(e -> {
+			if (control != null) {
 				control.agregarUsuario();
 			}
 		});
-		btnAgregarUsuario.setBounds(15, 33, 178, 29);
-		contentPane.add(btnAgregarUsuario);
 		
-		JButton btnListarUsuarios = new JButton("Listar usuarios");
-		btnListarUsuarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		Button btnListarUsuarios = new Button("Listar usuarios");
+		btnListarUsuarios.setOnAction(e -> {
+			if (control != null) {
 				control.listarUsuarios();
 			}
 		});
 		
+		// Layout
+		VBox layout = new VBox(10); // 10px spacing
+		layout.getChildren().addAll(lblMiAplicacion, btnAgregarUsuario, btnListarUsuarios);
+		layout.setStyle("-fx-padding: 15px;");
 		
-		btnListarUsuarios.setBounds(15, 88, 178, 29);
-		contentPane.add(btnListarUsuarios);
+		// Create scene
+		Scene scene = new Scene(layout, 450, 300);
+		stage.setScene(scene);
+		
+		initialized = true;
 	}
 	
+	/**
+	 * Muestra la ventana y establece el control
+	 * 
+	 * @param control El controlador asociado a esta ventana
+	 */
 	public void muestra(ControlPrincipal control) {
-		
 		this.control = control;
 		
-		setVisible(true);
+		if (!Platform.isFxApplicationThread()) {
+			Platform.runLater(() -> this.muestra(control));
+			return;
+		}
+		
+		initializeUI();
+		stage.show();
 	}
 }
