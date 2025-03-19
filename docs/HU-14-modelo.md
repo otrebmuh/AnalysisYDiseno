@@ -13,7 +13,7 @@ classDiagram
     class Producto{
         - idProducto: long
         - nombre: String 
-        - String descripcion
+        - descripcion: String 
         - contenido: String 
         - receta: boolean 
         - laboratorio: Laboratorio 
