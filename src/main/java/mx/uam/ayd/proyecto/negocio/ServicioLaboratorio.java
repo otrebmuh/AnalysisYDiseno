@@ -48,7 +48,7 @@ public class ServicioLaboratorio {
      * @return Laboratorio actualizado
      */
     public Laboratorio actualizar(Laboratorio laboratorio) {
-        if (!laboratorioRepository.existsById(laboratorio.getId())) {
+        if (!laboratorioRepository.existsById(laboratorio.getIdLaboratorio())) {
             return null;
         }
         return laboratorioRepository.save(laboratorio);
@@ -75,8 +75,6 @@ public class ServicioLaboratorio {
     public boolean validarLaboratorio(Laboratorio laboratorio) {
         if (laboratorio == null) return false;
         if (laboratorio.getNombre() == null || laboratorio.getNombre().trim().isEmpty()) return false;
-        if (laboratorio.getDireccion() == null || laboratorio.getDireccion().trim().isEmpty()) return false;
-        if (laboratorio.getTelefono() == null || laboratorio.getTelefono().trim().isEmpty()) return false;
         return true;
     }
 } 

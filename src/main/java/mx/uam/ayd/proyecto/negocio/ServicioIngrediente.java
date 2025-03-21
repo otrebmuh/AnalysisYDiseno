@@ -48,7 +48,7 @@ public class ServicioIngrediente {
      * @return Ingrediente actualizado
      */
     public Ingrediente actualizar(Ingrediente ingrediente) {
-        if (!ingredienteRepository.existsById(ingrediente.getId())) {
+        if (!ingredienteRepository.existsById(ingrediente.getIdIngrediente())) {
             return null;
         }
         return ingredienteRepository.save(ingrediente);

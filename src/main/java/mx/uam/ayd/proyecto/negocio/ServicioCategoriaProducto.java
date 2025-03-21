@@ -48,7 +48,7 @@ public class ServicioCategoriaProducto {
      * @return Categoría actualizada
      */
     public CategoriaProducto actualizar(CategoriaProducto categoria) {
-        if (!categoriaProductoRepository.existsById(categoria.getId())) {
+        if (!categoriaProductoRepository.existsById(categoria.getIdCategoria())) {
             return null;
         }
         return categoriaProductoRepository.save(categoria);

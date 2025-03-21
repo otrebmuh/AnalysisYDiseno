@@ -22,7 +22,9 @@ public class Ingrediente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idIngrediente;
 
+
     private String nombre;
+    private String descripcion; 
 
     @OneToMany(targetEntity = Producto.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "idIngrediente")

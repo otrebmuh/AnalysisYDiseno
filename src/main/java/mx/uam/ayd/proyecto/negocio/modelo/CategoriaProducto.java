@@ -24,6 +24,7 @@ public class CategoriaProducto {
     private long idCategoria;
 
     private String nombre;
+    private String descripcion;
 
     @OneToMany(targetEntity = Producto.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "idCategoria")
