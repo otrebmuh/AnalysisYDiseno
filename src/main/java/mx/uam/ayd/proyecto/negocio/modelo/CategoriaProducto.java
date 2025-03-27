@@ -1,32 +1,21 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-
+import javax.persistence.*;
 import lombok.Data;
-
+import java.util.List;
 
 @Entity
 @Data
 public class CategoriaProducto {
+
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idCategoria;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idCategoria;
 
     private String nombre;
+    private String descripcion;
 
-    @OneToMany(targetEntity = Producto.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "idCategoria")
-    private List<Producto> productos = new ArrayList<Producto>();
-    
+    @OneToMany(mappedBy = "categoria")
+    private List<Producto> productos;
 }
+
