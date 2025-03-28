@@ -2,6 +2,8 @@ package mx.uam.ayd.proyecto.negocio;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,9 @@ public class ServicioProducto {
      * Obtiene todos los productos registrados
      * @return Lista de productos
      */
-    public List<Producto> obtenerTodos() {
-        return productoRepository.findAll();
+    public List<Producto> getAll() {
+        return StreamSupport.stream(productoRepository.findAll().spliterator(), false)
+            .collect(Collectors.toList());
     }
     
     /**
@@ -38,7 +41,7 @@ public class ServicioProducto {
      * @param producto Producto a registrar
      * @return Producto registrado
      */
-    public Producto registrar(Producto producto) {
+    public Producto crear(Producto producto) {
         return productoRepository.save(producto);
     }
     
@@ -83,4 +86,4 @@ public class ServicioProducto {
         if (producto.getCategoria() == null) return false;
         return true;
     }
-} 
+}
