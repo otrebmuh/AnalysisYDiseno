@@ -2,6 +2,8 @@ package mx.uam.ayd.proyecto.negocio;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,9 @@ public class ServicioLaboratorio {
      * Obtiene todos los laboratorios registrados
      * @return Lista de laboratorios
      */
-    public List<Laboratorio> obtenerTodos() {
-        return laboratorioRepository.findAll();
+    public List<Laboratorio> getALL() {
+        return StreamSupport.stream(laboratorioRepository.findAll().spliterator(), false)
+            .collect(Collectors.toList());
     }
     
     /**
@@ -30,6 +33,16 @@ public class ServicioLaboratorio {
      */
     public Laboratorio obtenerPorId(Long id) {
         Optional<Laboratorio> laboratorio = laboratorioRepository.findById(id);
+        return laboratorio.orElse(null);
+    }
+
+    /**
+     * Obtiene un laboratorio por su nombre
+     * @param nombre Nombre del laboratorio
+     * @return Laboratorio si existe, null si no
+     */
+    public Laboratorio obtenerPorNombre(String nombre) {
+        Optional<Laboratorio> laboratorio = laboratorioRepository.findByNombre(nombre);
         return laboratorio.orElse(null);
     }
     
@@ -77,4 +90,4 @@ public class ServicioLaboratorio {
         if (laboratorio.getNombre() == null || laboratorio.getNombre().trim().isEmpty()) return false;
         return true;
     }
-} 
+}

@@ -48,7 +48,7 @@ public class ServicioProducto {
      * @return Producto actualizado
      */
     public Producto actualizar(Producto producto) {
-        if (!productoRepository.existsById(producto.getId())) {
+        if (!productoRepository.existsById(producto.getIdProducto())) {
             return null;
         }
         return productoRepository.save(producto);
@@ -77,8 +77,8 @@ public class ServicioProducto {
         if (producto.getCodigo() == null || producto.getCodigo().trim().isEmpty()) return false;
         if (producto.getNombre() == null || producto.getNombre().trim().isEmpty()) return false;
         if (producto.getDescripcion() == null || producto.getDescripcion().trim().isEmpty()) return false;
-        if (producto.getIngredienteActivo() == null || producto.getIngredienteActivo().trim().isEmpty()) return false;
-        if (producto.getLaboratorio() == null || producto.getLaboratorio().trim().isEmpty()) return false;
+        if (producto.getIngrediente() == null || producto.getIngrediente().getNombre().trim().isEmpty()) return false;
+        if (producto.getLaboratorio() == null || producto.getLaboratorio().getNombre().trim().isEmpty()) return false;
         if (producto.getContenido() == null || producto.getContenido().trim().isEmpty()) return false;
         if (producto.getCategoria() == null) return false;
         return true;

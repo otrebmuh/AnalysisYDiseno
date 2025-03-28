@@ -2,6 +2,8 @@ package mx.uam.ayd.proyecto.negocio;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,9 @@ public class ServicioIngrediente {
      * Obtiene todos los ingredientes registrados
      * @return Lista de ingredientes
      */
-    public List<Ingrediente> obtenerTodos() {
-        return ingredienteRepository.findAll();
+    public List<Ingrediente> getAll() {
+        return StreamSupport.stream(ingredienteRepository.findAll().spliterator(), false)
+            .collect(Collectors.toList());
     }
     
     /**
@@ -30,6 +33,16 @@ public class ServicioIngrediente {
      */
     public Ingrediente obtenerPorId(Long id) {
         Optional<Ingrediente> ingrediente = ingredienteRepository.findById(id);
+        return ingrediente.orElse(null);
+    }
+    
+    /**
+     * Obtiene un ingrediente por su nombre
+     * @param nombre Nombre del ingrediente
+     * @return Ingrediente si existe, null si no
+     */
+    public Ingrediente obtenerPorNombre(String nombre) {
+        Optional<Ingrediente> ingrediente = ingredienteRepository.findByNombre(nombre);
         return ingrediente.orElse(null);
     }
     
@@ -78,4 +91,4 @@ public class ServicioIngrediente {
         if (ingrediente.getDescripcion() == null || ingrediente.getDescripcion().trim().isEmpty()) return false;
         return true;
     }
-} 
+}
