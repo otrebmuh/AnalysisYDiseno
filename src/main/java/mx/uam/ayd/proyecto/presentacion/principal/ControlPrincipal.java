@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.ControlAgregarUsuario;
 import mx.uam.ayd.proyecto.presentacion.listarUsuarios.ControlListarUsuarios;
-import mx.uam.ayd.proyecto.presentacion.realizarVenta.ControlRealizarVenta;
+import mx.uam.ayd.proyecto.presentacion.venta.ControlVenta;
 
 /**
  * Esta clase lleva el flujo de control de la ventana principal
@@ -23,7 +23,7 @@ public class ControlPrincipal {
 	private ControlListarUsuarios controlListarUsuarios;
 
 	@Autowired
-	private ControlRealizarVenta controlRealizarVenta;
+	private ControlVenta controlVenta;
 
 	@Autowired
 	private VentanaPrincipal ventana;
@@ -56,6 +56,6 @@ public class ControlPrincipal {
 	 * Método que arranca la historia de usuario "realizar venta"
 	 */
 	public void realizarVenta() {
-		controlRealizarVenta.inicia();
+		controlVenta.inicia();
 	}
 }
