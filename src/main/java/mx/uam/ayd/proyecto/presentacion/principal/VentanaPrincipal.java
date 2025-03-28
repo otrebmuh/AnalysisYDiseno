@@ -66,10 +66,17 @@ public class VentanaPrincipal extends JFrame {
 				control.listarUsuarios();
 			}
 		});
-		
-		
 		btnListarUsuarios.setBounds(15, 88, 178, 29);
 		contentPane.add(btnListarUsuarios);
+
+		JButton btnRealizarVenta = new JButton("Realizar Venta");
+		btnRealizarVenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				control.realizarVenta();
+			}
+		});
+		btnRealizarVenta.setBounds(15, 143, 178, 29);
+		contentPane.add(btnRealizarVenta);
 	}
 	
 	public void muestra(ControlPrincipal control) {
