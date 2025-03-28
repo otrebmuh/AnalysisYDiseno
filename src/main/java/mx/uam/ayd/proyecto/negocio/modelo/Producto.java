@@ -2,7 +2,6 @@ package mx.uam.ayd.proyecto.negocio.modelo;
 
 import javax.persistence.*;
 import lombok.Data;
-import java.util.List;
 
 @Entity
 @Data
