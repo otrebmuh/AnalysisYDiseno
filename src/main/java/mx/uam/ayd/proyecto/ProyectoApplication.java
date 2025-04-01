@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
+import mx.uam.ayd.proyecto.datos.EmpleadoRepository;
 import mx.uam.ayd.proyecto.datos.GrupoRepository;
+import mx.uam.ayd.proyecto.datos.SucursalRepository;
+import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
+import mx.uam.ayd.proyecto.negocio.modelo.Sucursal;
 import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
 
 /**
@@ -28,6 +32,12 @@ public class ProyectoApplication {
 	
 	@Autowired
 	GrupoRepository grupoRepository;
+
+	@Autowired
+	EmpleadoRepository empleadoRepository;
+
+	@Autowired
+	SucursalRepository sucursalRepository;
 	
 	/**
 	 * 
@@ -75,6 +85,14 @@ public class ProyectoApplication {
 		Grupo grupoOps = new Grupo();
 		grupoOps.setNombre("Operadores");
 		grupoRepository.save(grupoOps);
+
+		Empleado admin = new Empleado();
+		admin.setNombre("Admin");
+		empleadoRepository.save(admin);
+
+		Sucursal sucursal = new Sucursal();
+		sucursal.setNombre("Sucursal 1");
+		sucursalRepository.save(sucursal);
 				
 	}
 }

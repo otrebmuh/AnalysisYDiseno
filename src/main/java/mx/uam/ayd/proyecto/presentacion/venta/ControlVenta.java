@@ -13,10 +13,15 @@ public class ControlVenta {
     private ServicioVenta servicioVenta;
 
     public ControlVenta() {
-        vista = new VistaVenta();
+        // No crear la vista aquí
     }
 
     public void inicia() {
+        // Inicializar la vista aquí
+        if (vista == null) {
+            vista = new VistaVenta();
+        }
+        
         // Hardcoded values for now - these should come from authentication/session
         Long idEmpleado = 1L;
         Long idSucursal = 1L;
