@@ -12,6 +12,7 @@ import mx.uam.ayd.proyecto.datos.SucursalRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 import mx.uam.ayd.proyecto.negocio.modelo.Sucursal;
+import mx.uam.ayd.proyecto.presentacion.loggin.ControlLoggin;
 import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
 
 /**
@@ -28,7 +29,7 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
 public class ProyectoApplication {
 
 	@Autowired
-	ControlPrincipal controlLoggin;
+	ControlLoggin controlLoggin;
 
 
 	@Autowired
