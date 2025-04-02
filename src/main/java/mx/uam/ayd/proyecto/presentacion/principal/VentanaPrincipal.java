@@ -77,6 +77,15 @@ public class VentanaPrincipal extends JFrame {
 		});
 		btnRealizarVenta.setBounds(15, 143, 178, 29);
 		contentPane.add(btnRealizarVenta);
+
+		JButton btnMuestraLoggin= new JButton("Muestra Loggin");
+		btnMuestraLoggin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				control.muestraLoggin();
+			}
+		});
+		btnMuestraLoggin.setBounds(200, 143, 178, 29);
+		contentPane.add(btnMuestraLoggin);
 	}
 	
 	public void muestra(ControlPrincipal control) {

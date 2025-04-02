@@ -28,6 +28,10 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
 public class ProyectoApplication {
 
 	@Autowired
+	ControlPrincipal controlLoggin;
+
+
+	@Autowired
 	ControlPrincipal controlPrincipal;
 	
 	@Autowired
@@ -65,7 +69,8 @@ public class ProyectoApplication {
 		
 		inicializaBD();
 		
-		controlPrincipal.inicia();
+		//controlPrincipal.inicia();
+		controlLoggin.inicia();
 	}
 	
 	

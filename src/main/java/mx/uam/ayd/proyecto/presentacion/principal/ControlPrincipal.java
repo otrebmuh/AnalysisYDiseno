@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.ControlAgregarUsuario;
 import mx.uam.ayd.proyecto.presentacion.listarUsuarios.ControlListarUsuarios;
+import mx.uam.ayd.proyecto.presentacion.loggin.ControlLoggin;
+import mx.uam.ayd.proyecto.presentacion.loggin.VentanaLoggin;
 import mx.uam.ayd.proyecto.presentacion.venta.ControlVenta;
 
 /**
@@ -27,6 +29,10 @@ public class ControlPrincipal {
 
 	@Autowired
 	private VentanaPrincipal ventana;
+
+	@Autowired
+	ControlLoggin controlLoggin;
+
 	
 	/**
 	 * Inicia el flujo de control de la ventana principal
@@ -57,5 +63,11 @@ public class ControlPrincipal {
 	 */
 	public void realizarVenta() {
 		controlVenta.inicia();
+		controlLoggin.inicia();
+
+	}
+
+	public void muestraLoggin(){
+		controlLoggin.inicia();
 	}
 }
