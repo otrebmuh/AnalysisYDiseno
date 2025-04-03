@@ -1,0 +1,21 @@
+package mx.uam.ayd.proyecto.presentacion.menu;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ControlMenu {
+
+    @Autowired
+    VentanaMenu ventanaMenu;
+
+
+    public void inicia() {
+
+        ventanaMenu.muestra(this);
+
+    }
+
+
+    
+}

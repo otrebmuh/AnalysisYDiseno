@@ -22,6 +22,8 @@ public class VentanaLoggin extends JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+
+    private ControlLoggin controlLoggin;
     /**
      * Creates new form Vista
      * @return 
@@ -144,11 +146,16 @@ public class VentanaLoggin extends JFrame {
     //Menu nuevaVentana = new Menu();
     // 2. Mostrar la nueva ventana
     //nuevaVentana.setVisible(true);
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaMenu().setVisible(true);
+             new VentanaMenu().setVisible(true);
             }
         });
+        dispose();
+
+        //controlLoggin.iniciaMenu(); Esta linea deberia ser la correcta pero no funciona
+        
 	}
 
 	public void muestra(ControlLoggin control) {

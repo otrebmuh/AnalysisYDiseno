@@ -3,21 +3,32 @@ package mx.uam.ayd.proyecto.presentacion.menu;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import org.springframework.stereotype.Component;
+
+import mx.uam.ayd.proyecto.presentacion.gestionProductos.ControlGestionProductos;
+import mx.uam.ayd.proyecto.presentacion.gestionProductos.VentanaGestionProductos;
+
+@SuppressWarnings("serial")
+@Component
 public class VentanaMenu extends javax.swing.JFrame {
+        private JLabel jLabel1 = new javax.swing.JLabel();
+        private JLabel jLabel2 = new javax.swing.JLabel();
+        private JButton jButton1 = new javax.swing.JButton();
+        private JButton jButton2 = new javax.swing.JButton();
+        private JButton jButton3 = new javax.swing.JButton();
+        private JButton jButton4 = new javax.swing.JButton();
+        private JButton jButton5 = new javax.swing.JButton();
+        private JButton jButton6 = new javax.swing.JButton();
+        private JButton jButton7 = new javax.swing.JButton();
+        private JButton jButton8 = new javax.swing.JButton();
+        private JButton jButton9 = new javax.swing.JButton();
+
+    private ControlMenu controlMenu;
+
 
     public VentanaMenu() {
         // Constructor de ControlMenu
-        JLabel jLabel1 = new javax.swing.JLabel();
-        JLabel jLabel2 = new javax.swing.JLabel();
-        JButton jButton1 = new javax.swing.JButton();
-        JButton jButton2 = new javax.swing.JButton();
-        JButton jButton3 = new javax.swing.JButton();
-        JButton jButton4 = new javax.swing.JButton();
-        JButton jButton5 = new javax.swing.JButton();
-        JButton jButton6 = new javax.swing.JButton();
-        JButton jButton7 = new javax.swing.JButton();
-        JButton jButton8 = new javax.swing.JButton();
-        JButton jButton9 = new javax.swing.JButton();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,16 +133,18 @@ public class VentanaMenu extends javax.swing.JFrame {
     }
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-    //GestionProductos nuevaVentana = new GestionProductos();
+        VentanaGestionProductos nuevaVentana = new VentanaGestionProductos();
+        nuevaVentana.setVisible(true);
     // 2. Mostrar la nueva ventana
     //nuevaVentana.setVisible(true);
+    //controlMenu.inicia();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
     }
 
-    public void muestra(VentanaMenu control) {
+    public void muestra(ControlMenu control) {
         setVisible(true);
     }
     
