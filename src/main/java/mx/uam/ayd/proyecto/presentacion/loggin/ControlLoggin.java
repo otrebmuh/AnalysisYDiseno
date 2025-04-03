@@ -3,6 +3,8 @@ package mx.uam.ayd.proyecto.presentacion.loggin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import mx.uam.ayd.proyecto.presentacion.menu.VentanaMenu;
+
 
 
 /**
@@ -26,6 +28,12 @@ public class ControlLoggin {
 //		ventanaLoggin.Vista();
 //		ventanaLoggin.setVisible(true);
 		ventanaLoggin.muestra(this);
+	}
+
+	public void iniciaMenu() {
+		// TODO Auto-generated method stub
+		//Tendria que ser la iniciazcion aqui pero por alguna razon no me deja
+		
 	}
 
 }

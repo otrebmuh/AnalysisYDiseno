@@ -6,6 +6,8 @@ import javax.swing.border.EmptyBorder;
 
 import org.springframework.stereotype.Component;
 
+import mx.uam.ayd.proyecto.presentacion.menu.VentanaMenu;
+
 
 @SuppressWarnings("serial")
 @Component
@@ -142,6 +144,11 @@ public class VentanaLoggin extends JFrame {
     //Menu nuevaVentana = new Menu();
     // 2. Mostrar la nueva ventana
     //nuevaVentana.setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VentanaMenu().setVisible(true);
+            }
+        });
 	}
 
 	public void muestra(ControlLoggin control) {
