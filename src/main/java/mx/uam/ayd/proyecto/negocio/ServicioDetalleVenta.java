@@ -17,27 +17,29 @@ import mx.uam.ayd.proyecto.negocio.modelo.Venta;
 
 @Service
 public class ServicioDetalleVenta {
-    
+
     @Autowired
     private DetalleVentaRepository detalleVentaRepository;
-    
+
     @Autowired
     private ProductoRepository productoRepository;
-    
+
     @Autowired
     private VentaRepository ventaRepository;
-    
+
     /**
      * Obtiene todos los detalles de venta registrados
+     * 
      * @return Lista de detalles de venta
      */
     public List<DetalleVenta> getAll() {
         return StreamSupport.stream(detalleVentaRepository.findAll().spliterator(), false)
-            .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
-    
+
     /**
      * Obtiene un detalle de venta por su ID
+     * 
      * @param id ID del detalle de venta
      * @return DetalleVenta si existe, null si no
      */
@@ -45,18 +47,22 @@ public class ServicioDetalleVenta {
         Optional<DetalleVenta> detalle = detalleVentaRepository.findById(id);
         return detalle.orElse(null);
     }
-    
+
     /**
      * Obtiene los detalles de una venta específica
+     * 
      * @param idVenta ID de la venta
      * @return Lista de detalles de venta
      */
-    public List<DetalleVenta> obtenerPorVenta(Long idVenta) {
-        return detalleVentaRepository.findByIdVenta(idVenta);
-    }
-    
+    /*
+     * public List<DetalleVenta> obtenerPorVenta(Long idVenta) {
+     * return detalleVentaRepository.findByIdVenta(idVenta);
+     * }
+     */
+
     /**
      * Registra un nuevo detalle de venta
+     * 
      * @param detalleVenta Detalle de venta a registrar
      * @return Detalle de venta registrado
      */
@@ -64,25 +70,26 @@ public class ServicioDetalleVenta {
         // Validar que la venta existe
         if (detalleVenta.getVenta() != null && detalleVenta.getVenta().getIdVenta() != null) {
             Venta venta = ventaRepository.findById(detalleVenta.getVenta().getIdVenta())
-                .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+                    .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
             detalleVenta.setVenta(venta);
         }
-        
+
         // Validar que el producto existe
         if (detalleVenta.getProducto() != null && detalleVenta.getProducto().getIdProducto() != null) {
             Producto producto = productoRepository.findById(detalleVenta.getProducto().getIdProducto())
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+                    .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
             detalleVenta.setProducto(producto);
         }
-        
+
         // Calcular subtotal
         detalleVenta.calcularSubtotal();
-        
+
         return detalleVentaRepository.save(detalleVenta);
     }
-    
+
     /**
      * Actualiza un detalle de venta existente
+     * 
      * @param detalleVenta Detalle de venta a actualizar
      * @return Detalle de venta actualizado
      */
@@ -90,29 +97,30 @@ public class ServicioDetalleVenta {
         if (!detalleVentaRepository.existsById(detalleVenta.getIdDetalleVenta())) {
             return null;
         }
-        
+
         // Validar que la venta existe
         if (detalleVenta.getVenta() != null && detalleVenta.getVenta().getIdVenta() != null) {
             Venta venta = ventaRepository.findById(detalleVenta.getVenta().getIdVenta())
-                .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+                    .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
             detalleVenta.setVenta(venta);
         }
-        
+
         // Validar que el producto existe
         if (detalleVenta.getProducto() != null && detalleVenta.getProducto().getIdProducto() != null) {
             Producto producto = productoRepository.findById(detalleVenta.getProducto().getIdProducto())
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+                    .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
             detalleVenta.setProducto(producto);
         }
-        
+
         // Calcular subtotal
         detalleVenta.calcularSubtotal();
-        
+
         return detalleVentaRepository.save(detalleVenta);
     }
-    
+
     /**
      * Elimina un detalle de venta
+     * 
      * @param id ID del detalle de venta a eliminar
      * @return true si se eliminó, false si no existía
      */
@@ -123,18 +131,24 @@ public class ServicioDetalleVenta {
         detalleVentaRepository.deleteById(id);
         return true;
     }
-    
+
     /**
      * Valida que los campos del detalle de venta sean correctos
+     * 
      * @param detalleVenta Detalle de venta a validar
      * @return true si es válido, false si no
      */
     public boolean validarDetalleVenta(DetalleVenta detalleVenta) {
-        if (detalleVenta == null) return false;
-        if (detalleVenta.getVenta() == null || detalleVenta.getVenta().getIdVenta() == null) return false;
-        if (detalleVenta.getProducto() == null || detalleVenta.getProducto().getIdProducto() == null) return false;
-        if (detalleVenta.getCantidad() == null || detalleVenta.getCantidad() <= 0) return false;
-        if (detalleVenta.getPrecioUnitario() == null || detalleVenta.getPrecioUnitario() <= 0) return false;
+        if (detalleVenta == null)
+            return false;
+        if (detalleVenta.getVenta() == null || detalleVenta.getVenta().getIdVenta() == null)
+            return false;
+        if (detalleVenta.getProducto() == null || detalleVenta.getProducto().getIdProducto() == null)
+            return false;
+        if (detalleVenta.getCantidad() == null || detalleVenta.getCantidad() <= 0)
+            return false;
+        if (detalleVenta.getPrecioUnitario() == null || detalleVenta.getPrecioUnitario() <= 0)
+            return false;
         return true;
     }
 }
