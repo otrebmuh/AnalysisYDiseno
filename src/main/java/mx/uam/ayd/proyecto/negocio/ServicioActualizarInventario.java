@@ -88,13 +88,11 @@ public class ServicioActualizarInventario {
                     // Actualizar stock y precio
                     inventario = inventarioOpt.get();
                     inventario.setStock(inventario.getStock() + cantidad);
-                    inventario.setPrecioCompra(precioCompra);
                 } else {
                     // Crear nuevo inventario si no existe
                     inventario = new Inventario();
                     inventario.setSucursal(sucursal);
                     inventario.setStock(cantidad);
-                    inventario.setPrecioCompra(precioCompra);
                 }
 
                 inventarioRepository.save(inventario);

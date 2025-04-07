@@ -21,10 +21,6 @@ public class Inventario {
 
     private Integer stock;
 
-    private Double precioCompra;
-
-    private Double precioVenta;
-
     public boolean tieneStock(int cantidad) {
         return stock != null && stock >= cantidad;
     }
@@ -32,6 +28,15 @@ public class Inventario {
     public void disminuirStock(int cantidad) {
         if (stock != null && cantidad > 0) {
             stock -= cantidad;
+        }
+    }
+
+    public void agregarStock(int cantidad) {
+        if (stock == null) {
+            stock = 0;
+        }
+        if (cantidad > 0) {
+            stock += cantidad;
         }
     }
 }
