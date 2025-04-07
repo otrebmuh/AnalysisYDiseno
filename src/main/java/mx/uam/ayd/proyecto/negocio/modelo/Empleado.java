@@ -1,6 +1,7 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
 import javax.persistence.*;
+
 import lombok.Data;
 
 @Entity
@@ -17,6 +18,10 @@ public class Empleado {
     private String numeroEmpleado;
     private String correoElectronico;
     private String telefono;
+
+    @ManyToOne
+    @JoinColumn(name = "idSucursal")
+    private Sucursal sucursal;
 
     @ManyToOne
     @JoinColumn(name = "idTipoEmpleado")

@@ -10,5 +10,6 @@ public interface ProductoRepository extends CrudRepository <Producto, Long> {
 	
 	public Producto findById(long id);
 	Optional<Producto> findByCodigo(String codigo);
+    public Optional<Producto> findByNombre(String nombre);
 
 }

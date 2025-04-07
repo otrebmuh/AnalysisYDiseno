@@ -37,6 +37,16 @@ public class ServicioProducto {
     }
     
     /**
+     * Obtiene un producto por su nombre
+     * @param nombre Nombre del producto
+     * @return Producto si existe, null si no 
+    **/
+    public Producto obtenerPorNombre(String nombre) {
+        Optional<Producto> producto = productoRepository.findByNombre(nombre);
+        return producto.orElse(null);
+    }
+    
+    /**
      * Registra un nuevo producto
      * @param producto Producto a registrar
      * @return Producto registrado
@@ -86,4 +96,5 @@ public class ServicioProducto {
         if (producto.getCategoria() == null) return false;
         return true;
     }
+
 }

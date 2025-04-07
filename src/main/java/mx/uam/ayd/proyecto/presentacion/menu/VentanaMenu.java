@@ -5,26 +5,24 @@ import javax.swing.JLabel;
 
 import org.springframework.stereotype.Component;
 
-import mx.uam.ayd.proyecto.presentacion.gestionProductos.ControlGestionProductos;
 import mx.uam.ayd.proyecto.presentacion.gestionProductos.VentanaGestionProductos;
 
 @SuppressWarnings("serial")
 @Component
 public class VentanaMenu extends javax.swing.JFrame {
-        private JLabel jLabel1 = new javax.swing.JLabel();
-        private JLabel jLabel2 = new javax.swing.JLabel();
-        private JButton jButton1 = new javax.swing.JButton();
-        private JButton jButton2 = new javax.swing.JButton();
-        private JButton jButton3 = new javax.swing.JButton();
-        private JButton jButton4 = new javax.swing.JButton();
-        private JButton jButton5 = new javax.swing.JButton();
-        private JButton jButton6 = new javax.swing.JButton();
-        private JButton jButton7 = new javax.swing.JButton();
-        private JButton jButton8 = new javax.swing.JButton();
-        private JButton jButton9 = new javax.swing.JButton();
+    private JLabel jLabel1 = new javax.swing.JLabel();
+    private JLabel jLabel2 = new javax.swing.JLabel();
+    private JButton jButton1 = new javax.swing.JButton();
+    private JButton jButton2 = new javax.swing.JButton();
+    private JButton jButton3 = new javax.swing.JButton();
+    private JButton jButton4 = new javax.swing.JButton();
+    private JButton jButton5 = new javax.swing.JButton();
+    private JButton jButton6 = new javax.swing.JButton();
+    private JButton jButton7 = new javax.swing.JButton();
+    private JButton jButton8 = new javax.swing.JButton();
+    private JButton jButton9 = new javax.swing.JButton();
 
     private ControlMenu controlMenu;
-
 
     public VentanaMenu() {
         // Constructor de ControlMenu
@@ -45,6 +43,11 @@ public class VentanaMenu extends javax.swing.JFrame {
         jButton4.setText("Gestión De Promociones");
 
         jButton5.setText("Gestión de Inventario");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controlMenu.mostrarGestionInventario();
+            }
+        });
 
         jButton6.setText("Estadísticas");
 
@@ -145,6 +148,7 @@ public class VentanaMenu extends javax.swing.JFrame {
     }
 
     public void muestra(ControlMenu control) {
+        this.controlMenu = control;
         setVisible(true);
     }
     
