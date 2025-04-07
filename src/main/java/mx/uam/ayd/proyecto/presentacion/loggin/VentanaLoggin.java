@@ -147,18 +147,21 @@ public class VentanaLoggin extends JFrame {
     // 2. Mostrar la nueva ventana
     //nuevaVentana.setVisible(true);
 
+        controlLoggin.iniciaMenu();
+        /*
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
              new VentanaMenu().setVisible(true);
             }
         });
+        */
         dispose();
 
-        //controlLoggin.iniciaMenu(); Esta linea deberia ser la correcta pero no funciona
         
 	}
 
 	public void muestra(ControlLoggin control) {
+        this.controlLoggin = control;
 		setVisible(true);
 	}
 } 
