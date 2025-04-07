@@ -15,7 +15,7 @@
 	<description>Arquitectura de base para el proyecto</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<javafx.version>17.0.2</javafx.version>
 		<jacoco.minimum.coverage>0.80</jacoco.minimum.coverage>
 	</properties>
@@ -81,6 +81,20 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<!-- TestFX for JavaFX testing -->
+		<dependency>
+			<groupId>org.testfx</groupId>
+			<artifactId>testfx-junit5</artifactId>
+			<version>4.0.16-alpha</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testfx</groupId>
+			<artifactId>openjfx-monocle</artifactId>
+			<version>8u76-b04</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

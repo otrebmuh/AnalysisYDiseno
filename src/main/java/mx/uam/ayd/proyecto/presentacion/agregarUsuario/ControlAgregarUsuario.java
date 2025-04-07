@@ -20,17 +20,22 @@ import mx.uam.ayd.proyecto.presentacion.listarGrupos.ControlListarGrupos;
 @Component
 public class ControlAgregarUsuario {
 	
-	@Autowired
-	private ServicioUsuario servicioUsuario;
+	private final ServicioUsuario servicioUsuario;
+	private final ServicioGrupo servicioGrupo;
+	private final VentanaAgregarUsuario ventana;
+	private final ControlListarGrupos controlListarGrupos;
 	
 	@Autowired
-	private ServicioGrupo servicioGrupo;
-	
-	@Autowired
-	private VentanaAgregarUsuario ventana;
-	
-	@Autowired
-	private ControlListarGrupos controlListarGrupos;
+	public ControlAgregarUsuario(
+			ServicioUsuario servicioUsuario,
+			ServicioGrupo servicioGrupo,
+			VentanaAgregarUsuario ventana,
+			ControlListarGrupos controlListarGrupos) {
+		this.servicioUsuario = servicioUsuario;
+		this.servicioGrupo = servicioGrupo;
+		this.ventana = ventana;
+		this.controlListarGrupos = controlListarGrupos;
+	}
 	
 	/**
 	 * Inicia la historia de usuario

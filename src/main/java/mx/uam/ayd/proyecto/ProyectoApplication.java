@@ -25,6 +25,15 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
 @SpringBootApplication
 public class ProyectoApplication {
 
+	private final ControlPrincipal controlPrincipal;
+	private final GrupoRepository grupoRepository;
+	
+	@Autowired
+	public ProyectoApplication(ControlPrincipal controlPrincipal, GrupoRepository grupoRepository) {
+		this.controlPrincipal = controlPrincipal;
+		this.grupoRepository = grupoRepository;
+	}
+
 	/**
 	 * Método principal
 	 *
@@ -64,12 +73,6 @@ public class ProyectoApplication {
 			Platform.exit();
 		}
 	}
-
-	@Autowired
-	private ControlPrincipal controlPrincipal;
-	
-	@Autowired
-	private GrupoRepository grupoRepository;
 	
 	/**
 	 * Metodo que arranca la aplicacion

@@ -15,11 +15,14 @@ public class ControlListarUsuarios {
 	
 	private static final Logger log = LoggerFactory.getLogger(ControlListarUsuarios.class);
 	
+	private final ServicioUsuario servicioUsuario;
+	private final VentanaListarUsuarios ventana;
+
 	@Autowired
-	private ServicioUsuario servicioUsuario;
-	
-	@Autowired
-	private VentanaListarUsuarios ventana;
+	public ControlListarUsuarios(ServicioUsuario servicioUsuario, VentanaListarUsuarios ventana) {
+		this.servicioUsuario = servicioUsuario;
+		this.ventana = ventana;
+	}
 
 	/**
 	 * Inicia el caso de uso

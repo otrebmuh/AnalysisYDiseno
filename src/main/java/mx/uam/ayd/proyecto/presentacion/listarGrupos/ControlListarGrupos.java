@@ -15,12 +15,15 @@ public class ControlListarGrupos {
     
     private static final Logger log = LoggerFactory.getLogger(ControlListarGrupos.class);
     
+    private final ServicioGrupo servicioGrupo;
+    private final VentanaListarGrupos ventana;
+
     @Autowired
-    private ServicioGrupo servicioGrupo;
-    
-    @Autowired
-    private VentanaListarGrupos ventana;
-    
+    public ControlListarGrupos(ServicioGrupo servicioGrupo, VentanaListarGrupos ventana) {
+        this.servicioGrupo = servicioGrupo;
+        this.ventana = ventana;
+    }
+
     /**
      * Inicia el caso de uso
      */

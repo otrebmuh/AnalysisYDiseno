@@ -16,24 +16,28 @@ import mx.uam.ayd.proyecto.presentacion.listarGrupos.ControlListarGrupos;
 @Component
 public class ControlPrincipal {
 
-	@Autowired
-	private ControlAgregarUsuario controlAgregarUsuario;
+	private final ControlAgregarUsuario controlAgregarUsuario;
+	private final ControlListarUsuarios controlListarUsuarios;
+	private final ControlListarGrupos controlListarGrupos;
+	private final VentanaPrincipal ventana;
 	
 	@Autowired
-	private ControlListarUsuarios controlListarUsuarios;
-
-	@Autowired
-	private ControlListarGrupos controlListarGrupos;
-
-	@Autowired
-	private VentanaPrincipal ventana;
+	public ControlPrincipal(
+			ControlAgregarUsuario controlAgregarUsuario,
+			ControlListarUsuarios controlListarUsuarios,
+			ControlListarGrupos controlListarGrupos,
+			VentanaPrincipal ventana) {
+		this.controlAgregarUsuario = controlAgregarUsuario;
+		this.controlListarUsuarios = controlListarUsuarios;
+		this.controlListarGrupos = controlListarGrupos;
+		this.ventana = ventana;
+	}
 	
 	/**
 	 * Inicia el flujo de control de la ventana principal
 	 * 
 	 */
 	public void inicia() {
-
 		ventana.muestra(this);
 	}
 
@@ -42,9 +46,7 @@ public class ControlPrincipal {
 	 * 
 	 */
 	public void agregarUsuario() {
-		
 		controlAgregarUsuario.inicia();
-		
 	}
 	
 	/**

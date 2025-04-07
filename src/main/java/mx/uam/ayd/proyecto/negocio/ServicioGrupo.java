@@ -18,20 +18,20 @@ import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
  */
 public class ServicioGrupo {
 	
-	@Autowired 
-	GrupoRepository grupoRepository;
+	private final GrupoRepository grupoRepository;
 	
+	@Autowired
+	public ServicioGrupo(GrupoRepository grupoRepository) {
+		this.grupoRepository = grupoRepository;
+	}
 	
 	/**
 	 * 
 	 * Recupera todos los grupos
 	 * 
-	 * @return
+	 * @return una lista de grupos vacía o con los grupos existentes
 	 */
 	public List <Grupo> recuperaGrupos() {
-
-		
-		
 		List <Grupo> grupos = new ArrayList<>();
 		
 		for(Grupo grupo:grupoRepository.findAll()) {

@@ -19,11 +19,14 @@ public class ServicioUsuario {
 	// Define a static logger field
 	private static final Logger log = LoggerFactory.getLogger(ServicioUsuario.class);
 	
-	@Autowired 
-	private UsuarioRepository usuarioRepository;
+	private final UsuarioRepository usuarioRepository;
+	private final GrupoRepository grupoRepository;
 	
 	@Autowired
-	private GrupoRepository grupoRepository;
+	public ServicioUsuario(UsuarioRepository usuarioRepository, GrupoRepository grupoRepository) {
+		this.usuarioRepository = usuarioRepository;
+		this.grupoRepository = grupoRepository;
+	}
 	
 	/**
 	 * 
