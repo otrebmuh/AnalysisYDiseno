@@ -39,7 +39,11 @@ public class VentanaMenu extends javax.swing.JFrame {
         jButton1.setText("Realizar Venta");
 
         jButton2.setText("Inventario de Farmacias");
-
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controlMenu.mostrarMostrarInventario();
+            }
+        });
         jButton3.setText("Gestión De Usuarios");
 
         jButton4.setText("Gestión De Promociones");
@@ -135,16 +139,13 @@ public class VentanaMenu extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         VentanaGestionProductos nuevaVentana = new VentanaGestionProductos();
         nuevaVentana.setVisible(true);
-    // 2. Mostrar la nueva ventana
-    //nuevaVentana.setVisible(true);
-    //controlMenu.inicia();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
     }
 
     public void muestra(ControlMenu control) {
+        this.controlMenu = control;
         setVisible(true);
     }
     
