@@ -10,6 +10,8 @@ import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Sucursal;
 import mx.uam.ayd.proyecto.presentacion.gestionInventario.ControladorGestionInventario;
 
+import mx.uam.ayd.proyecto.presentacion.mostrarInventario.ControladorMostrarInventario;
+
 @Component
 public class ControlMenu {
 
@@ -17,7 +19,12 @@ public class ControlMenu {
     VentanaMenu ventanaMenu;
     @Autowired
     private ControladorGestionInventario controlGestionInventario;
-    private Empleado empleado;
+    @Autowired
+    ControladorMostrarInventario controladorMostrarInventario;  
+
+    Sucursal sucursal;
+    Empleado empleado;
+    
     @Autowired
     private SucursalRepository sucursalRepository;
 
@@ -39,5 +46,12 @@ public class ControlMenu {
             e.printStackTrace();
         }
         controlGestionInventario.inicia(sucursal);
+    }
+    
+    public void mostrarMostrarInventario() {
+        if(empleado == null) {
+            sucursal = sucursalRepository.findByIdSucursal(1L).orElse(null);
+        }
+        controladorMostrarInventario.inicia(sucursal);
     }
 }
