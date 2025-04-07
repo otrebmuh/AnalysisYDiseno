@@ -1,0 +1,28 @@
+name: CI para Spring Boot
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Compilar con Maven
+        run: mvn -B package --file pom.xml
+
+      - name: Ejecutar pruebas
+        run: mvn test
+

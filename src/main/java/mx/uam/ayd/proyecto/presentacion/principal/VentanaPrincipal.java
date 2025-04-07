@@ -60,10 +60,17 @@ public class VentanaPrincipal {
 				control.listarUsuarios();
 			}
 		});
+
+		Button btnListarGrupos = new Button("Listar grupos");
+		btnListarGrupos.setOnAction(e -> {
+			if (control != null) {
+				control.listarGrupos();
+			}
+		});
 		
 		// Layout
 		VBox layout = new VBox(10); // 10px spacing
-		layout.getChildren().addAll(lblMiAplicacion, btnAgregarUsuario, btnListarUsuarios);
+		layout.getChildren().addAll(lblMiAplicacion, btnAgregarUsuario, btnListarUsuarios, btnListarGrupos);
 		layout.setStyle("-fx-padding: 15px;");
 		
 		// Create scene

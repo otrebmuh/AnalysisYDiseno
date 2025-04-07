@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.ControlAgregarUsuario;
 import mx.uam.ayd.proyecto.presentacion.listarUsuarios.ControlListarUsuarios;
+import mx.uam.ayd.proyecto.presentacion.listarGrupos.ControlListarGrupos;
 
 /**
  * Esta clase lleva el flujo de control de la ventana principal
@@ -15,21 +16,28 @@ import mx.uam.ayd.proyecto.presentacion.listarUsuarios.ControlListarUsuarios;
 @Component
 public class ControlPrincipal {
 
-	@Autowired
-	private ControlAgregarUsuario controlAgregarUsuario;
+	private final ControlAgregarUsuario controlAgregarUsuario;
+	private final ControlListarUsuarios controlListarUsuarios;
+	private final ControlListarGrupos controlListarGrupos;
+	private final VentanaPrincipal ventana;
 	
 	@Autowired
-	private ControlListarUsuarios controlListarUsuarios;
-
-	@Autowired
-	private VentanaPrincipal ventana;
+	public ControlPrincipal(
+			ControlAgregarUsuario controlAgregarUsuario,
+			ControlListarUsuarios controlListarUsuarios,
+			ControlListarGrupos controlListarGrupos,
+			VentanaPrincipal ventana) {
+		this.controlAgregarUsuario = controlAgregarUsuario;
+		this.controlListarUsuarios = controlListarUsuarios;
+		this.controlListarGrupos = controlListarGrupos;
+		this.ventana = ventana;
+	}
 	
 	/**
 	 * Inicia el flujo de control de la ventana principal
 	 * 
 	 */
 	public void inicia() {
-
 		ventana.muestra(this);
 	}
 
@@ -38,9 +46,7 @@ public class ControlPrincipal {
 	 * 
 	 */
 	public void agregarUsuario() {
-		
 		controlAgregarUsuario.inicia();
-		
 	}
 	
 	/**
@@ -49,5 +55,13 @@ public class ControlPrincipal {
 	 */
 	public void listarUsuarios() {
 		controlListarUsuarios.inicia();
+	}
+
+	/**
+	 * Método que arranca la historia de usuario "listar grupos"
+	 * 
+	 */
+	public void listarGrupos() {
+		controlListarGrupos.inicia();
 	}
 }
