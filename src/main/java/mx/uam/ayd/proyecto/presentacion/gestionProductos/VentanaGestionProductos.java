@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.presentacion.agregarProducto.ControlAgregarProducto;
+import mx.uam.ayd.proyecto.presentacion.modificarProducto.ControlModificarProducto;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -31,6 +32,9 @@ public class VentanaGestionProductos extends JFrame {
     private javax.swing.JTable jTable1;
     @Autowired
     private ControlAgregarProducto controlAgregarProducto;
+    @Autowired
+    private ControlModificarProducto controlModificarProducto;
+
 
 
     public VentanaGestionProductos() {
@@ -196,11 +200,9 @@ public class VentanaGestionProductos extends JFrame {
     }//GEN-LAST:event_jTable1ComponentAdded
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // Crear y mostrar la ventana emergente
-        //ModificarProducto dialog = new ModificarProducto(this);
-        //dialog.setVisible(true);
- 
+        controlModificarProducto.inicia(); // <- esto lanza la ventana de modificar
     }//GEN-LAST:event_jButton9ActionPerformed
+    
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {
         controlAgregarProducto.inicia();
