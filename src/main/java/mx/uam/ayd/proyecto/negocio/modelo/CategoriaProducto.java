@@ -30,12 +30,16 @@ public class CategoriaProducto {
             producto.setCategoria(this);
         }
     }
-    
+
     public void eliminarProducto(Producto producto) {
         if (producto != null) {
             productos.remove(producto);
             producto.setCategoria(null);
         }
     }
-}
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+}

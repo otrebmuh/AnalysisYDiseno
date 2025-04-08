@@ -1,8 +1,15 @@
 package mx.uam.ayd.proyecto.presentacion.gestionProductos;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import mx.uam.ayd.proyecto.presentacion.agregarProducto.ControlAgregarProducto;
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
+
+
+
 
 
 @SuppressWarnings("serial")
@@ -22,6 +29,8 @@ public class VentanaGestionProductos extends JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    @Autowired
+    private ControlAgregarProducto controlAgregarProducto;
 
 
     public VentanaGestionProductos() {
@@ -193,10 +202,11 @@ public class VentanaGestionProductos extends JFrame {
  
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        //AgregarProducto dialog = new AgregarProducto(this);
-        //dialog.setVisible(true);
-    }//GEN-LAST:event_jButton10ActionPerformed
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {
+        controlAgregarProducto.inicia();
+    }
+    
+
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         //BorrarProducto dialog = new BorrarProducto(this);
