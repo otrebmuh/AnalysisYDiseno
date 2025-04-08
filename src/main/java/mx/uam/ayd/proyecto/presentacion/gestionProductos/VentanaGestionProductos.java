@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.presentacion.agregarProducto.ControlAgregarProducto;
+import mx.uam.ayd.proyecto.presentacion.eliminarProducto.ControlEliminarProducto;
 import mx.uam.ayd.proyecto.presentacion.modificarProducto.ControlModificarProducto;
 
 import javax.swing.JFrame;
@@ -34,6 +35,8 @@ public class VentanaGestionProductos extends JFrame {
     private ControlAgregarProducto controlAgregarProducto;
     @Autowired
     private ControlModificarProducto controlModificarProducto;
+    @Autowired
+    private ControlEliminarProducto controlEliminarProducto;
 
 
 
@@ -210,9 +213,8 @@ public class VentanaGestionProductos extends JFrame {
     
 
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        //BorrarProducto dialog = new BorrarProducto(this);
-        //dialog.setVisible(true);
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {
+        controlEliminarProducto.inicia();
     }
 
     public void muestra(){
