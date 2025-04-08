@@ -21,7 +21,6 @@ import mx.uam.ayd.proyecto.presentacion.listarGrupos.ControlListarGrupos;
 
 //@SpringBootTest
 @ActiveProfiles("test")
-@Transactional
 public class ListarGruposIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
@@ -33,7 +32,7 @@ public class ListarGruposIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private GrupoRepository grupoRepository;
 
-    //@Test
+    @Test
     @Transactional
     public void testListarGrupos() {
         // Given

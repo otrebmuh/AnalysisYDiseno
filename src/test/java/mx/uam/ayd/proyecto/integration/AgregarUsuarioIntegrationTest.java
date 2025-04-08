@@ -3,11 +3,10 @@ package mx.uam.ayd.proyecto.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import mx.uam.ayd.proyecto.BaseIntegrationTest;
@@ -16,15 +15,8 @@ import mx.uam.ayd.proyecto.datos.UsuarioRepository;
 import mx.uam.ayd.proyecto.negocio.ServicioUsuario;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
-import mx.uam.ayd.proyecto.presentacion.agregarUsuario.ControlAgregarUsuario;
 
-@SpringBootTest
-@ActiveProfiles("test")
-@Transactional
 public class AgregarUsuarioIntegrationTest extends BaseIntegrationTest {
-
-    @Autowired
-    private ControlAgregarUsuario controlAgregarUsuario;
 
     @Autowired
     private ServicioUsuario servicioUsuario;
@@ -75,10 +67,24 @@ public class AgregarUsuarioIntegrationTest extends BaseIntegrationTest {
         String nombreGrupo = "NonExistentGroup";
 
         // When/Then
-        try {
-            servicioUsuario.agregaUsuario(nombre, apellido, nombreGrupo);
-        } catch (IllegalArgumentException e) {
-            assertEquals("No se encontró el grupo", e.getMessage());
-        }
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, 
+            () -> servicioUsuario.agregaUsuario(nombre, apellido, nombreGrupo));
+        
+        assertEquals("No se encontró el grupo", exception.getMessage());
+    }
+
+    @Test
+    @Transactional
+    public void testAgregarUsuarioConDatosInvalidos() {
+        // Given
+        String nombre = "";
+        String apellido = "User";
+        String nombreGrupo = "Test Group";
+
+        // When/Then
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, 
+            () -> servicioUsuario.agregaUsuario(nombre, apellido, nombreGrupo));
+        
+        assertEquals("El nombre no puede ser nulo o vacío", exception.getMessage());
     }
 } 
