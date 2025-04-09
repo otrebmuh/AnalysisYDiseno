@@ -114,4 +114,4 @@ Este proyecto es un ejemplo educativo y está disponible bajo la licencia MIT.
 
 ## Contacto
 
-Humberto Cervantes Maceda - UAM Iztapalapa 
+Humberto Cervantes Maceda - Computación, UAM Iztapalapa
