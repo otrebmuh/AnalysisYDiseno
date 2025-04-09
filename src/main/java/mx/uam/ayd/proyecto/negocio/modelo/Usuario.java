@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 
@@ -25,4 +27,10 @@ public class Usuario {
 	private String apellido;
 	
 	private int edad;
+
+	private String password;
+
+	@OneToOne
+	@JoinColumn(name = "idEmpleado")
+	private Empleado empleado;
 }
