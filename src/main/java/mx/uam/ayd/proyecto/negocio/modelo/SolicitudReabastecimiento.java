@@ -20,6 +20,8 @@ public class SolicitudReabastecimiento {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
+    
+    private Boolean atendida = false;
 
     @OneToMany(mappedBy = "solicitudReabastecimiento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallesSolicitud> detalles = new ArrayList<>();

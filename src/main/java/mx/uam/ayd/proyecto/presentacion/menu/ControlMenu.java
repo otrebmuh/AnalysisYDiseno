@@ -9,8 +9,8 @@ import mx.uam.ayd.proyecto.datos.SucursalRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Sucursal;
 import mx.uam.ayd.proyecto.presentacion.gestionInventario.ControladorGestionInventario;
-
 import mx.uam.ayd.proyecto.presentacion.mostrarInventario.ControladorMostrarInventario;
+import mx.uam.ayd.proyecto.presentacion.visualizarSolicitudesAbastecimiento.ControlVisualizarSolicitudesAbastecimiento;
 
 @Component
 public class ControlMenu {
@@ -21,6 +21,9 @@ public class ControlMenu {
     private ControladorGestionInventario controlGestionInventario;
     @Autowired
     ControladorMostrarInventario controladorMostrarInventario;  
+    
+    @Autowired
+    ControlVisualizarSolicitudesAbastecimiento controlSolicitudesAbastecimiento;
 
     Sucursal sucursal;
     Empleado empleado;
@@ -53,5 +56,12 @@ public class ControlMenu {
             sucursal = sucursalRepository.findByIdSucursal(1L).orElse(null);
         }
         controladorMostrarInventario.inicia(sucursal);
+    }
+    
+    /**
+     * Método que arranca la historia de usuario "visualizar solicitudes de abastecimiento"
+     */
+    public void mostrarSolicitudesAbastecimiento() {
+        controlSolicitudesAbastecimiento.inicia();
     }
 }
