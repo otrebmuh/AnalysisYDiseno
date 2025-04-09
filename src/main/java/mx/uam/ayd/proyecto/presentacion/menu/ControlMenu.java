@@ -1,6 +1,7 @@
 package mx.uam.ayd.proyecto.presentacion.menu;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Component;
 import mx.uam.ayd.proyecto.datos.SucursalRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Sucursal;
+import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 import mx.uam.ayd.proyecto.presentacion.gestionInventario.ControladorGestionInventario;
+import mx.uam.ayd.proyecto.presentacion.loggin.ControlLoggin;
 import mx.uam.ayd.proyecto.presentacion.mostrarInventario.ControladorMostrarInventario;
 import mx.uam.ayd.proyecto.presentacion.visualizarSolicitudesAbastecimiento.ControlVisualizarSolicitudesAbastecimiento;
 
@@ -20,41 +23,35 @@ public class ControlMenu {
     @Autowired
     private ControladorGestionInventario controlGestionInventario;
     @Autowired
-    ControladorMostrarInventario controladorMostrarInventario;  
-    
+    private ControladorMostrarInventario controladorMostrarInventario;  
     @Autowired
-    ControlVisualizarSolicitudesAbastecimiento controlSolicitudesAbastecimiento;
+    private ControlVisualizarSolicitudesAbastecimiento controlSolicitudesAbastecimiento;
+
+    private ControlLoggin controlLoggin;
 
     Sucursal sucursal;
     Empleado empleado;
+    Usuario usuario;
     
-    @Autowired
-    private SucursalRepository sucursalRepository;
-
-    public void inicia() {
+    public void inicia(ControlLoggin controlLoggin) {
+        Logger.getGlobal().info("Recibiendo controlLogin");
+        this.controlLoggin = controlLoggin;
         ventanaMenu.muestra(this);
     }
 
-    public void inicia(Empleado empleado) {
-        this.empleado = empleado;
+    public void inicia(ControlLoggin controlLoggin, Usuario usuario) {
+        this.controlLoggin = controlLoggin;
+        this.usuario = usuario;
+        this.empleado = usuario.getEmpleado();
+        this.sucursal = empleado.getSucursal();
         ventanaMenu.muestra(this);
     }
     
     public void mostrarGestionInventario() {
-        Sucursal sucursal = null;
-        try {
-            Optional<Sucursal> sucursalOpt = sucursalRepository.findByIdSucursal(1L);
-            sucursal = sucursalOpt.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         controlGestionInventario.inicia(sucursal);
     }
     
     public void mostrarMostrarInventario() {
-        if(empleado == null) {
-            sucursal = sucursalRepository.findByIdSucursal(1L).orElse(null);
-        }
         controladorMostrarInventario.inicia(sucursal);
     }
     
@@ -63,5 +60,13 @@ public class ControlMenu {
      */
     public void mostrarSolicitudesAbastecimiento() {
         controlSolicitudesAbastecimiento.inicia();
+    }
+
+    public void cerrarSesion() {
+        usuario = null;
+        empleado = null;
+        sucursal = null;
+        controlLoggin.inicia();
+        ventanaMenu.dispose();
     }
 }

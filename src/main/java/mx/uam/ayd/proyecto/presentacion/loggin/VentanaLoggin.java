@@ -1,6 +1,7 @@
 package mx.uam.ayd.proyecto.presentacion.loggin;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -44,7 +45,7 @@ public class VentanaLoggin extends JFrame {
         jDialog1 = new javax.swing.JDialog();
         jDialog2 = new javax.swing.JDialog();
         jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JPasswordField();
         jCheckBox1 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -75,10 +76,10 @@ public class VentanaLoggin extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField4.setText("                 Juan");
+        jTextField4.setText("");
         jTextField4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTextField5.setText("            ..................");
+        jTextField5.setText("");
         jTextField5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jCheckBox1.setText("Recuerdame ");
@@ -147,7 +148,7 @@ public class VentanaLoggin extends JFrame {
     // 2. Mostrar la nueva ventana
     //nuevaVentana.setVisible(true);
 
-        controlLoggin.iniciaMenu();
+        controlLoggin.login(jTextField4.getText(), jTextField5.getText());
         /*
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -155,13 +156,23 @@ public class VentanaLoggin extends JFrame {
             }
         });
         */
-        dispose();
 
         
 	}
 
 	public void muestra(ControlLoggin control) {
         this.controlLoggin = control;
+        limpiarCampos();
 		setVisible(true);
 	}
+
+    public void muestraDialogoConMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    public void limpiarCampos() {
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jCheckBox1.setSelected(false);
+    }
 } 

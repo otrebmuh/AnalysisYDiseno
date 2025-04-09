@@ -69,10 +69,10 @@ public class VentanaMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setText("jButton9");
+        jButton9.setText("Cerrar Sesión");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                controlMenu.cerrarSesion();
             }
         });
 

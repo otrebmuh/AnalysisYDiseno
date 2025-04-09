@@ -158,38 +158,6 @@ public class ProyectoApplication {
     	cajero.setNombre("Cajero");
     	tipoEmpleadoRepository.save(cajero);
 
-
-		Empleado empleado1 = new Empleado();
-        empleado1.setNombre("Juan");
-        empleado1.setApellidoPaterno("Pérez");
-        empleado1.setApellidoMaterno("López");
-        empleado1.setNumeroEmpleado("EMP001");
-        empleado1.setCorreoElectronico("juan.perez@gmail.com");
-        empleado1.setTelefono("5524924074");
-		empleado1.setTipo(gerente); 
-        empleadoRepository.save(empleado1);
-
-		Empleado empleado2 = new Empleado();
-		empleado2.setNombre("José");
-		empleado2.setApellidoPaterno("Sánchez");
-		empleado2.setApellidoMaterno("Martínez");
-		empleado2.setNumeroEmpleado("EMP002");
-		empleado2.setCorreoElectronico("jose.sanchez@gmail.com");
-		empleado2.setTelefono("5523456789");
-		empleado2.setTipo(cajero); 
-		empleadoRepository.save(empleado2);
-
-
-		Empleado empleado3 = new Empleado();
-		empleado3.setNombre("Gilberto");
-		empleado3.setApellidoPaterno("González");
-		empleado3.setApellidoMaterno("López");
-		empleado3.setNumeroEmpleado("EMP003");
-		empleado3.setCorreoElectronico("gilberto.gonzalez@gmail.com");
-		empleado3.setTelefono("5534567890");
-		empleado3.setTipo(almacenista); // Asignar el tipo "Gerente"
-		empleadoRepository.save(empleado3);  
-		
 		Sucursal sucursal0 = new Sucursal();
 		sucursal0.setNombre("Almacén General");
 		sucursal0.setDireccion("Av. Juárez 105, Col. Centro, CDMX");
@@ -225,6 +193,39 @@ public class ProyectoApplication {
 		sucursal5.setDireccion("Av. Zaragoza 500, Col. Balbuena, CDMX");
 		sucursal5.setTelefono("5555678901");
 		sucursalRepository.save(sucursal5);
+
+		Empleado empleado1 = new Empleado();
+        empleado1.setNombre("Juan");
+        empleado1.setApellidoPaterno("Pérez");
+        empleado1.setApellidoMaterno("López");
+        empleado1.setNumeroEmpleado("EMP001");
+        empleado1.setCorreoElectronico("juan.perez@gmail.com");
+        empleado1.setTelefono("5524924074");
+		empleado1.setTipo(gerente); 
+		empleado1.setSucursal(sucursal1);
+        empleadoRepository.save(empleado1);
+
+		Empleado empleado2 = new Empleado();
+		empleado2.setNombre("José");
+		empleado2.setApellidoPaterno("Sánchez");
+		empleado2.setApellidoMaterno("Martínez");
+		empleado2.setNumeroEmpleado("EMP002");
+		empleado2.setCorreoElectronico("jose.sanchez@gmail.com");
+		empleado2.setTelefono("5523456789");
+		empleado2.setTipo(cajero); 
+		empleado2.setSucursal(sucursal2);
+		empleadoRepository.save(empleado2);
+
+		Empleado empleado3 = new Empleado();
+		empleado3.setNombre("Gilberto");
+		empleado3.setApellidoPaterno("González");
+		empleado3.setApellidoMaterno("López");
+		empleado3.setNumeroEmpleado("EMP003");
+		empleado3.setCorreoElectronico("gilberto.gonzalez@gmail.com");
+		empleado3.setTelefono("5534567890");
+		empleado3.setTipo(almacenista); // Asignar el tipo "Gerente"
+		empleado3.setSucursal(sucursal3);
+		empleadoRepository.save(empleado3);  
 
 		CategoriaProducto categoriaAnalgesicos = new CategoriaProducto();
         categoriaAnalgesicos.setNombre("Analgésicos");
@@ -351,18 +352,23 @@ public class ProyectoApplication {
     	usuario1.setNombre("Juan");
     	usuario1.setApellido("Pérez");
     	usuario1.setEdad(30);
+		usuario1.setPassword("1234");
+		usuario1.setEmpleado(empleado1);
     	usuarioRepository.save(usuario1);
 
 		Usuario usuario2 = new Usuario();
     	usuario2.setNombre("José");
     	usuario2.setApellido("Sánchez");
     	usuario2.setEdad(45);
+		usuario2.setPassword("1234");
     	usuarioRepository.save(usuario2);
 
 		Usuario usuario3 = new Usuario();
     	usuario3.setNombre("Gilberto");
     	usuario3.setApellido("González");
     	usuario3.setEdad(25);
+		usuario3.setPassword("1234");
+		usuario3.setEmpleado(empleado3);
     	usuarioRepository.save(usuario3);
     	
     	// Creación de solicitudes de reabastecimiento de ejemplo
