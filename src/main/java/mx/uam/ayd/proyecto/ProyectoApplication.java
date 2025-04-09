@@ -174,6 +174,12 @@ public class ProyectoApplication {
 		empleado3.setTipo(almacenista); // Asignar el tipo "Gerente"
 		empleadoRepository.save(empleado3);  
 		
+		Sucursal sucursal0 = new Sucursal();
+		sucursal0.setNombre("Almacén General");
+		sucursal0.setDireccion("Av. Juárez 105, Col. Centro, CDMX");
+		sucursal0.setTelefono("5551475567");
+		sucursalRepository.save(sucursal0);
+
 		Sucursal sucursal1 = new Sucursal();
 		sucursal1.setNombre("Sucursal Centro");
 		sucursal1.setDireccion("Av. Juárez 100, Col. Centro, CDMX");
