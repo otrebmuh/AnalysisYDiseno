@@ -15,6 +15,9 @@ import mx.uam.ayd.proyecto.datos.IngredienteRepository;
 import mx.uam.ayd.proyecto.datos.SucursalRepository;
 import mx.uam.ayd.proyecto.datos.TipoEmpleadoRepository;
 import mx.uam.ayd.proyecto.datos.UsuarioRepository;
+import mx.uam.ayd.proyecto.datos.SolicitudReabastecimientoRepository;
+import mx.uam.ayd.proyecto.datos.DetallesSolicitudRepository;
+import mx.uam.ayd.proyecto.datos.InventarioRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.CategoriaProducto;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
@@ -24,6 +27,10 @@ import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 import mx.uam.ayd.proyecto.negocio.modelo.Sucursal;
 import mx.uam.ayd.proyecto.negocio.modelo.TipoEmpleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
+import mx.uam.ayd.proyecto.negocio.modelo.SolicitudReabastecimiento;
+import mx.uam.ayd.proyecto.negocio.modelo.DetallesSolicitud;
+import mx.uam.ayd.proyecto.negocio.modelo.Inventario;
+import java.util.Date;
 import mx.uam.ayd.proyecto.presentacion.loggin.ControlLoggin;
 import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
 
@@ -74,6 +81,15 @@ public class ProyectoApplication {
 
 	@Autowired
 	TipoEmpleadoRepository tipoEmpleadoRepository;
+	
+	@Autowired
+	SolicitudReabastecimientoRepository solicitudReabastecimientoRepository;
+	
+	@Autowired
+	DetallesSolicitudRepository detallesSolicitudRepository;
+	
+	@Autowired
+	InventarioRepository inventarioRepository;
 
 
 
@@ -141,6 +157,12 @@ public class ProyectoApplication {
     	TipoEmpleado cajero = new TipoEmpleado();
     	cajero.setNombre("Cajero");
     	tipoEmpleadoRepository.save(cajero);
+
+		Sucursal sucursal0 = new Sucursal();
+		sucursal0.setNombre("Almacén General");
+		sucursal0.setDireccion("Av. Juárez 105, Col. Centro, CDMX");
+		sucursal0.setTelefono("5551475567");
+		sucursalRepository.save(sucursal0);
 
 		Sucursal sucursal1 = new Sucursal();
 		sucursal1.setNombre("Sucursal Centro");
@@ -348,6 +370,151 @@ public class ProyectoApplication {
 		usuario3.setPassword("1234");
 		usuario3.setEmpleado(empleado3);
     	usuarioRepository.save(usuario3);
-
+    	
+    	// Creación de solicitudes de reabastecimiento de ejemplo
+    	
+    	// Solicitud 1: desde Sucursal Centro al Almacén General (no atendida)
+    	SolicitudReabastecimiento solicitud1 = new SolicitudReabastecimiento();
+    	solicitud1.setSucursal(sucursal1); // Sucursal Centro
+    	solicitud1.setFecha(new Date());
+    	solicitud1.setAtendida(false);
+    	solicitudReabastecimientoRepository.save(solicitud1);
+    	
+    	// Detalles de la solicitud 1
+    	DetallesSolicitud detalle1_1 = new DetallesSolicitud();
+    	detalle1_1.setSolicitudReabastecimiento(solicitud1);
+    	detalle1_1.setProducto(producto1); // Tempra 500mg
+    	detalle1_1.setCantidad(20); // Necesitan 20 unidades
+    	detallesSolicitudRepository.save(detalle1_1);
+    	
+    	DetallesSolicitud detalle1_2 = new DetallesSolicitud();
+    	detalle1_2.setSolicitudReabastecimiento(solicitud1);
+    	detalle1_2.setProducto(producto4); // Centrum Multivitamínico
+    	detalle1_2.setCantidad(10); // Necesitan 10 unidades
+    	detallesSolicitudRepository.save(detalle1_2);
+    	
+    	// Solicitud 2: desde Sucursal Norte al Almacén General (no atendida)
+    	SolicitudReabastecimiento solicitud2 = new SolicitudReabastecimiento();
+    	solicitud2.setSucursal(sucursal2); // Sucursal Norte
+    	solicitud2.setFecha(new Date());
+    	solicitud2.setAtendida(false);
+    	solicitudReabastecimientoRepository.save(solicitud2);
+    	
+    	// Detalles de la solicitud 2
+    	DetallesSolicitud detalle2_1 = new DetallesSolicitud();
+    	detalle2_1.setSolicitudReabastecimiento(solicitud2);
+    	detalle2_1.setProducto(producto2); // Amoxicilina 500mg
+    	detalle2_1.setCantidad(15); // Necesitan 15 unidades
+    	detallesSolicitudRepository.save(detalle2_1);
+    	
+    	DetallesSolicitud detalle2_2 = new DetallesSolicitud();
+    	detalle2_2.setSolicitudReabastecimiento(solicitud2);
+    	detalle2_2.setProducto(producto3); // Claritromicina 250mg/5mL
+    	detalle2_2.setCantidad(8); // Necesitan 8 unidades
+    	detallesSolicitudRepository.save(detalle2_2);
+    	
+    	DetallesSolicitud detalle2_3 = new DetallesSolicitud();
+    	detalle2_3.setSolicitudReabastecimiento(solicitud2);
+    	detalle2_3.setProducto(producto5); // Cetirizina 10mg
+    	detalle2_3.setCantidad(12); // Necesitan 12 unidades
+    	detallesSolicitudRepository.save(detalle2_3);
+    	
+    	// Solicitud 3: desde Sucursal Sur al Almacén General (ya atendida)
+    	SolicitudReabastecimiento solicitud3 = new SolicitudReabastecimiento();
+    	solicitud3.setSucursal(sucursal3); // Sucursal Sur
+    	// Fecha de hace una semana para la solicitud ya atendida
+    	Date fechaAnterior = new Date(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1000);
+    	solicitud3.setFecha(fechaAnterior);
+    	solicitud3.setAtendida(true); // Ya fue atendida
+    	solicitudReabastecimientoRepository.save(solicitud3);
+    	
+    	// Detalles de la solicitud 3 (atendida)
+    	DetallesSolicitud detalle3_1 = new DetallesSolicitud();
+    	detalle3_1.setSolicitudReabastecimiento(solicitud3);
+    	detalle3_1.setProducto(producto1); // Tempra 500mg
+    	detalle3_1.setCantidad(25); // Necesitaban 25 unidades
+    	detallesSolicitudRepository.save(detalle3_1);
+    	
+    	DetallesSolicitud detalle3_2 = new DetallesSolicitud();
+    	detalle3_2.setSolicitudReabastecimiento(solicitud3);
+    	detalle3_2.setProducto(producto5); // Cetirizina 10mg
+    	detalle3_2.setCantidad(18); // Necesitaban 18 unidades
+    	detallesSolicitudRepository.save(detalle3_2);
+    	
+    	// Crear registros de inventario para el Almacén General (sucursal0)
+    	// Estos registros permiten comparar el stock disponible vs. cantidades solicitadas
+    	
+    	// Inventario del producto 1 (Tempra 500mg) - Stock suficiente
+    	Inventario inv1 = new Inventario();
+    	inv1.setSucursal(sucursal0); // Almacén General
+    	inv1.setProducto(producto1);
+    	inv1.setStock(30); // Hay 30 unidades en stock (más que las 20 solicitadas)
+    	inventarioRepository.save(inv1);
+    	
+    	// Inventario del producto 2 (Amoxicilina 500mg) - Stock insuficiente
+    	Inventario inv2 = new Inventario();
+    	inv2.setSucursal(sucursal0);
+    	inv2.setProducto(producto2);
+    	inv2.setStock(10); // Solo hay 10 unidades (menos que las 15 solicitadas)
+    	inventarioRepository.save(inv2);
+    	
+    	// Inventario del producto 3 (Claritromicina) - Stock igual a lo solicitado
+    	Inventario inv3 = new Inventario();
+    	inv3.setSucursal(sucursal0);
+    	inv3.setProducto(producto3);
+    	inv3.setStock(8); // Exactamente lo que se solicita
+    	inventarioRepository.save(inv3);
+    	
+    	// Inventario del producto 4 (Centrum Multivitamínico) - Sin stock
+    	Inventario inv4 = new Inventario();
+    	inv4.setSucursal(sucursal0);
+    	inv4.setProducto(producto4);
+    	inv4.setStock(0); // No hay stock
+    	inventarioRepository.save(inv4);
+    	
+    	// Inventario del producto 5 (Cetirizina 10mg) - Stock suficiente
+    	Inventario inv5 = new Inventario();
+    	inv5.setSucursal(sucursal0);
+    	inv5.setProducto(producto5);
+    	inv5.setStock(35); // Hay 35 unidades (más que las 12 solicitadas)
+    	inventarioRepository.save(inv5);
+    	
+    	// Registros de inventario para la Sucursal Norte (sucursal2)
+    	// Estos registros son para la sucursal con ID 2
+    	
+    	// Inventario del producto 1 (Tempra 500mg) en Sucursal Norte
+    	Inventario invNorte1 = new Inventario();
+    	invNorte1.setSucursal(sucursal2); // Sucursal Norte
+    	invNorte1.setProducto(producto1);
+    	invNorte1.setStock(15); // 15 unidades en stock
+    	inventarioRepository.save(invNorte1);
+    	
+    	// Inventario del producto 2 (Amoxicilina 500mg) en Sucursal Norte
+    	Inventario invNorte2 = new Inventario();
+    	invNorte2.setSucursal(sucursal2);
+    	invNorte2.setProducto(producto2);
+    	invNorte2.setStock(5); // 5 unidades en stock
+    	inventarioRepository.save(invNorte2);
+    	
+    	// Inventario del producto 3 (Claritromicina) en Sucursal Norte
+    	Inventario invNorte3 = new Inventario();
+    	invNorte3.setSucursal(sucursal2);
+    	invNorte3.setProducto(producto3);
+    	invNorte3.setStock(2); // 2 unidades en stock
+    	inventarioRepository.save(invNorte3);
+    	
+    	// Inventario del producto 4 (Centrum Multivitamínico) en Sucursal Norte
+    	Inventario invNorte4 = new Inventario();
+    	invNorte4.setSucursal(sucursal2);
+    	invNorte4.setProducto(producto4);
+    	invNorte4.setStock(8); // 8 unidades en stock
+    	inventarioRepository.save(invNorte4);
+    	
+    	// Inventario del producto 5 (Cetirizina 10mg) en Sucursal Norte
+    	Inventario invNorte5 = new Inventario();
+    	invNorte5.setSucursal(sucursal2);
+    	invNorte5.setProducto(producto5);
+    	invNorte5.setStock(3); // 3 unidades en stock
+    	inventarioRepository.save(invNorte5);
 	}
 }

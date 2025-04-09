@@ -13,6 +13,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 import mx.uam.ayd.proyecto.presentacion.gestionInventario.ControladorGestionInventario;
 import mx.uam.ayd.proyecto.presentacion.loggin.ControlLoggin;
 import mx.uam.ayd.proyecto.presentacion.mostrarInventario.ControladorMostrarInventario;
+import mx.uam.ayd.proyecto.presentacion.visualizarSolicitudesAbastecimiento.ControlVisualizarSolicitudesAbastecimiento;
 
 @Component
 public class ControlMenu {
@@ -23,6 +24,8 @@ public class ControlMenu {
     private ControladorGestionInventario controlGestionInventario;
     @Autowired
     private ControladorMostrarInventario controladorMostrarInventario;  
+    @Autowired
+    private ControlVisualizarSolicitudesAbastecimiento controlSolicitudesAbastecimiento;
 
     private ControlLoggin controlLoggin;
 
@@ -50,6 +53,13 @@ public class ControlMenu {
     
     public void mostrarMostrarInventario() {
         controladorMostrarInventario.inicia(sucursal);
+    }
+    
+    /**
+     * Método que arranca la historia de usuario "visualizar solicitudes de abastecimiento"
+     */
+    public void mostrarSolicitudesAbastecimiento() {
+        controlSolicitudesAbastecimiento.inicia();
     }
 
     public void cerrarSesion() {
