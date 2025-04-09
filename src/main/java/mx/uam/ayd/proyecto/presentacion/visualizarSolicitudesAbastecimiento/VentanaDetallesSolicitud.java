@@ -17,7 +17,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.SolicitudReabastecimiento;
 /**
  * Ventana para visualizar los detalles de una solicitud de abastecimiento
  * 
- * @author Cascade
+ * @author Eduardo Morgado
  */
 @Component
 public class VentanaDetallesSolicitud extends JFrame {
@@ -115,11 +115,13 @@ public class VentanaDetallesSolicitud extends JFrame {
      * 
      * @param control el controlador
      * @param solicitud la solicitud cuyos detalles se mostrarán
+     * @param detalles lista de detalles de la solicitud
      * @param cantidadesEnAlmacen lista de cantidades en almacén para cada producto
      */
-    public void muestra(ControlDetallesSolicitud control, SolicitudReabastecimiento solicitud, List<Integer> cantidadesEnAlmacen) {
+    public void muestra(ControlDetallesSolicitud control, SolicitudReabastecimiento solicitud, 
+                       List<DetallesSolicitud> detalles, List<Integer> cantidadesEnAlmacen) {
         this.control = control;
-        actualizarTabla(solicitud, cantidadesEnAlmacen);
+        actualizarTabla(detalles, cantidadesEnAlmacen);
         
         // Actualizar título con información de la solicitud
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
@@ -134,15 +136,14 @@ public class VentanaDetallesSolicitud extends JFrame {
     /**
      * Método para actualizar la tabla con los detalles de la solicitud
      * 
-     * @param solicitud la solicitud cuyos detalles se mostrarán
+     * @param detalles los detalles de la solicitud a mostrar
      * @param cantidadesEnAlmacen lista de cantidades en almacén para cada producto
      */
-    private void actualizarTabla(SolicitudReabastecimiento solicitud, List<Integer> cantidadesEnAlmacen) {
+    private void actualizarTabla(List<DetallesSolicitud> detalles, List<Integer> cantidadesEnAlmacen) {
         // Limpiar la tabla
         modelo.setRowCount(0);
         
         // Llenar con datos
-        List<DetallesSolicitud> detalles = solicitud.getDetalles();
         for (int i = 0; i < detalles.size(); i++) {
             DetallesSolicitud detalle = detalles.get(i);
             String nombreProducto = detalle.getProducto().getNombre();

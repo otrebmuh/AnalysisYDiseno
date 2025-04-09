@@ -79,13 +79,17 @@ public class ServicioSolicitudReabastecimiento {
     public List<Integer> obtenerCantidadesEnAlmacen(SolicitudReabastecimiento solicitud) {
         List<Integer> cantidades = new ArrayList<>();
         
-        for(DetallesSolicitud detalle : solicitud.getDetalles()) {
+        // Obtener los detalles de manera explícita
+        List<DetallesSolicitud> detalles = obtenerDetallesSolicitud(solicitud);
+        
+        for(DetallesSolicitud detalle : detalles) {
             // Buscar en inventario el stock del producto
             Integer cantidadEnAlmacen = 0;
             List<Inventario> inventarios = (List<Inventario>) inventarioRepository.findAll();
             
             for(Inventario inv : inventarios) {
-                if(inv.getProducto().getIdProducto().equals(detalle.getProducto().getIdProducto())) {
+                if(inv.getProducto() != null && detalle.getProducto() != null && 
+                   inv.getProducto().getIdProducto().equals(detalle.getProducto().getIdProducto())) {
                     cantidadEnAlmacen = inv.getStock();
                     break;
                 }
@@ -95,5 +99,31 @@ public class ServicioSolicitudReabastecimiento {
         }
         
         return cantidades;
+    }
+    
+    /**
+     * Obtiene los detalles de una solicitud de reabastecimiento
+     * 
+     * @param solicitud La solicitud cuyos detalles se obtendrán
+     * @return Lista de detalles de la solicitud
+     */
+    public List<DetallesSolicitud> obtenerDetallesSolicitud(SolicitudReabastecimiento solicitud) {
+        // Lista para almacenar los detalles
+        List<DetallesSolicitud> detalles = new ArrayList<>();
+        
+        // Buscar todos los detalles y filtrar los que corresponden a esta solicitud
+        Iterable<DetallesSolicitud> todosDetalles = detallesSolicitudRepository.findAll();
+        
+        for (DetallesSolicitud detalle : todosDetalles) {
+            // Comparar por ID de solicitud para evitar problemas de proxies
+            if (detalle.getSolicitudReabastecimiento() != null && 
+                detalle.getSolicitudReabastecimiento().getIdSolicitudReabastecimiento().equals(
+                solicitud.getIdSolicitudReabastecimiento())) {
+                
+                detalles.add(detalle);
+            }
+        }
+        
+        return detalles;
     }
 }

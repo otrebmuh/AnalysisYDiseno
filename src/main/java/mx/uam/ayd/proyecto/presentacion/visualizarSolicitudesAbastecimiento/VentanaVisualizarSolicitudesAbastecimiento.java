@@ -16,7 +16,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.SolicitudReabastecimiento;
 /**
  * Ventana para visualizar las solicitudes de abastecimiento
  * 
- * @author Cascade
+ * @author Eduardo Morgado
  */
 @Component
 public class VentanaVisualizarSolicitudesAbastecimiento extends JFrame {
