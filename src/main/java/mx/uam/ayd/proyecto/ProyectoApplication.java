@@ -346,6 +346,7 @@ public class ProyectoApplication {
     	usuario3.setApellido("González");
     	usuario3.setEdad(25);
 		usuario3.setPassword("1234");
+		usuario3.setEmpleado(empleado3);
     	usuarioRepository.save(usuario3);
 
 	}

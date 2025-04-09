@@ -1,6 +1,7 @@
 package mx.uam.ayd.proyecto.presentacion.menu;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Sucursal;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 import mx.uam.ayd.proyecto.presentacion.gestionInventario.ControladorGestionInventario;
-
+import mx.uam.ayd.proyecto.presentacion.loggin.ControlLoggin;
 import mx.uam.ayd.proyecto.presentacion.mostrarInventario.ControladorMostrarInventario;
 
 @Component
@@ -21,17 +22,22 @@ public class ControlMenu {
     @Autowired
     private ControladorGestionInventario controlGestionInventario;
     @Autowired
-    ControladorMostrarInventario controladorMostrarInventario;  
+    private ControladorMostrarInventario controladorMostrarInventario;  
+
+    private ControlLoggin controlLoggin;
 
     Sucursal sucursal;
     Empleado empleado;
     Usuario usuario;
     
-    public void inicia() {
+    public void inicia(ControlLoggin controlLoggin) {
+        Logger.getGlobal().info("Recibiendo controlLogin");
+        this.controlLoggin = controlLoggin;
         ventanaMenu.muestra(this);
     }
 
-    public void inicia(Usuario usuario) {
+    public void inicia(ControlLoggin controlLoggin, Usuario usuario) {
+        this.controlLoggin = controlLoggin;
         this.usuario = usuario;
         this.empleado = usuario.getEmpleado();
         this.sucursal = empleado.getSucursal();
@@ -44,5 +50,13 @@ public class ControlMenu {
     
     public void mostrarMostrarInventario() {
         controladorMostrarInventario.inicia(sucursal);
+    }
+
+    public void cerrarSesion() {
+        usuario = null;
+        empleado = null;
+        sucursal = null;
+        controlLoggin.inicia();
+        ventanaMenu.dispose();
     }
 }

@@ -162,10 +162,17 @@ public class VentanaLoggin extends JFrame {
 
 	public void muestra(ControlLoggin control) {
         this.controlLoggin = control;
+        limpiarCampos();
 		setVisible(true);
 	}
 
     public void muestraDialogoConMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    public void limpiarCampos() {
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jCheckBox1.setSelected(false);
     }
 } 

@@ -1,5 +1,7 @@
 package mx.uam.ayd.proyecto.presentacion.loggin;
 
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,15 +39,17 @@ public class ControlLoggin {
 	}
 
 	public void iniciaMenu() {
-		controlMenu.inicia();
-		ventanaLoggin.dispose();
+		Logger.getGlobal().info("Iniciando menu");
+		controlMenu.inicia(this);
+		ventanaLoggin.setVisible(false);
+		//ventanaLoggin.dispose();
 	}
 
 	public void login(String nombre, String contrasena) {
 		Usuario usuario = servicioUsuario.login(nombre, contrasena);
 		
 		if(usuario != null) {
-			controlMenu.inicia(usuario);
+			controlMenu.inicia(this,usuario);
 			ventanaLoggin.dispose();
 		} else {
 			ventanaLoggin.muestraDialogoConMensaje("Usuario o contrasena incorrectos");
