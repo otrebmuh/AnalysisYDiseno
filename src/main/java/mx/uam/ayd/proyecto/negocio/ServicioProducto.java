@@ -45,6 +45,11 @@ public class ServicioProducto {
         Optional<Producto> producto = productoRepository.findByNombre(nombre);
         return producto.orElse(null);
     }
+
+    public Producto obtenerPorCodigo(String codigo) {
+        Optional<Producto> producto = productoRepository.findByCodigo(codigo);
+        return producto.orElse(null);
+    }
     
     /**
      * Registra un nuevo producto
