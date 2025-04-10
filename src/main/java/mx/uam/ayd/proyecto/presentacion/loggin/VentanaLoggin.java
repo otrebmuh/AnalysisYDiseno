@@ -46,6 +46,11 @@ public class VentanaLoggin extends JFrame {
         jDialog2 = new javax.swing.JDialog();
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JPasswordField();
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jCheckBox1 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();

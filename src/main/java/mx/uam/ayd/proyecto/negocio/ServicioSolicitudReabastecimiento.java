@@ -126,4 +126,32 @@ public class ServicioSolicitudReabastecimiento {
         
         return detalles;
     }
+    /**
+     * Guarda una nueva solicitud de reabastecimiento
+     * 
+     * @param solicitud La solicitud a guardar
+     * @return La solicitud guardada con su ID asignado
+     */
+    public SolicitudReabastecimiento guardarSolicitud(SolicitudReabastecimiento solicitud) {
+        // Verificar que la solicitud tenga al menos un detalle
+        if (solicitud.getDetalles() == null || solicitud.getDetalles().isEmpty()) {
+            throw new IllegalArgumentException("La solicitud debe tener al menos un producto");
+        }
+        
+        // Verificar que la sucursal esté asignada
+        if (solicitud.getSucursal() == null) {
+            throw new IllegalArgumentException("Debe especificar una sucursal para la solicitud");
+        }
+        
+        // Verificar que la fecha esté asignada
+        if (solicitud.getFecha() == null) {
+            throw new IllegalArgumentException("Debe especificar una fecha para la solicitud");
+        }
+        
+        // Marcar la solicitud como no atendida por defecto
+        solicitud.setAtendida(false);
+        
+        // Guardar la solicitud
+        return solicitudRepository.save(solicitud);
+    }
 }
