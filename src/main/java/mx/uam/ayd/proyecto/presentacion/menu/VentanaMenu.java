@@ -60,17 +60,12 @@ public class VentanaMenu extends JFrame {
             }
         });
 
-<<<<<<< HEAD
-        jButton9.setText("jButton9");
-        jButton9.addActionListener(evt -> jButton9ActionPerformed());
-=======
         jButton9.setText("Cerrar Sesión");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 controlMenu.cerrarSesion();
             }
         });
->>>>>>> develop
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
