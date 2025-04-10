@@ -54,9 +54,23 @@ public class VentanaMenu extends JFrame {
         jButton7.addActionListener(evt -> jButton7ActionPerformed());
 
         jButton8.setText("Solicitudes de Abastecimiento");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controlMenu.mostrarSolicitudesAbastecimiento();
+            }
+        });
 
+<<<<<<< HEAD
         jButton9.setText("jButton9");
         jButton9.addActionListener(evt -> jButton9ActionPerformed());
+=======
+        jButton9.setText("Cerrar Sesión");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controlMenu.cerrarSesion();
+            }
+        });
+>>>>>>> develop
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

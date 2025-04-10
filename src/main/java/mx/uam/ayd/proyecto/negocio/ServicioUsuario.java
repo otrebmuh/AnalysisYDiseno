@@ -2,6 +2,7 @@ package mx.uam.ayd.proyecto.negocio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,7 +53,6 @@ public class ServicioUsuario {
 		
 		usuario = new Usuario();
 		usuario.setNombre(nombre);
-		usuario.setApellido(apellido);
 		
 		usuarioRepository.save(usuario);
 		
@@ -83,6 +83,18 @@ public class ServicioUsuario {
 		}
 				
 		return usuarios;
+	}
+
+	public Usuario login(String nombre, String contrasena) {
+
+		Optional<Usuario> usuario = usuarioRepository.findByNombre(nombre);
+
+		if (usuario.isPresent()) {
+			if (usuario.get().getPassword().equals(contrasena)) {
+				return usuario.get();
+			}
+		}
+		return null;
 	}
 
 }

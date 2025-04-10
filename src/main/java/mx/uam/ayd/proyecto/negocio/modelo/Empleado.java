@@ -26,4 +26,8 @@ public class Empleado {
     @ManyToOne
     @JoinColumn(name = "idTipoEmpleado")
     private TipoEmpleado tipo;
+
+    @OneToOne
+    @JoinColumn(name = "idUsuario")
+    private Usuario usuario;
 }
