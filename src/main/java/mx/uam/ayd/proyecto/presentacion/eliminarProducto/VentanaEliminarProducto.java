@@ -1,105 +1,71 @@
 package mx.uam.ayd.proyecto.presentacion.eliminarProducto;
 
 import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
+
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 
-/**
- * Ventana para seleccionar y eliminar un producto
- */
 @Component
 public class VentanaEliminarProducto extends JFrame {
 
     private JComboBox<String> comboProductos;
-    private JButton botonEliminar;
-    private JButton botonCancelar;
-    private DefaultComboBoxModel<String> modeloCombo;
+    private JButton btnEliminar;
+    private JButton btnCancelar;
 
     public VentanaEliminarProducto() {
         setTitle("Eliminar Producto");
         setSize(400, 200);
-        setLocationRelativeTo(null); // Centra la ventana
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        initComponents();
+        setLayout(new BorderLayout());
+
+        JLabel lblTitulo = new JLabel("Selecciona un producto para eliminar:", SwingConstants.CENTER);
+        add(lblTitulo, BorderLayout.NORTH);
+
+        comboProductos = new JComboBox<>();
+        add(comboProductos, BorderLayout.CENTER);
+
+        JPanel panelBotones = new JPanel();
+        btnEliminar = new JButton("Eliminar");
+        btnCancelar = new JButton("Cancelar");
+        panelBotones.add(btnEliminar);
+        panelBotones.add(btnCancelar);
+
+        add(panelBotones, BorderLayout.SOUTH);
     }
 
-    private void initComponents() {
-        // Panel principal
-        JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        // Título
-        JLabel titulo = new JLabel("Selecciona un producto para eliminar", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 16));
-        panel.add(titulo, BorderLayout.NORTH);
-
-        // ComboBox
-        modeloCombo = new DefaultComboBoxModel<>();
-        comboProductos = new JComboBox<>(modeloCombo);
-        panel.add(comboProductos, BorderLayout.CENTER);
-
-        // Botones
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
-        botonEliminar = new JButton("Eliminar");
-        botonCancelar = new JButton("Cancelar");
-        panelBotones.add(botonEliminar);
-        panelBotones.add(botonCancelar);
-        panel.add(panelBotones, BorderLayout.SOUTH);
-
-        getContentPane().add(panel);
-    }
-
-    /**
-     * Llena el ComboBox con la lista de productos
-     */
     public void llenaProductos(List<Producto> productos) {
-        modeloCombo.removeAllElements();
+        comboProductos.removeAllItems();
         for (Producto p : productos) {
-            modeloCombo.addElement(p.getNombre());
+            comboProductos.addItem(p.getNombre());
         }
     }
 
-    /**
-     * Devuelve el nombre del producto seleccionado
-     */
     public String getProductoSeleccionado() {
         return (String) comboProductos.getSelectedItem();
     }
 
-    /**
-     * Asigna la acción al botón de eliminar
-     */
     public void agregarListenerEliminar(ActionListener listener) {
-        botonEliminar.addActionListener(listener);
+        btnEliminar.addActionListener(listener);
     }
 
-    /**
-     * Asigna la acción al botón de cancelar
-     */
     public void agregarListenerCancelar(ActionListener listener) {
-        botonCancelar.addActionListener(listener);
+        btnCancelar.addActionListener(listener);
     }
 
-    /**
-     * Muestra un mensaje de confirmación
-     */
-    public boolean confirmarEliminacion(String nombre) {
-        int respuesta = JOptionPane.showConfirmDialog(
-            this,
-            "¿Estás seguro que deseas eliminar el producto \"" + nombre + "\"?",
-            "Confirmar Eliminación",
-            JOptionPane.YES_NO_OPTION
-        );
-        return respuesta == JOptionPane.YES_OPTION;
-    }
-
-    /**
-     * Muestra mensaje informativo
-     */
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    public boolean confirmarEliminacion(String nombreProducto) {
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que deseas eliminar el producto \"" + nombreProducto + "\"?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION);
+        return opcion == JOptionPane.YES_OPTION;
     }
 }

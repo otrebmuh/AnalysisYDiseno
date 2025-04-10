@@ -11,11 +11,13 @@ import org.springframework.stereotype.Service;
 import mx.uam.ayd.proyecto.datos.ProductoRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 
+
 @Service
 public class ServicioProducto {
     
     @Autowired
     private ProductoRepository productoRepository;
+    
     
     /**
      * Obtiene todos los productos registrados
@@ -99,7 +101,7 @@ public class ServicioProducto {
         if (producto.getLaboratorio() == null || producto.getLaboratorio().getNombre().trim().isEmpty()) return false;
         if (producto.getContenido() == null || producto.getContenido().trim().isEmpty()) return false;
         if (producto.getCategoria() == null) return false;
+        if (producto.getPrecio() == null || producto.getPrecio() <= 0) return false; // Validación de precio agregada
         return true;
     }
-
 }

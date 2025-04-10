@@ -3,20 +3,29 @@ package mx.uam.ayd.proyecto.presentacion.modificarProducto;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.List;
+
+import mx.uam.ayd.proyecto.negocio.modelo.*;
 
 public class VentanaModificarProducto extends JDialog {
 
-    private JTextField campoCodigo, campoNombre, campoDescripcion, campoIngrediente, campoLaboratorio, campoContenido, campoReceta, campoCategoria;
+    private JTextField txtCodigo, txtNombre, txtDescripcion, txtContenido, txtPrecio;
+    private JCheckBox chkReceta;
+    private JComboBox<Laboratorio> cmbLaboratorio;
+    private JComboBox<Ingrediente> cmbIngrediente;
+    private JComboBox<CategoriaProducto> cmbCategoria;
     private JButton btnModificar;
 
-    public VentanaModificarProducto(JFrame parent) {
+    public VentanaModificarProducto(JFrame parent, List<Laboratorio> laboratorios,
+                                  List<Ingrediente> ingredientes, List<CategoriaProducto> categorias) {
         super(parent, "Modificar Producto", true);
-        setSize(500, 550);
+        setSize(500, 600);
         setLocationRelativeTo(parent);
-        initUI();
+        initUI(laboratorios, ingredientes, categorias);
     }
 
-    private void initUI() {
+    private void initUI(List<Laboratorio> laboratorios, List<Ingrediente> ingredientes, 
+                       List<CategoriaProducto> categorias) {
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
@@ -24,18 +33,29 @@ public class VentanaModificarProducto extends JDialog {
         titulo.setFont(new Font("Arial", Font.BOLD, 16));
         mainPanel.add(titulo, BorderLayout.NORTH);
 
-        JLabel instruccion = new JLabel("Por favor llene el siguiente formulario para editar el producto", SwingConstants.CENTER);
-        mainPanel.add(instruccion, BorderLayout.CENTER);
+        JPanel formPanel = new JPanel(new GridLayout(9, 2, 10, 10));
 
-        JPanel formPanel = new JPanel(new GridLayout(8, 2, 10, 10));
-        campoCodigo = agregarCampo(formPanel, "Código:");
-        campoNombre = agregarCampo(formPanel, "Nombre:");
-        campoDescripcion = agregarCampo(formPanel, "Descripción:");
-        campoIngrediente = agregarCampo(formPanel, "Ingrediente Activo:");
-        campoLaboratorio = agregarCampo(formPanel, "Laboratorio:");
-        campoContenido = agregarCampo(formPanel, "Contenido:");
-        campoReceta = agregarCampo(formPanel, "¿Requiere Receta?:");
-        campoCategoria = agregarCampo(formPanel, "Categoría:");
+        txtCodigo = addFormField(formPanel, "Código:");
+        txtNombre = addFormField(formPanel, "Nombre:");
+        txtDescripcion = addFormField(formPanel, "Descripción:");
+        txtContenido = addFormField(formPanel, "Contenido:");
+        txtPrecio = addFormField(formPanel, "Precio:");
+
+        chkReceta = new JCheckBox("¿Requiere Receta?");
+        formPanel.add(new JLabel("Receta:"));
+        formPanel.add(chkReceta);
+
+        cmbIngrediente = new JComboBox<>(ingredientes.toArray(new Ingrediente[0]));
+        formPanel.add(new JLabel("Ingrediente Activo:"));
+        formPanel.add(cmbIngrediente);
+
+        cmbLaboratorio = new JComboBox<>(laboratorios.toArray(new Laboratorio[0]));
+        formPanel.add(new JLabel("Laboratorio:"));
+        formPanel.add(cmbLaboratorio);
+
+        cmbCategoria = new JComboBox<>(categorias.toArray(new CategoriaProducto[0]));
+        formPanel.add(new JLabel("Categoría:"));
+        formPanel.add(cmbCategoria);
 
         btnModificar = new JButton("Modificar Producto");
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -45,33 +65,49 @@ public class VentanaModificarProducto extends JDialog {
         contentPanel.add(formPanel, BorderLayout.CENTER);
         contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        mainPanel.add(contentPanel, BorderLayout.SOUTH);
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
         getContentPane().add(mainPanel);
     }
 
-    private JTextField agregarCampo(JPanel panel, String texto) {
-        JLabel label = new JLabel(texto);
-        JTextField campo = new JTextField();
+    private JTextField addFormField(JPanel panel, String labelText) {
+        JLabel label = new JLabel(labelText);
+        JTextField textField = new JTextField();
         panel.add(label);
-        panel.add(campo);
-        return campo;
+        panel.add(textField);
+        return textField;
     }
 
     public void agregarListenerModificar(ActionListener listener) {
         btnModificar.addActionListener(listener);
     }
 
-    // Getters para los campos
-    public String getCodigo() { return campoCodigo.getText(); }
-    public String getNombre() { return campoNombre.getText(); }
-    public String getDescripcion() { return campoDescripcion.getText(); }
-    public String getIngrediente() { return campoIngrediente.getText(); }
-    public String getLaboratorio() { return campoLaboratorio.getText(); }
-    public String getContenido() { return campoContenido.getText(); }
-    public String getReceta() { return campoReceta.getText(); }
-    public String getCategoria() { return campoCategoria.getText(); }
+    // Métodos para obtener los valores
+    public String getCodigo() { return txtCodigo.getText(); }
+    public String getNombre() { return txtNombre.getText(); }
+    public String getDescripcion() { return txtDescripcion.getText(); }
+    public String getContenido() { return txtContenido.getText(); }
+    public double getPrecio() { return Double.parseDouble(txtPrecio.getText()); }
+    public boolean getReceta() { return chkReceta.isSelected(); }
+    public Laboratorio getLaboratorio() { return (Laboratorio) cmbLaboratorio.getSelectedItem(); }
+    public Ingrediente getIngrediente() { return (Ingrediente) cmbIngrediente.getSelectedItem(); }
+    public CategoriaProducto getCategoria() { return (CategoriaProducto) cmbCategoria.getSelectedItem(); }
+
+    // Métodos para establecer valores (útil al cargar un producto existente)
+    public void setCodigo(String codigo) { txtCodigo.setText(codigo); }
+    public void setNombre(String nombre) { txtNombre.setText(nombre); }
+    public void setDescripcion(String descripcion) { txtDescripcion.setText(descripcion); }
+    public void setContenido(String contenido) { txtContenido.setText(contenido); }
+    public void setPrecio(double precio) { txtPrecio.setText(String.valueOf(precio)); }
+    public void setReceta(boolean receta) { chkReceta.setSelected(receta); }
+    public void setLaboratorio(Laboratorio laboratorio) { cmbLaboratorio.setSelectedItem(laboratorio); }
+    public void setIngrediente(Ingrediente ingrediente) { cmbIngrediente.setSelectedItem(ingrediente); }
+    public void setCategoria(CategoriaProducto categoria) { cmbCategoria.setSelectedItem(categoria); }
 
     public void mostrarMensaje(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje);
+        JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }

@@ -3,16 +3,17 @@ package mx.uam.ayd.proyecto.presentacion.gestionProductos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import mx.uam.ayd.proyecto.negocio.ServicioProducto;
 import mx.uam.ayd.proyecto.presentacion.agregarProducto.ControlAgregarProducto;
 import mx.uam.ayd.proyecto.presentacion.eliminarProducto.ControlEliminarProducto;
 import mx.uam.ayd.proyecto.presentacion.modificarProducto.ControlModificarProducto;
+import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
-
-
-
-
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Component
@@ -31,17 +32,18 @@ public class VentanaGestionProductos extends JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private DefaultTableModel modeloTabla;
+
     @Autowired
     private ControlAgregarProducto controlAgregarProducto;
     @Autowired
     private ControlModificarProducto controlModificarProducto;
     @Autowired
     private ControlEliminarProducto controlEliminarProducto;
-
-
+    @Autowired
+    private ServicioProducto servicioProducto;
 
     public VentanaGestionProductos() {
-
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -60,69 +62,64 @@ public class VentanaGestionProductos extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Realizar Venta");
-
         jButton2.setText("Inventario de Farmacias");
-
         jButton3.setText("Gestión De Usuarios");
-
         jButton4.setText("Gestión De Promociones");
-
         jButton5.setText("Gestión de Inventario");
-
         jButton6.setText("Estadísticas");
 
         jButton7.setText("Gestión de Productos");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
+        jButton7.addActionListener(evt -> jButton7ActionPerformed(evt));
 
         jButton8.setText("Solicitudes de Abastecimiento");
-
         jLabel1.setText("Gestión de Productos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"900829", "Loratadina", "Tabletas de 10 mg", "Loratadina", "Bayer", "25 tabletas", "No", "Borrar"},
-                {"......", "......", "......", ".....", ".....", "......", "......", "......"},
-                {".....", "......", ".....", ".....", ".....", ".....", ".....", "....."},
-                {"....", ".....", ".....", ".....", ".....", ".....", ".....", "...."},
-                {".....", ".....", ".....", ".....", ".....", ".....", ".....", "...."},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Código", "Producto", "Descripción", "Ingrediente Activo", "Laboratorio", "Contenido", "¿Requiere Receta?", "Borrar"
-            }
-        ));
-        jTable1.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentAdded(java.awt.event.ContainerEvent evt) {
-                jTable1ComponentAdded(evt);
-            }
+        modeloTabla = new DefaultTableModel();
+        modeloTabla.setColumnIdentifiers(new Object[]{
+            "Código", "Producto", "Descripción", "Ingrediente Activo",
+            "Laboratorio", "Contenido", "¿Requiere Receta?", "Precio"
         });
+        jTable1.setModel(modeloTabla);
         jScrollPane1.setViewportView(jTable1);
 
         jButton9.setText("Modificar Producto");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+        jButton9.addActionListener(evt -> {
+            // Obtener el índice de la fila seleccionada
+            int selectedRow = jTable1.getSelectedRow();
+        
+            if (selectedRow >= 0) {
+                // Obtener el código del producto desde la tabla
+                String codigo = (String) jTable1.getValueAt(selectedRow, 0);
+        
+                // Buscar el producto correspondiente en el servicio
+                Producto productoSeleccionado = servicioProducto.obtenerPorCodigo(codigo);
+        
+                // Llamar al controlador con el producto seleccionado
+                if (productoSeleccionado != null) {
+                    controlModificarProducto.inicia(productoSeleccionado);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Producto no encontrado.");
+                }
+        
+                // Actualizar la tabla de productos (si es necesario)
+                actualizarTablaProductos();
+            } else {
+                // Si no se seleccionó ningún producto, mostrar un mensaje de advertencia
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un producto para modificar.");
             }
         });
-
+        
+        
         jButton10.setText("Agregar Nuevo Producto");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
+        jButton10.addActionListener(evt -> {
+            controlAgregarProducto.inicia();
+            actualizarTablaProductos();
         });
 
         jButton11.setText("Eliminar Producto");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
+        jButton11.addActionListener(evt -> {
+            controlEliminarProducto.inicia();
+            actualizarTablaProductos();
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,34 +188,31 @@ public class VentanaGestionProductos extends JFrame {
         );
 
         pack();
-
     }
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jTable1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jTable1ComponentAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTable1ComponentAdded
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        controlModificarProducto.inicia(); // <- esto lanza la ventana de modificar
-    }//GEN-LAST:event_jButton9ActionPerformed
-    
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {
-        controlAgregarProducto.inicia();
-    }
-    
-
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {
-        controlEliminarProducto.inicia();
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Acción del botón de gestión de productos
     }
 
-    public void muestra(){
+    private void actualizarTablaProductos() {
+        modeloTabla.setRowCount(0);
+        List<Producto> productos = servicioProducto.getAll();
+        for (Producto producto : productos) {
+            modeloTabla.addRow(new Object[]{
+                producto.getCodigo(),
+                producto.getNombre(),
+                producto.getDescripcion(),
+                producto.getIngrediente().getNombre(),
+                producto.getLaboratorio().getNombre(),
+                producto.getContenido(),
+                producto.getReceta() != null ? (producto.getReceta() ? "Sí" : "No") : "No",
+                producto.getPrecio() != null ? producto.getPrecio() : 0.0
+            });
+        }
+    }
+
+    public void muestra() {
+        actualizarTablaProductos();
         setVisible(true);
     }
-    
 }

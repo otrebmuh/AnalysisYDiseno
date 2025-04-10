@@ -38,23 +38,24 @@ public class ControlAgregarProducto {
     }
 
     public void agregarProducto(String codigo, String nombre, String descripcion, String contenido, boolean receta, 
-                                Laboratorio laboratorio, Ingrediente ingrediente, CategoriaProducto categoria) {
-        Producto producto = new Producto();
-        producto.setCodigo(codigo);
-        producto.setNombre(nombre);
-        producto.setDescripcion(descripcion);
-        producto.setContenido(contenido);
-        producto.setReceta(receta);
-        producto.setLaboratorio(laboratorio);
-        producto.setIngrediente(ingrediente);
-        producto.setCategoria(categoria);
+    Laboratorio laboratorio, Ingrediente ingrediente, CategoriaProducto categoria, double precio) {
+    Producto producto = new Producto();
+    producto.setCodigo(codigo);
+    producto.setNombre(nombre);
+    producto.setDescripcion(descripcion);
+    producto.setContenido(contenido);
+    producto.setReceta(receta);
+    producto.setLaboratorio(laboratorio);
+    producto.setIngrediente(ingrediente);
+    producto.setCategoria(categoria);
+    producto.setPrecio(precio); // Asegúrate de que la clase Producto tenga este campo y método
 
-        if (servicioProducto.validarProducto(producto)) {
-            servicioProducto.crear(producto);
-            ventana.mostrarMensaje("Producto agregado correctamente.");
-            ventana.dispose();
+    if (servicioProducto.validarProducto(producto)) {
+        servicioProducto.crear(producto);
+        ventana.mostrarMensaje("Producto agregado correctamente.");
+        ventana.dispose();
         } else {
             ventana.mostrarError("Datos inválidos. Verifica los campos.");
-        }
-    }
+}
+}
 }

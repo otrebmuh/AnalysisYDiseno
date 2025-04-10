@@ -11,7 +11,7 @@ public class VentanaAgregarProducto extends JDialog {
 
     private final ControlAgregarProducto controlador;
 
-    private JTextField txtCodigo, txtNombre, txtDescripcion, txtContenido;
+    private JTextField txtCodigo, txtNombre, txtDescripcion, txtContenido, txtPrecio;
     private JCheckBox chkReceta;
     private JComboBox<Laboratorio> cmbLaboratorio;
     private JComboBox<Ingrediente> cmbIngrediente;
@@ -22,7 +22,7 @@ public class VentanaAgregarProducto extends JDialog {
         super((JFrame) null, "Agregar Producto", true);
         this.controlador = controlador;
 
-        setSize(500, 550);
+        setSize(500, 600); // más alto para incluir el campo nuevo
         setLocationRelativeTo(null);
         initUI(laboratorios, ingredientes, categorias);
     }
@@ -35,11 +35,16 @@ public class VentanaAgregarProducto extends JDialog {
         titulo.setFont(new Font("Arial", Font.BOLD, 16));
         mainPanel.add(titulo, BorderLayout.NORTH);
 
-        JPanel formPanel = new JPanel(new GridLayout(8, 2, 10, 10));
+        JPanel formPanel = new JPanel(new GridLayout(9, 2, 10, 10)); // antes era 8 filas
+
         txtCodigo = addFormField(formPanel, "Código:");
         txtNombre = addFormField(formPanel, "Nombre:");
         txtDescripcion = addFormField(formPanel, "Descripción:");
         txtContenido = addFormField(formPanel, "Contenido:");
+
+        // 🔹 Campo nuevo: Precio
+        txtPrecio = addFormField(formPanel, "Precio:");
+
         chkReceta = new JCheckBox("¿Requiere Receta?");
         formPanel.add(new JLabel("Receta:"));
         formPanel.add(chkReceta);
@@ -79,16 +84,22 @@ public class VentanaAgregarProducto extends JDialog {
     }
 
     private void agregarProducto(ActionEvent e) {
-        controlador.agregarProducto(
-            txtCodigo.getText(),
-            txtNombre.getText(),
-            txtDescripcion.getText(),
-            txtContenido.getText(),
-            chkReceta.isSelected(),
-            (Laboratorio) cmbLaboratorio.getSelectedItem(),
-            (Ingrediente) cmbIngrediente.getSelectedItem(),
-            (CategoriaProducto) cmbCategoria.getSelectedItem()
-        );
+        try {
+            double precio = Double.parseDouble(txtPrecio.getText());
+            controlador.agregarProducto( // Cambia ControlAgregarProducto por agregarProducto
+                txtCodigo.getText(),
+                txtNombre.getText(),
+                txtDescripcion.getText(),
+                txtContenido.getText(),
+                chkReceta.isSelected(),
+                (Laboratorio) cmbLaboratorio.getSelectedItem(),
+                (Ingrediente) cmbIngrediente.getSelectedItem(),
+                (CategoriaProducto) cmbCategoria.getSelectedItem(),
+                precio
+            );
+        } catch (NumberFormatException ex) {
+            mostrarError("Por favor, ingresa un valor numérico válido para el precio.");
+        }
     }
 
     public void mostrarMensaje(String mensaje) {
@@ -99,5 +110,3 @@ public class VentanaAgregarProducto extends JDialog {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-
-     
