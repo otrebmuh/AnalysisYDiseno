@@ -56,7 +56,6 @@ public class ServicioActualizarInventario {
                 Long idSucursal = Long.parseLong(data[0].trim());
                 Long idProducto = Long.parseLong(data[1].trim());
                 Integer cantidad = Integer.parseInt(data[2].trim());
-                Double precioCompra = Double.parseDouble(data[3].trim());
 
                 // Buscar sucursal
                 Optional<Sucursal> sucursalOpt = sucursalRepository.findById(idSucursal);

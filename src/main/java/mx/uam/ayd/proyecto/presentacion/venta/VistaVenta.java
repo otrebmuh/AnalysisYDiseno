@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 
 
 import java.time.LocalDateTime;
@@ -25,7 +24,6 @@ public class VistaVenta extends JFrame {
     private ControlVenta control;
     private JLabel lblTotal;
     private JLabel lblCajero;
-    private String codigo;
 
     public VistaVenta() {
         setTitle("Realizar una venta");

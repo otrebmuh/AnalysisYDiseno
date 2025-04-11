@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.SolicitudReabastecimientoRepository;
 import mx.uam.ayd.proyecto.datos.DetallesSolicitudRepository;
-import mx.uam.ayd.proyecto.datos.InventarioRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudReabastecimiento;
 import mx.uam.ayd.proyecto.negocio.modelo.Sucursal;
 import mx.uam.ayd.proyecto.negocio.modelo.Inventario;

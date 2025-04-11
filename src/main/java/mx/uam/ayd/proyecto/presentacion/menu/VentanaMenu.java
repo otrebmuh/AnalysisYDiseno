@@ -143,10 +143,6 @@ public class VentanaMenu extends JFrame {
         ventanaGestionProductos.muestra(); 
     }
 
-    private void jButton9ActionPerformed() {
-        // Acción futura
-    }
-
     public void muestra(ControlMenu control) {
         this.controlMenu = control;
         setVisible(true);

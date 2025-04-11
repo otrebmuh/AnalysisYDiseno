@@ -50,11 +50,14 @@ public class VentanaGestionInventario extends JFrame {
             }
         });
 
+        JPanel panelBotones = new JPanel();
+        panelBotones.add(btnCargarCSV);
+        panelBotones.add(btnAgregarInventario);
+
         // Configurar layout
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
-        add(btnCargarCSV, BorderLayout.NORTH);
-        add(btnAgregarInventario, BorderLayout.SOUTH);
+        add(panelBotones, BorderLayout.SOUTH);
     }
 
     public void agregarProducto(String producto, String cantidad) {

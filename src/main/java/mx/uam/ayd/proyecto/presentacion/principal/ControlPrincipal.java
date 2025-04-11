@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.ControlAgregarUsuario;
 import mx.uam.ayd.proyecto.presentacion.listarUsuarios.ControlListarUsuarios;
 import mx.uam.ayd.proyecto.presentacion.loggin.ControlLoggin;
-import mx.uam.ayd.proyecto.presentacion.loggin.VentanaLoggin;
 import mx.uam.ayd.proyecto.presentacion.venta.ControlVenta;
 
 /**

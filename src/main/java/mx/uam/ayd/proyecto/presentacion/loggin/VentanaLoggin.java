@@ -2,12 +2,9 @@ package mx.uam.ayd.proyecto.presentacion.loggin;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import org.springframework.stereotype.Component;
 
-import mx.uam.ayd.proyecto.presentacion.menu.VentanaMenu;
 
 
 @SuppressWarnings("serial")

@@ -1,7 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.mostrarInventario;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.*;

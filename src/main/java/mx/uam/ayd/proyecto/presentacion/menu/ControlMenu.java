@@ -1,6 +1,5 @@
 package mx.uam.ayd.proyecto.presentacion.menu;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
