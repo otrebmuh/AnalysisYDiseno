@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.negocio;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,18 +101,33 @@ public class ServicioVenta {
             throw new IllegalArgumentException("Inventario insuficiente");
         }
 
+        //Comentare esta parte por que en el caso de cancelacion no deberia modificar el inventario
         // Reducir cantidad en inventario
-        Inventario inventario = inventarioOpt.get();
-        inventario.setStock(inventario.getStock() - cantidad);  //En el diagrama de secuencias dice setCantidad pero creo que se refiera al Stock
-        inventarioRepository.save(inventario);
+        //Inventario inventario = inventarioOpt.get();
+        //inventario.setStock(inventario.getStock() - cantidad);  //En el diagrama de secuencias dice setCantidad pero creo que se refiera al Stock
+        //inventarioRepository.save(inventario);
+
+
+
+
 
         // Crear detalle de venta
         DetalleVenta detalle = new DetalleVenta();
         detalle.setVenta(venta);
         detalle.setProducto(producto);
         detalle.setCantidad(cantidad);
+        detalle.setPrecioUnitario(producto.getPrecio());
+
+
+
+
+        detalle.setSubtotal(producto.getPrecio() * cantidad);
 
         detalleVentaRepository.save(detalle);
+
+
+        
+
 
         log.info("Producto agregado: " + producto.getCodigo() + " Cantidad: " + cantidad);
 
@@ -134,31 +150,77 @@ public class ServicioVenta {
 
         Venta venta = ventaOpt.get();
 
-        // Reducir inventario para cada detalle de venta
-        for (DetalleVenta detalle : venta.getDetalles()) {
-            Producto producto = detalle.getProducto();
-            Optional<Inventario> inventarioOpt = inventarioRepository
-                    .findBySucursalAndProducto(venta.getSucursal(), producto);
+        //Se hace la suma de todas las cantidades de los productos que coinciden con la venta
+        List<DetalleVenta> detalles = detalleVentaRepository.findByVenta_IdVenta(idVenta);
+        int totalCantidad = detalles.stream()
+                .mapToInt(DetalleVenta::getCantidad)
+                .sum();
+        
+        //Actualizar Inventario
+        actualizarStockVenta(idVenta);
 
-            if (inventarioOpt.isPresent()) {
-                Inventario inventario = inventarioOpt.get();
-                int cantidad = detalle.getCantidad(); //En el diagrama de secuencias dice getCantidad pero creo que se refiera al Stock
-
-                if (inventario.getStock() < cantidad) {
-                    throw new IllegalArgumentException("Inventario insuficiente");
-                }
-
-                inventario.setStock(inventario.getStock() - cantidad);
-                inventarioRepository.save(inventario);
-            }
-        }
+        //Se hace la suma de los productos que se agregaron en la venta
+        List<DetalleVenta> detalles_total = detalleVentaRepository.findByVenta_IdVenta(idVenta);
+        Double totalPrecio = detalles_total.stream()
+                .mapToDouble(DetalleVenta::getSubtotal)
+                .sum();
+        
+                
+        //Se actualiza la venta con la informacion correspondiente
+        venta.setCantidadProductos(totalCantidad);
+        venta.setPrecioTotal(totalPrecio);
 
         venta.setFinalizada(true);
+        venta.setFecha(new java.util.Date());
         ventaRepository.save(venta);
 
         log.info("Venta finalizada con ID: " + idVenta);
 
         return true;
     }
+
+    public void actualizarStockVenta(Long idVenta) {
+        Venta venta = ventaRepository.findByIdVenta(idVenta);
+        if (venta == null) {
+            return;
+        }
+
+        List<DetalleVenta> detalles = detalleVentaRepository.findByVenta_IdVenta(idVenta);
+
+        for (DetalleVenta detalle : detalles) {
+            Producto producto = detalle.getProducto();
+            Sucursal sucursal = venta.getSucursal();
+            int cantidadVendida = detalle.getCantidad();
+
+            Optional<Inventario> inventarioOpt = inventarioRepository.findBySucursalAndProducto(sucursal, producto);
+
+            if (inventarioOpt.isPresent()) {
+                Inventario inventario = inventarioOpt.get();
+
+                if (inventario.tieneStock(cantidadVendida)) {
+                    inventario.disminuirStock(cantidadVendida);
+                    inventarioRepository.save(inventario);
+                } else {
+                    System.out.println("❌ Stock insuficiente para producto: " + producto.getNombre());
+                }
+            } else {
+                System.out.println("❌ No se encontró inventario para producto " + producto.getNombre()
+                        + " en sucursal " + sucursal.getNombre());
+            }
+        }
+    }
+
+    
+    public Long obtenerUltimoIdDetalleVenta() {
+        Long ultimoId = detalleVentaRepository.findUltimoId();
+        return ultimoId;
+    }
+
+    public void eliminarDetalleVenta(Long idDetalle) {
+        detalleVentaRepository.deleteById(idDetalle-1L);//-1L para que no se elimine el detalle de venta con id 0, ya que no existe
+        log.info("Detalle de venta eliminado con ID: " + idDetalle);
+
+    }
+        
 }
-//Comentario para poder hacer commit despues de haber agregado todos los modelos, repositorios y ServicioVenta
+//Comentario para poder hacer commit despues de haber agregado todos los modelos, repositorios y ServicioVentaS

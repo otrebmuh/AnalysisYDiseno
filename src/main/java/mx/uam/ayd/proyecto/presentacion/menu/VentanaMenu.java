@@ -37,6 +37,11 @@ public class VentanaMenu extends JFrame {
         jLabel2.setText("Farmacia Pahcalli");
 
         jButton1.setText("Realizar Venta");
+        jButton1.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+                controlMenu.mostrarRealizarVenta();
+            }
+        });
 
         jButton2.setText("Inventario de Farmacias");
         jButton2.addActionListener(evt -> controlMenu.mostrarMostrarInventario());
