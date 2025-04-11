@@ -222,7 +222,7 @@ public class ProyectoApplication {
 		empleado3.setCorreoElectronico("gilberto.gonzalez@gmail.com");
 		empleado3.setTelefono("5534567890");
 		empleado3.setTipo(almacenista); // Asignar el tipo "Gerente"
-		empleado3.setSucursal(sucursal3);
+		empleado3.setSucursal(sucursal0);
 		empleadoRepository.save(empleado3);  
 
 		CategoriaProducto categoriaAnalgesicos = new CategoriaProducto();
