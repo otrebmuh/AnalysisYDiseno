@@ -1,0 +1,14 @@
+| Caso No. | Objetivo de prueba | Paso | Precondiciones | Valores de entrada | Valores esperados de salida |
+|----------|-------------------|------|----------------|-------------------|---------------------------|
+| 1 | Comprobar que se inicia una venta correctamente | 1 | - Empleado "Juan Pérez" existe y está activo<br>- Sucursal "Centro" existe y está activa | Abrir ventana de venta | - Ventana se abre<br>- Muestra nombre "Juan Pérez" como cajero<br>- Muestra fecha y hora actual |
+| 2 | Comprobar que se agrega un producto correctamente | 1 | - Venta iniciada<br>- Producto "P001" existe<br>- Hay stock suficiente | - Código: "P001"<br>- Cantidad: 2<br>- Click en "Agregar" | - Producto aparece en la tabla<br>- Muestra subtotal correcto<br>- Actualiza total general |
+| 3 | Comprobar validación de stock | 1 | - Venta iniciada<br>- Producto "P002" existe<br>- Stock disponible: 5 unidades | - Código: "P002"<br>- Cantidad: 10<br>- Click en "Agregar" | Mensaje de error: "Inventario insuficiente" |
+| 4 | Comprobar validación de producto inexistente | 1 | - Venta iniciada<br>- Producto "XXX" no existe | - Código: "XXX"<br>- Cantidad: 1<br>- Click en "Agregar" | Mensaje de error: "Producto no encontrado" |
+| 5 | Comprobar modificación de cantidad | 1 | - Venta iniciada<br>- Producto ya agregado en tabla | - Editar cantidad en tabla: 3 | - Actualiza subtotal del producto<br>- Actualiza total general |
+| 6 | Comprobar eliminación de producto | 1 | - Venta iniciada<br>- Producto en tabla | Click en botón "Eliminar" de la fila | - Solicita confirmación<br>- Elimina producto<br>- Actualiza total |
+| 7 | Comprobar confirmación de venta exitosa | 1 | - Venta iniciada<br>- Al menos un producto en tabla | Click en "Confirmar Venta" | - Mensaje de éxito<br>- Actualiza inventario<br>- Cierra ventana |
+| 8 | Comprobar cancelación de venta | 1 | - Venta iniciada<br>- Productos en tabla | Click en "Cancelar Venta" | - Cierra ventana<br>- No afecta inventario |
+| 9 | Comprobar validación de cantidad | 1 | - Venta iniciada | - Código: "P001"<br>- Cantidad: -1<br>- Click en "Agregar" | Mensaje de error: "Cantidad inválida" |
+| 10 | Comprobar campos vacíos | 1 | - Venta iniciada | - Código: vacío<br>- Cantidad: vacía<br>- Click en "Agregar" | Mensaje de error: "Debe ingresar un código y una cantidad" |
+| 11 | Comprobar límite de stock al modificar | 1 | - Venta iniciada<br>- Producto en tabla<br>- Stock disponible: 5 | Modificar cantidad a 8 en tabla | Mensaje de error y no permite el cambio |
+| 12 | Comprobar cálculo correcto del total | 1 | - Venta iniciada | - Agregar varios productos con diferentes cantidades y precios | Total debe ser suma exacta de subtotales |
