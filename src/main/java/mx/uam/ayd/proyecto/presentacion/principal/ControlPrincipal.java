@@ -62,7 +62,7 @@ public class ControlPrincipal {
 	 * Método que arranca la historia de usuario "realizar venta"
 	 */
 	public void realizarVenta() {
-		controlVenta.inicia();
+		//controlVenta.inicia();
 		controlLoggin.inicia();
 
 	}

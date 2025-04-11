@@ -37,6 +37,11 @@ public class ServicioProducto {
         Optional<Producto> producto = productoRepository.findById(id);
         return producto.orElse(null);
     }
+
+    public Producto obtenerPorCodigo(String codigo){
+        Optional<Producto> producto = productoRepository.findByCodigo(codigo);
+        return producto.orElse(null);
+    }
     
     /**
      * Obtiene un producto por su nombre
@@ -48,11 +53,6 @@ public class ServicioProducto {
         return producto.orElse(null);
     }
 
-    public Producto obtenerPorCodigo(String codigo) {
-        Optional<Producto> producto = productoRepository.findByCodigo(codigo);
-        return producto.orElse(null);
-    }
-    
     /**
      * Registra un nuevo producto
      * @param producto Producto a registrar
