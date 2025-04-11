@@ -35,6 +35,11 @@ public class ServicioSucursal {
         Optional<Sucursal> sucursal = sucursalRepository.findById(id);
         return sucursal.orElse(null);
     }
+
+    public Sucursal obtenerPorNombre(String nombre) {
+        Optional<Sucursal> sucursal = sucursalRepository.findByNombre(nombre);
+        return sucursal.orElse(null);
+    }
     
     /**
      * Registra una nueva sucursal

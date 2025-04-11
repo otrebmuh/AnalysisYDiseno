@@ -63,4 +63,33 @@ public class ServicioInventario {
 
         return inventarios;
     }
+
+    public Inventario obtenerPorSucursalYProducto(Sucursal sucursal, Producto producto) {
+        Optional<Inventario> inventarioOpt = inventarioRepository.findBySucursalAndProducto(sucursal, producto);
+        return inventarioOpt.orElse(null);
+    }
+
+    public void agregarStock(Sucursal sucursal, Producto producto, int cantidad) {
+        Optional<Inventario> inventarioOpt = inventarioRepository.findBySucursalAndProducto(sucursal, producto);
+        Inventario inventario = inventarioOpt.orElse(null);
+        if (inventario == null) {
+            inventario = new Inventario();
+            inventario.setSucursal(sucursal);
+            inventario.setProducto(producto);
+        }
+        inventario.agregarStock(cantidad);
+        inventarioRepository.save(inventario);
+    }
+
+    public void disminuirStock(Sucursal sucursal, Producto producto, int cantidad) {
+        Optional<Inventario> inventarioOpt = inventarioRepository.findBySucursalAndProducto(sucursal, producto);
+        Inventario inventario = inventarioOpt.orElse(null);
+        if (inventario == null) {
+            inventario = new Inventario();
+            inventario.setSucursal(sucursal);
+            inventario.setProducto(producto);
+        }
+        inventario.disminuirStock(cantidad);
+        inventarioRepository.save(inventario);
+    }
 }

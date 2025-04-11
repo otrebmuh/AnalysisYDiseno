@@ -10,7 +10,9 @@ import mx.uam.ayd.proyecto.datos.SolicitudReabastecimientoRepository;
 import mx.uam.ayd.proyecto.datos.DetallesSolicitudRepository;
 import mx.uam.ayd.proyecto.datos.InventarioRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudReabastecimiento;
+import mx.uam.ayd.proyecto.negocio.modelo.Sucursal;
 import mx.uam.ayd.proyecto.negocio.modelo.Inventario;
+import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 import mx.uam.ayd.proyecto.negocio.modelo.DetallesSolicitud;
 
 /**
@@ -29,7 +31,10 @@ public class ServicioSolicitudReabastecimiento {
     private DetallesSolicitudRepository detallesSolicitudRepository; // Se utiliza a través de cascada mediante solicitudRepository
     
     @Autowired
-    private InventarioRepository inventarioRepository;
+    private ServicioInventario servicioInventario;
+
+    @Autowired
+    private ServicioSucursal servicioSucursal;
     
     /**
      * Recupera todas las solicitudes de reabastecimiento no atendidas
@@ -66,7 +71,16 @@ public class ServicioSolicitudReabastecimiento {
      * @return La solicitud actualizada
      */
     public SolicitudReabastecimiento marcaSolicitudComoAtendida(SolicitudReabastecimiento solicitud) {
+
         solicitud.setAtendida(true);
+        List<DetallesSolicitud> detalles = obtenerDetallesSolicitud(solicitud);
+        Sucursal almacen = servicioSucursal.obtenerPorNombre("Almacén General");
+        Sucursal sucursal = solicitud.getSucursal();
+        for(DetallesSolicitud detalle : detalles) {
+            Producto producto = detalle.getProducto();
+            servicioInventario.agregarStock(sucursal, producto, detalle.getCantidad());
+            servicioInventario.disminuirStock(almacen, producto, detalle.getCantidad());
+        }
         return solicitudRepository.save(solicitud);
     }
     
@@ -81,20 +95,18 @@ public class ServicioSolicitudReabastecimiento {
         
         // Obtener los detalles de manera explícita
         List<DetallesSolicitud> detalles = obtenerDetallesSolicitud(solicitud);
+
+        Sucursal almacen = servicioSucursal.obtenerPorNombre("Almacén General");
         
         for(DetallesSolicitud detalle : detalles) {
             // Buscar en inventario el stock del producto
             Integer cantidadEnAlmacen = 0;
-            List<Inventario> inventarios = (List<Inventario>) inventarioRepository.findAll();
+            Producto producto = detalle.getProducto();
             
-            for(Inventario inv : inventarios) {
-                if(inv.getProducto() != null && detalle.getProducto() != null && 
-                   inv.getProducto().getIdProducto().equals(detalle.getProducto().getIdProducto())) {
-                    cantidadEnAlmacen = inv.getStock();
-                    break;
-                }
+            Inventario inventario = servicioInventario.obtenerPorSucursalYProducto(almacen, producto);
+            if (inventario != null) {
+                cantidadEnAlmacen = inventario.getStock();
             }
-            
             cantidades.add(cantidadEnAlmacen);
         }
         
