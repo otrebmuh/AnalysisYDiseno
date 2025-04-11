@@ -24,9 +24,8 @@ public class VistaVenta extends JFrame {
     private JTextField txtBusqueda;
     private ControlVenta control;
     private JLabel lblTotal;
+    private JLabel lblCajero;
     private String codigo;
-
-
 
     public VistaVenta() {
         setTitle("Realizar una venta");
@@ -50,7 +49,7 @@ public class VistaVenta extends JFrame {
         lblDate.setBounds(10, 10, 300, 20);
         headerPanel.add(lblDate);
 
-        JLabel lblCajero = new JLabel("Cajero Responsable: Juan Perez");
+        lblCajero = new JLabel("Cajero Responsable: " );
         lblCajero.setBounds(400, 10, 300, 20);
         headerPanel.add(lblCajero);
 
@@ -223,6 +222,10 @@ public class VistaVenta extends JFrame {
     public void muestra(ControlVenta control) {
         this.control = control;
         setVisible(true);
+    }
+
+    public void setCajeroResponsable(String nombreCajero){
+        lblCajero.setText("Cajero responsable: " + nombreCajero);
     }
 
 

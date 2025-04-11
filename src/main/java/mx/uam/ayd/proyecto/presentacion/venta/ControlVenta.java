@@ -23,6 +23,9 @@ public class ControlVenta {
     @Autowired
     private ServicioProducto servicioProducto;
 
+    private Sucursal sucursal;
+    private Empleado empleado;
+    
     /* 
 
     public ControlVenta() {
@@ -33,9 +36,12 @@ public class ControlVenta {
 
     public void inicia(Sucursal sucursal, Empleado empleado) {
         // Inicializar la vista aquí
-        if (vista == null) {
-            vista = new VistaVenta();
-        }
+        //if (vista == null) {
+            //vista = new VistaVenta();
+        //}
+
+        this.sucursal = sucursal;
+        this.empleado = empleado;
         
         // Hardcoded values for now - these should come from authentication/session
         Long idEmpleado = 1L;
@@ -44,6 +50,7 @@ public class ControlVenta {
         try {
             idVentaActual = servicioVenta.nuevaVenta(empleado.getIdEmpleado(), sucursal.getIdSucursal());
             vista.muestra(this);
+            vista.setCajeroResponsable(empleado.getNombre());
         } catch (IllegalArgumentException e) {
             vista.muestraError("Error al iniciar venta: " + e.getMessage());
         }
