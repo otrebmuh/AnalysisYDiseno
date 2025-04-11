@@ -31,20 +31,11 @@ public class Ingrediente {
     @Setter(AccessLevel.NONE)
     private List<Producto> productos = new ArrayList<>();
 
-    /**
-     * Constructor con parámetros requeridos
-     * @param nombre Nombre del ingrediente (obligatorio)
-     * @param descripcion Descripción del ingrediente (opcional)
-     */
     public Ingrediente(@NonNull String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
-    /**
-     * Agrega un producto al ingrediente
-     * @param producto Producto a agregar
-     */
     public void agregarProducto(Producto producto) {
         if (producto != null) {
             producto.setIngrediente(this);
@@ -52,10 +43,6 @@ public class Ingrediente {
         }
     }
 
-    /**
-     * Elimina un producto del ingrediente
-     * @param producto Producto a eliminar
-     */
     public void eliminarProducto(Producto producto) {
         if (producto != null) {
             producto.setIngrediente(null);
@@ -63,11 +50,12 @@ public class Ingrediente {
         }
     }
 
-    /**
-     * Verifica si el ingrediente es válido
-     * @return true si es válido, false si no
-     */
     public boolean isValid() {
         return nombre != null && !nombre.trim().isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }

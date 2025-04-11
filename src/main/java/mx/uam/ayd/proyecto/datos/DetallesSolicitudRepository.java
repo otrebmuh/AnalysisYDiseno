@@ -8,7 +8,6 @@ import mx.uam.ayd.proyecto.negocio.modelo.DetallesSolicitud;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudReabastecimiento;
 
 public interface DetallesSolicitudRepository extends CrudRepository<DetallesSolicitud, Long> {
-    
     /**
      * Encuentra todos los detalles para una solicitud de reabastecimiento específica
      * 

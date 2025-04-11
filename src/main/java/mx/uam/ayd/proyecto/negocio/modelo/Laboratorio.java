@@ -17,11 +17,14 @@ public class Laboratorio {
     @OneToMany(mappedBy = "laboratorio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Producto> productos;
 
-    // Constructor sin argumentos requerido por JPA
     public Laboratorio() {}
 
-    // Constructor con parámetros
     public Laboratorio(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }
