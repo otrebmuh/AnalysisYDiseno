@@ -27,10 +27,20 @@ public class ControlEliminarProducto {
         ventana.llenaProductos(productos);
 
         // Listener para el botón de eliminar
-        ventana.agregarListenerEliminar(e -> eliminarProducto());
+        ventana.agregarListenerEliminar(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eliminarProducto();
+            }
+        });
 
         // Listener para el botón de cancelar
-        ventana.agregarListenerCancelar(e -> ventana.dispose());
+        ventana.agregarListenerCancelar(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ventana.dispose();  // Cerrar la ventana de eliminación
+            }
+        });
 
         // Mostrar la ventana
         ventana.setVisible(true);
@@ -49,6 +59,11 @@ public class ControlEliminarProducto {
             return;
         }
 
+        // Confirmar la eliminación del producto
+        if (!ventana.confirmarEliminacion(nombre)) {
+            return;
+        }
+
         // Buscar el producto por su nombre
         Producto producto = servicioProducto.obtenerPorNombre(nombre);
         if (producto == null) {
@@ -56,26 +71,19 @@ public class ControlEliminarProducto {
             return;
         }
 
-        // Confirmar la eliminación del producto
-        if (!ventana.confirmarEliminacion(nombre)) {
-            return;
-        }
-
         try {
-            // Intentar eliminar el producto usando el ID
+            // Intentar eliminar el producto
             boolean eliminado = servicioProducto.eliminar(producto.getIdProducto());
 
             if (eliminado) {
                 ventana.mostrarMensaje("Producto eliminado exitosamente.");
-                // Actualizar la lista de productos después de eliminar
-                List<Producto> productosActualizados = servicioProducto.getAll();
-                ventana.llenaProductos(productosActualizados);
+                ventana.dispose();  // Cerrar ventana tras éxito
             } else {
                 ventana.mostrarMensaje("No se pudo eliminar el producto.");
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            ventana.mostrarMensaje("Error: No se pudo eliminar el producto. " + e.getMessage());
+            // Manejo de excepciones si hay problemas con las relaciones de base de datos
+            ventana.mostrarMensaje("Error: No se pudo eliminar el producto porque está relacionado con otros registros.");
         }
     }
 }
