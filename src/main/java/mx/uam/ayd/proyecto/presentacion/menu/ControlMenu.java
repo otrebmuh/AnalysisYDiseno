@@ -79,6 +79,6 @@ public class ControlMenu {
         if(empleado == null) {
             sucursal = sucursalRepository.findByIdSucursal(1L).orElse(null);
         }
-        controladorMostrarRealizarVenta.inicia(sucursal);
+        controladorMostrarRealizarVenta.inicia(sucursal, empleado);
     }
 }

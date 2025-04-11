@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.ServicioProducto;
 import mx.uam.ayd.proyecto.negocio.ServicioVenta;
+import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 import mx.uam.ayd.proyecto.negocio.modelo.Sucursal;
 
@@ -30,7 +31,7 @@ public class ControlVenta {
     }
     */
 
-    public void inicia(Sucursal sucursal) {
+    public void inicia(Sucursal sucursal, Empleado empleado) {
         // Inicializar la vista aquí
         if (vista == null) {
             vista = new VistaVenta();
@@ -41,7 +42,7 @@ public class ControlVenta {
         Long idSucursal = 1L;
         
         try {
-            idVentaActual = servicioVenta.nuevaVenta(idEmpleado, idSucursal);
+            idVentaActual = servicioVenta.nuevaVenta(empleado.getIdEmpleado(), sucursal.getIdSucursal());
             vista.muestra(this);
         } catch (IllegalArgumentException e) {
             vista.muestraError("Error al iniciar venta: " + e.getMessage());
