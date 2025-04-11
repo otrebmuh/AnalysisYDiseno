@@ -131,6 +131,7 @@ public class VentanaVisualizarSolicitudesAbastecimiento extends JFrame {
                 }
             }
         });
+        tablaSolicitudes.updateUI();
     }
     
     /**

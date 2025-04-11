@@ -43,7 +43,7 @@ public class ControlVisualizarSolicitudesAbastecimiento {
      */
     public void revisarSolicitud(SolicitudReabastecimiento solicitud) {
         // Iniciar el controlador de detalles de la solicitud
-        controlDetalles.inicia(solicitud);
+        controlDetalles.inicia(this,solicitud);
     }
     
     /**
@@ -59,6 +59,11 @@ public class ControlVisualizarSolicitudesAbastecimiento {
         ventana.actualizarTabla(solicitudes);
     }
     
+    public void actualizarSolicitudes(){
+        List<SolicitudReabastecimiento> solicitudes = servicioSolicitud.recuperaSolicitudesNoAtendidas();
+        ventana.actualizarTabla(solicitudes);
+    }
+
     /**
      * Método para terminar el caso de uso
      */

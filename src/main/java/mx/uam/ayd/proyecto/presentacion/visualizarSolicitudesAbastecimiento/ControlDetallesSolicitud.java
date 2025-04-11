@@ -27,12 +27,14 @@ public class ControlDetallesSolicitud {
     
     private SolicitudReabastecimiento solicitudActual;
     
+    private ControlVisualizarSolicitudesAbastecimiento control;
     /**
      * Método que inicia la ventana de detalles de una solicitud
      * 
      * @param solicitud la solicitud cuyos detalles se mostrarán
      */
-    public void inicia(SolicitudReabastecimiento solicitud) {
+    public void inicia(ControlVisualizarSolicitudesAbastecimiento control, SolicitudReabastecimiento solicitud) {
+        this.control = control;
         try {
             this.solicitudActual = solicitud;
             
@@ -56,6 +58,7 @@ public class ControlDetallesSolicitud {
      */
     public void marcarComoAtendida() {
         servicioSolicitud.marcaSolicitudComoAtendida(solicitudActual);
+        control.actualizarSolicitudes();
         termina();
     }
     
