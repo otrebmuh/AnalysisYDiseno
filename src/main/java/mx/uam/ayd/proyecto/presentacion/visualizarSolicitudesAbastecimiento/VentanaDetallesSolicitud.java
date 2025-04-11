@@ -3,6 +3,10 @@ package mx.uam.ayd.proyecto.presentacion.visualizarSolicitudesAbastecimiento;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -139,7 +143,7 @@ public class VentanaDetallesSolicitud extends JFrame {
      * @param detalles los detalles de la solicitud a mostrar
      * @param cantidadesEnAlmacen lista de cantidades en almacén para cada producto
      */
-    private void actualizarTabla(List<DetallesSolicitud> detalles, List<Integer> cantidadesEnAlmacen) {
+    public void actualizarTabla(List<DetallesSolicitud> detalles, List<Integer> cantidadesEnAlmacen) {
         // Limpiar la tabla
         modelo.setRowCount(0);
         
@@ -155,5 +159,29 @@ public class VentanaDetallesSolicitud extends JFrame {
             // Agregar fila con los datos
             modelo.addRow(new Object[]{nombreProducto, cantidadEnAlmacen, cantidadSolicitada});
         }
+        // Agregar listener a la tabla para editar la cantidad
+        tablaDetalles.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) { // Solo con un clic
+                    int row = tablaDetalles.getSelectedRow();
+                    if (row >= 0) {
+                        Integer cantidadEnAlmacen = (Integer) modelo.getValueAt(row, 1);
+                        control.editarCantidad(row, cantidadEnAlmacen);
+                    }
+                }
+            }
+        });
+        
+        tablaDetalles.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    int row = tablaDetalles.getSelectedRow();
+                    if (row >= 0) {
+                        Integer cantidadEnAlmacen = (Integer) modelo.getValueAt(row, 1);
+                        control.editarCantidad(row, cantidadEnAlmacen);
+                    }
+                }
+            }
+        });
     }
 }

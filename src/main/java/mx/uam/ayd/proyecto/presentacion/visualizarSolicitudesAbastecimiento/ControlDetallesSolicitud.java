@@ -68,4 +68,49 @@ public class ControlDetallesSolicitud {
     public void termina() {
         ventana.setVisible(false);
     }
+    
+    /**
+     * Método para editar la cantidad de un producto en la solicitud
+     * 
+     * @param row índice de la fila en la tabla
+     * @param cantidadEnAlmacen cantidad disponible en almacén
+     */
+    public void editarCantidad(int row, Integer cantidadEnAlmacen) {
+        // Obtener la cantidad actual
+        Integer cantidadActual = solicitudActual.getDetalles().get(row).getCantidad();
+        
+        // Mostrar el input dialog
+        Integer nuevaCantidad = mostrarInputDialog(cantidadActual, cantidadEnAlmacen);
+        
+        if (nuevaCantidad != null) {
+            // Actualizar el modelo
+            solicitudActual.getDetalles().get(row).setCantidad(nuevaCantidad);
+            servicioSolicitud.guardarSolicitud(solicitudActual);
+            
+            // Actualizar la vista
+            ventana.actualizarTabla(solicitudActual.getDetalles(), 
+                servicioSolicitud.obtenerCantidadesEnAlmacen(solicitudActual));
+        }
+    }
+    
+    private Integer mostrarInputDialog(Integer cantidadActual, Integer cantidadEnAlmacen) {
+        String input = JOptionPane.showInputDialog(ventana, 
+            "Cantidad en Almacén: " + cantidadEnAlmacen + "\n" +
+            "Ingrese la nueva cantidad:", 
+            "Editar Cantidad", 
+            JOptionPane.QUESTION_MESSAGE);
+            
+        if (input != null) {
+            try {
+                int nuevaCantidad = Integer.parseInt(input);
+                return nuevaCantidad;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(ventana, 
+                    "Por favor ingrese un número válido", 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        return null;
+    }
 }

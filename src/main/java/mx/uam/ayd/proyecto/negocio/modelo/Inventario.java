@@ -26,7 +26,7 @@ public class Inventario {
     }
 
     public void disminuirStock(int cantidad) {
-        if (stock != null && cantidad > 0) {
+        if (tieneStock(cantidad)) {
             stock -= cantidad;
         }
     }
