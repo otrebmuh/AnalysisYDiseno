@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import mx.uam.ayd.proyecto.negocio.ServicioProducto;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
+import mx.uam.ayd.proyecto.presentacion.gestionProductos.VentanaGestionProductos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,10 +19,14 @@ public class ControlEliminarProducto {
     @Autowired
     private VentanaEliminarProducto ventana;
 
+    private VentanaGestionProductos ventanaPadre;
+
     /**
-     * Inicia la ventana y carga la lista de productos.
+     * Inicia la ventana de eliminación con referencia a la ventana padre.
      */
-    public void inicia() {
+    public void inicia(VentanaGestionProductos ventanaPadre) {
+        this.ventanaPadre = ventanaPadre;
+
         // Obtener todos los productos
         List<Producto> productos = servicioProducto.getAll();
         ventana.llenaProductos(productos);
@@ -38,33 +43,28 @@ public class ControlEliminarProducto {
         ventana.agregarListenerCancelar(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ventana.dispose();  // Cerrar la ventana de eliminación
+                ventana.dispose();
             }
         });
 
-        // Mostrar la ventana
         ventana.setVisible(true);
     }
 
     /**
-     * Elimina un producto seleccionado de la lista.
+     * Elimina un producto seleccionado y actualiza la tabla en la ventana padre.
      */
     private void eliminarProducto() {
-        // Obtener el nombre del producto seleccionado
         String nombre = ventana.getProductoSeleccionado();
 
-        // Validación de selección
         if (nombre == null || nombre.isEmpty()) {
             ventana.mostrarMensaje("Por favor selecciona un producto.");
             return;
         }
 
-        // Confirmar la eliminación del producto
         if (!ventana.confirmarEliminacion(nombre)) {
             return;
         }
 
-        // Buscar el producto por su nombre
         Producto producto = servicioProducto.obtenerPorNombre(nombre);
         if (producto == null) {
             ventana.mostrarMensaje("No se encontró el producto.");
@@ -72,17 +72,16 @@ public class ControlEliminarProducto {
         }
 
         try {
-            // Intentar eliminar el producto
             boolean eliminado = servicioProducto.eliminar(producto.getIdProducto());
 
             if (eliminado) {
                 ventana.mostrarMensaje("Producto eliminado exitosamente.");
-                ventana.dispose();  // Cerrar ventana tras éxito
+                ventana.dispose();
+                ventanaPadre.actualizarTablaProductos(); // ACTUALIZAR TABLA EN TIEMPO REAL
             } else {
                 ventana.mostrarMensaje("No se pudo eliminar el producto.");
             }
         } catch (Exception e) {
-            // Manejo de excepciones si hay problemas con las relaciones de base de datos
             ventana.mostrarMensaje("Error: No se pudo eliminar el producto porque está relacionado con otros registros.");
         }
     }
