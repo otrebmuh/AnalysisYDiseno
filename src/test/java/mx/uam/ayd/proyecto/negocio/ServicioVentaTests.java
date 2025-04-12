@@ -97,6 +97,7 @@ class ServicioVentaTest {
         
         Producto producto = new Producto();
         producto.setCodigo("123");
+        producto.setPrecio(10.0);
         
         Sucursal sucursal = new Sucursal();
         venta.setSucursal(sucursal);
