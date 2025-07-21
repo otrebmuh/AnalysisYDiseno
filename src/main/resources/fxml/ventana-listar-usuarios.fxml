@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    
+    <top>
+        <VBox spacing="10" style="-fx-padding: 10px;">
+            <Label text="Usuarios Registrados" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        </VBox>
+    </top>
+    
+    <center>
+        <TableView fx:id="tableUsuarios" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn text="ID" fx:id="idColumn"/>
+                <TableColumn text="Nombre" fx:id="nombreColumn"/>
+                <TableColumn text="Apellido" fx:id="apellidoColumn"/>
+                <TableColumn text="Edad" fx:id="edadColumn"/>
+            </columns>
+        </TableView>
+    </center>
+    
+    <bottom>
+        <VBox spacing="10" style="-fx-padding: 10px;">
+            <Button text="Cerrar" onAction="#handleCerrar" 
+                    style="-fx-min-width: 80px; -fx-min-height: 25px;"/>
+        </VBox>
+    </bottom>
+    
+</BorderPane> 

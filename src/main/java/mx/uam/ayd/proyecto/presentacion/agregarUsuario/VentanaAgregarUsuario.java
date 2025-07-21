@@ -1,21 +1,18 @@
 package mx.uam.ayd.proyecto.presentacion.agregarUsuario;
 
 import javafx.application.Platform;
-import javafx.geometry.Insets;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.List;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
@@ -25,9 +22,16 @@ public class VentanaAgregarUsuario {
 
 	private Stage stage;
 	private ControlAgregarUsuario control;
+	
+	@FXML
 	private TextField textFieldNombre;
+	
+	@FXML
 	private TextField textFieldApellido;
+	
+	@FXML
 	private ComboBox<String> comboBoxGrupo;
+	
 	private boolean initialized = false;
 
 	/**
@@ -51,76 +55,39 @@ public class VentanaAgregarUsuario {
 			return;
 		}
 		
-		stage = new Stage();
-		stage.setTitle("Agregar Usuario");
-		
-		// Create UI components
-		Label lblNombre = new Label("Nombre:");
-		Label lblApellido = new Label("Apellido:");
-		Label lblGrupo = new Label("Grupo:");
-		
-		textFieldNombre = new TextField();
-		textFieldApellido = new TextField();
-		comboBoxGrupo = new ComboBox<>();
-		
-		Button btnAgregar = new Button("Agregar");
-		Button btnCancelar = new Button("Cancelar");
-		
-		// Set actions
-		btnAgregar.setOnAction(e -> {
-			if(textFieldNombre.getText().isEmpty() || textFieldApellido.getText().isEmpty()) {
-				muestraDialogoConMensaje("El nombre y el apellido no deben estar vacios");
-			} else {
-				control.agregaUsuario(textFieldNombre.getText(), textFieldApellido.getText(), comboBoxGrupo.getValue());
-			}
-		});
-		
-		btnCancelar.setOnAction(e -> {
-			control.termina();
-		});
-		
-		// Layout
-		GridPane gridPane = new GridPane();
-		gridPane.setPadding(new Insets(10, 10, 10, 10));
-		gridPane.setVgap(10);
-		gridPane.setHgap(10);
-		
-		// Add components to grid
-		gridPane.add(lblNombre, 0, 0);
-		gridPane.add(textFieldNombre, 1, 0);
-		gridPane.add(lblApellido, 0, 1);
-		gridPane.add(textFieldApellido, 1, 1);
-		gridPane.add(lblGrupo, 0, 2);
-		gridPane.add(comboBoxGrupo, 1, 2);
-		
-		// Buttons in HBox
-		HBox buttonBox = new HBox(10);
-		buttonBox.setPadding(new Insets(10, 0, 0, 0));
-		buttonBox.getChildren().addAll(btnAgregar, btnCancelar);
-		
-		// Main layout
-		VBox vbox = new VBox(10);
-		vbox.setPadding(new Insets(10));
-		vbox.getChildren().addAll(gridPane, buttonBox);
-		
-		// Create scene
-		Scene scene = new Scene(vbox, 300, 220);
-		stage.setScene(scene);
-		
-		initialized = true;
+		try {
+			stage = new Stage();
+			stage.setTitle("Agregar Usuario");
+			
+			// Load FXML
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ventana-agregar-usuario.fxml"));
+			loader.setController(this);
+			Scene scene = new Scene(loader.load(), 300, 220);
+			stage.setScene(scene);
+			
+			initialized = true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Establece el controlador asociado a esta ventana
+	 * 
+	 * @param control El controlador asociado
+	 */
+	public void setControlAgregarUsuario(ControlAgregarUsuario control) {
+		this.control = control;
 	}
 	
 	/**
 	 * Muestra la ventana y establece los datos
 	 * 
-	 * @param control El controlador asociado
 	 * @param grupos La lista de grupos disponibles
 	 */
-	public void muestra(ControlAgregarUsuario control, List<Grupo> grupos) {
-		this.control = control;
-		
+	public void muestra(List<Grupo> grupos) {
 		if (!Platform.isFxApplicationThread()) {
-			Platform.runLater(() -> this.muestra(control, grupos));
+			Platform.runLater(() -> this.muestra(grupos));
 			return;
 		}
 		
@@ -181,5 +148,21 @@ public class VentanaAgregarUsuario {
 		} else {
 			stage.hide();
 		}
+	}
+	
+	// FXML Event Handlers
+	
+	@FXML
+	private void handleAgregar() {
+		if(textFieldNombre.getText().isEmpty() || textFieldApellido.getText().isEmpty()) {
+			muestraDialogoConMensaje("El nombre y el apellido no deben estar vacios");
+		} else {
+			control.agregaUsuario(textFieldNombre.getText(), textFieldApellido.getText(), comboBoxGrupo.getValue());
+		}
+	}
+	
+	@FXML
+	private void handleCancelar() {
+		control.termina();
 	}
 }

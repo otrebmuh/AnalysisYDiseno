@@ -2,6 +2,7 @@ package mx.uam.ayd.proyecto.presentacion.listarGrupos;
 
 import java.util.List;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
@@ -23,6 +24,15 @@ public class ControlListarGrupos {
         this.servicioGrupo = servicioGrupo;
         this.ventana = ventana;
     }
+    
+    /**
+     * Método que se ejecuta después de la construcción del bean
+     * y realiza la conexión bidireccional entre el control y la ventana
+     */
+    @PostConstruct
+    public void init() {
+        ventana.setControlListarGrupos(this);
+    }
 
     /**
      * Inicia el caso de uso
@@ -42,6 +52,6 @@ public class ControlListarGrupos {
             log.info("grupo: " + grupo + " con " + grupo.getUsuarios().size() + " usuarios");
         }
         
-        ventana.muestra(this, grupos);
+        ventana.muestra(grupos);
     }
 } 

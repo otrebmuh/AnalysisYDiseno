@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      spacing="10" style="-fx-padding: 15px;">
+    
+    <Label text="Mi Aplicación" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    
+    <Button text="Agregar usuario" onAction="#handleAgregarUsuario" 
+            style="-fx-min-width: 200px; -fx-min-height: 30px;"/>
+    
+    <Button text="Listar usuarios" onAction="#handleListarUsuarios" 
+            style="-fx-min-width: 200px; -fx-min-height: 30px;"/>
+    
+    <Button text="Listar grupos" onAction="#handleListarGrupos" 
+            style="-fx-min-width: 200px; -fx-min-height: 30px;"/>
+    
+</VBox> 

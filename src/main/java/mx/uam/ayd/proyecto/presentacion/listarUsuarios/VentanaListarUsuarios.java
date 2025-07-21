@@ -5,29 +5,43 @@ import java.util.List;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 
 /**
- * Ventana para listar usuarios usando JavaFX
+ * Ventana para listar usuarios usando JavaFX con FXML
  */
 @Component
 public class VentanaListarUsuarios {
 
 	private Stage stage;
+	
+	@FXML
 	private TableView<Usuario> tableUsuarios;
+	
+	@FXML
+	private TableColumn<Usuario, Long> idColumn;
+	
+	@FXML
+	private TableColumn<Usuario, String> nombreColumn;
+	
+	@FXML
+	private TableColumn<Usuario, String> apellidoColumn;
+	
+	@FXML
+	private TableColumn<Usuario, Integer> edadColumn;
+	
 	private ControlListarUsuarios control;
 	private boolean initialized = false;
 
@@ -52,64 +66,45 @@ public class VentanaListarUsuarios {
 			return;
 		}
 		
-		stage = new Stage();
-		stage.setTitle("Lista de Usuarios");
-		
-		// Create UI components
-		Label lblTitulo = new Label("Usuarios Registrados");
-		
-		// Create table
-		tableUsuarios = new TableView<>();
-		
-		// Configure columns
-		TableColumn<Usuario, Long> idColumn = new TableColumn<>("ID");
-		idColumn.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
-		
-		TableColumn<Usuario, String> nombreColumn = new TableColumn<>("Nombre");
-		nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-		
-		TableColumn<Usuario, String> apellidoColumn = new TableColumn<>("Apellido");
-		apellidoColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-		
-		TableColumn<Usuario, Integer> edadColumn = new TableColumn<>("Edad");
-		edadColumn.setCellValueFactory(new PropertyValueFactory<>("edad"));
-		
-		tableUsuarios.getColumns().addAll(idColumn, nombreColumn, apellidoColumn, edadColumn);
-		
-		Button btnCerrar = new Button("Cerrar");
-		btnCerrar.setOnAction(e -> stage.close());
-		
-		// Layout
-		VBox vboxTop = new VBox(10);
-		vboxTop.setPadding(new Insets(10));
-		vboxTop.getChildren().add(lblTitulo);
-		
-		VBox vboxBottom = new VBox(10);
-		vboxBottom.setPadding(new Insets(10));
-		vboxBottom.getChildren().add(btnCerrar);
-		
-		BorderPane borderPane = new BorderPane();
-		borderPane.setTop(vboxTop);
-		borderPane.setCenter(tableUsuarios);
-		borderPane.setBottom(vboxBottom);
-		
-		Scene scene = new Scene(borderPane, 450, 400);
-		stage.setScene(scene);
-		
-		initialized = true;
+		try {
+			stage = new Stage();
+			stage.setTitle("Lista de Usuarios");
+			
+			// Load FXML
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ventana-listar-usuarios.fxml"));
+			loader.setController(this);
+			Scene scene = new Scene(loader.load(), 450, 400);
+			stage.setScene(scene);
+			
+			// Configure columns after FXML is loaded
+			idColumn.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
+			nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+			apellidoColumn.setCellValueFactory(new PropertyValueFactory<>("apellido"));
+			edadColumn.setCellValueFactory(new PropertyValueFactory<>("edad"));
+			
+			initialized = true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Establece el controlador asociado a esta ventana
+	 * 
+	 * @param control El controlador asociado
+	 */
+	public void setControlListarUsuarios(ControlListarUsuarios control) {
+		this.control = control;
 	}
 	
 	/**
 	 * Muestra la ventana y carga los usuarios
 	 * 
-	 * @param control El controlador asociado
 	 * @param usuarios La lista de usuarios a mostrar
 	 */
-	public void muestra(ControlListarUsuarios control, List<Usuario> usuarios) {
-		this.control = control;
-		
+	public void muestra(List<Usuario> usuarios) {
 		if (!Platform.isFxApplicationThread()) {
-			Platform.runLater(() -> this.muestra(control, usuarios));
+			Platform.runLater(() -> this.muestra(usuarios));
 			return;
 		}
 		
@@ -119,5 +114,12 @@ public class VentanaListarUsuarios {
 		tableUsuarios.setItems(data);
 		
 		stage.show();
+	}
+	
+	// FXML Event Handlers
+	
+	@FXML
+	private void handleCerrar() {
+		stage.close();
 	}
 }
