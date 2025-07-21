@@ -1,16 +1,17 @@
 package mx.uam.ayd.proyecto.presentacion.principal;
 
 import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 /**
- * Ventana principal usando JavaFX
+ * Ventana principal usando JavaFX con FXML
  * 
  */
 @Component
@@ -41,59 +42,62 @@ public class VentanaPrincipal {
 			return;
 		}
 		
-		stage = new Stage();
-		stage.setTitle("Mi Aplicación");
-		
-		// Create UI components
-		Label lblMiAplicacion = new Label("Mi Aplicación");
-		
-		Button btnAgregarUsuario = new Button("Agregar usuario");
-		btnAgregarUsuario.setOnAction(e -> {
-			if (control != null) {
-				control.agregarUsuario();
-			}
-		});
-		
-		Button btnListarUsuarios = new Button("Listar usuarios");
-		btnListarUsuarios.setOnAction(e -> {
-			if (control != null) {
-				control.listarUsuarios();
-			}
-		});
-
-		Button btnListarGrupos = new Button("Listar grupos");
-		btnListarGrupos.setOnAction(e -> {
-			if (control != null) {
-				control.listarGrupos();
-			}
-		});
-		
-		// Layout
-		VBox layout = new VBox(10); // 10px spacing
-		layout.getChildren().addAll(lblMiAplicacion, btnAgregarUsuario, btnListarUsuarios, btnListarGrupos);
-		layout.setStyle("-fx-padding: 15px;");
-		
-		// Create scene
-		Scene scene = new Scene(layout, 450, 300);
-		stage.setScene(scene);
-		
-		initialized = true;
+		try {
+			stage = new Stage();
+			stage.setTitle("Mi Aplicación");
+			
+			// Load FXML
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ventana-principal.fxml"));
+			loader.setController(this);
+			Scene scene = new Scene(loader.load(), 450, 300);
+			stage.setScene(scene);
+			
+			initialized = true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
+	public void setControlPrincipal(ControlPrincipal control) {
+		this.control = control;
+	}
 	/**
 	 * Muestra la ventana y establece el control
 	 * 
 	 * @param control El controlador asociado a esta ventana
 	 */
-	public void muestra(ControlPrincipal control) {
-		this.control = control;
+	public void muestra() {
+		//this.control = control;
 		
 		if (!Platform.isFxApplicationThread()) {
-			Platform.runLater(() -> this.muestra(control));
+			Platform.runLater(() -> this.muestra());
 			return;
 		}
 		
 		initializeUI();
 		stage.show();
+	}
+	
+	// FXML Event Handlers
+	
+	@FXML
+	private void handleAgregarUsuario() {
+		if (control != null) {
+			control.agregarUsuario();
+		}
+	}
+	
+	@FXML
+	private void handleListarUsuarios() {
+		if (control != null) {
+			control.listarUsuarios();
+		}
+	}
+	
+	@FXML
+	private void handleListarGrupos() {
+		if (control != null) {
+			control.listarGrupos();
+		}
 	}
 }

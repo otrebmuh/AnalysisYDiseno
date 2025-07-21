@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      spacing="10" style="-fx-padding: 10px;">
+    
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints hgrow="NEVER" minWidth="80" prefWidth="100"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="150" prefWidth="200"/>
+        </columnConstraints>
+        
+        <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="textFieldNombre" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        
+        <Label text="Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="textFieldApellido" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        
+        <Label text="Grupo:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="comboBoxGrupo" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    </GridPane>
+    
+    <HBox spacing="10" style="-fx-padding: 10px 0 0 0;">
+        <Button text="Agregar" onAction="#handleAgregar" 
+                style="-fx-min-width: 80px; -fx-min-height: 25px;"/>
+        <Button text="Cancelar" onAction="#handleCancelar" 
+                style="-fx-min-width: 80px; -fx-min-height: 25px;"/>
+    </HBox>
+    
+</VBox> 

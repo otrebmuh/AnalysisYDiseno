@@ -2,6 +2,7 @@ package mx.uam.ayd.proyecto.presentacion.agregarUsuario;
 
 import java.util.List;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,15 +39,21 @@ public class ControlAgregarUsuario {
 	}
 	
 	/**
+	 * Método que se ejecuta después de la construcción del bean
+	 * y realiza la conexión bidireccional entre el control y la ventana
+	 */
+	@PostConstruct
+	public void init() {
+		ventana.setControlAgregarUsuario(this);
+	}
+	
+	/**
 	 * Inicia la historia de usuario
 	 * 
 	 */
 	public void inicia() {
-		
 		List <Grupo> grupos = servicioGrupo.recuperaGrupos();
-		
-		ventana.muestra(this, grupos);
-		
+		ventana.muestra(grupos);
 	}
 
 	public void agregaUsuario(String nombre, String apellido, String grupo) {

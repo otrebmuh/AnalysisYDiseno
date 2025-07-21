@@ -5,19 +5,18 @@ import java.util.List;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 
@@ -25,7 +24,19 @@ import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 public class VentanaListarGrupos {
 
     private Stage stage;
+    
+    @FXML
     private TableView<Grupo> tableGrupos;
+    
+    @FXML
+    private TableColumn<Grupo, Long> idColumn;
+    
+    @FXML
+    private TableColumn<Grupo, String> nombreColumn;
+    
+    @FXML
+    private TableColumn<Grupo, Integer> usuariosColumn;
+    
     private ControlListarGrupos control;
     private ObservableList<Grupo> gruposData;
     private boolean initialized = false;
@@ -52,65 +63,49 @@ public class VentanaListarGrupos {
             return;
         }
         
-        stage = new Stage();
-        stage.setTitle("Lista de Grupos");
-        
-        // Create UI components
-        Label lblTitulo = new Label("Grupos Registrados");
-        
-        // Create table
-        tableGrupos = new TableView<>();
-        
-        // Configure columns
-        TableColumn<Grupo, Long> idColumn = new TableColumn<>("ID");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("idGrupo"));
-        
-        TableColumn<Grupo, String> nombreColumn = new TableColumn<>("Nombre");
-        nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        
-        TableColumn<Grupo, Integer> usuariosColumn = new TableColumn<>("Número de Usuarios");
-        usuariosColumn.setCellValueFactory(cellData -> {
-            int numUsuarios = cellData.getValue().getUsuarios().size();
-            return new SimpleIntegerProperty(numUsuarios).asObject();
-        });
-        
-        tableGrupos.getColumns().addAll(idColumn, nombreColumn, usuariosColumn);
-        tableGrupos.setItems(gruposData);
-        
-        Button btnCerrar = new Button("Cerrar");
-        btnCerrar.setOnAction(e -> stage.close());
-        
-        // Layout
-        VBox vboxTop = new VBox(10);
-        vboxTop.setPadding(new Insets(10));
-        vboxTop.getChildren().add(lblTitulo);
-        
-        VBox vboxBottom = new VBox(10);
-        vboxBottom.setPadding(new Insets(10));
-        vboxBottom.getChildren().add(btnCerrar);
-        
-        BorderPane borderPane = new BorderPane();
-        borderPane.setTop(vboxTop);
-        borderPane.setCenter(tableGrupos);
-        borderPane.setBottom(vboxBottom);
-        
-        Scene scene = new Scene(borderPane, 450, 400);
-        stage.setScene(scene);
-        
-        initialized = true;
+        try {
+            stage = new Stage();
+            stage.setTitle("Lista de Grupos");
+            
+            // Load FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ventana-listar-grupos.fxml"));
+            loader.setController(this);
+            Scene scene = new Scene(loader.load(), 450, 400);
+            stage.setScene(scene);
+            
+            // Configure columns after FXML is loaded
+            idColumn.setCellValueFactory(new PropertyValueFactory<>("idGrupo"));
+            nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+            usuariosColumn.setCellValueFactory(cellData -> {
+                int numUsuarios = cellData.getValue().getUsuarios().size();
+                return new SimpleIntegerProperty(numUsuarios).asObject();
+            });
+            
+            tableGrupos.setItems(gruposData);
+            
+            initialized = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Establece el controlador asociado a esta ventana
+     * 
+     * @param control El controlador asociado
+     */
+    public void setControlListarGrupos(ControlListarGrupos control) {
+        this.control = control;
     }
     
     /**
      * Muestra la ventana y carga los grupos
      * 
-     * @param control El controlador asociado
      * @param grupos La lista de grupos a mostrar
      */
-    public void muestra(ControlListarGrupos control, List<Grupo> grupos) {
-        this.control = control;
-        
+    public void muestra(List<Grupo> grupos) {
         if (!Platform.isFxApplicationThread()) {
-            Platform.runLater(() -> this.muestra(control, grupos));
+            Platform.runLater(() -> this.muestra(grupos));
             return;
         }
         
@@ -127,5 +122,12 @@ public class VentanaListarGrupos {
         if (!stage.isShowing()) {
             stage.show();
         }
+    }
+    
+    // FXML Event Handlers
+    
+    @FXML
+    private void handleCerrar() {
+        stage.close();
     }
 } 
