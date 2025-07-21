@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.3</version>
+		<version>3.2.12</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>mx.uam.ayd</groupId>
@@ -15,8 +15,8 @@
 	<description>Arquitectura de base para el proyecto</description>
 
 	<properties>
-		<java.version>11</java.version>
-		<javafx.version>17.0.2</javafx.version>
+		<java.version>17</java.version>
+		<javafx.version>21.0.2</javafx.version>
 		<jacoco.minimum.coverage>0.80</jacoco.minimum.coverage>
 	</properties>
 
@@ -75,31 +75,25 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- TestFX for JavaFX testing -->
 		<dependency>
 			<groupId>org.testfx</groupId>
 			<artifactId>testfx-junit5</artifactId>
-			<version>4.0.16-alpha</version>
+			<version>4.0.17</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.testfx</groupId>
 			<artifactId>openjfx-monocle</artifactId>
-			<version>8u76-b04</version>
+			<version>jdk-12.0.1+2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.testfx</groupId>
 			<artifactId>testfx-core</artifactId>
-			<version>4.0.16-alpha</version>
+			<version>4.0.17</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -109,6 +103,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 			<plugin>
                 <groupId>org.openjfx</groupId>

@@ -72,7 +72,7 @@ public class ServicioUsuario {
 		// Se validaron correctamente las reglas de negocio
 		
 		log.info("Agregando usuario nombre: "+nombre+" apellido:"+apellido);
-		
+
 		// Crea el usuario
 		
 		usuario = new Usuario();

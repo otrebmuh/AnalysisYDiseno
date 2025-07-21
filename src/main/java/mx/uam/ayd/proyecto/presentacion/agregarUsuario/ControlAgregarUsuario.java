@@ -55,10 +55,6 @@ public class ControlAgregarUsuario {
 			servicioUsuario.agregaUsuario(nombre, apellido, grupo);
 			ventana.muestraDialogoConMensaje("Usuario agregado exitosamente");
 			
-			// Notificar a la ventana de listar grupos que hubo un cambio
-			if (controlListarGrupos != null) {
-				controlListarGrupos.actualizaDatos();
-			}
 			
 		} catch(Exception ex) {
 			ventana.muestraDialogoConMensaje("Error al agregar usuario: "+ex.getMessage());
