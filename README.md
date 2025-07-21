@@ -118,3 +118,5 @@ Este proyecto ha sido migrado de Spring Boot 2.7.3 a 3.2.12. Los principales cam
 ## Licencia
 
 Este proyecto es parte del curso de Análisis y Diseño de Software.
+
+Contactar a Humberto Cervantes hcm@xanum.uam.mx
