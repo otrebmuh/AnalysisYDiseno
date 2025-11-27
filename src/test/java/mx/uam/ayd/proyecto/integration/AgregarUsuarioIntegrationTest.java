@@ -1,5 +1,8 @@
 package mx.uam.ayd.proyecto.integration;
 
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,7 +19,9 @@ import mx.uam.ayd.proyecto.negocio.ServicioUsuario;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 
-public class AgregarUsuarioIntegrationTest extends BaseIntegrationTest {
+@SpringBootTest
+@ActiveProfiles("test")
+public class AgregarUsuarioIntegrationTest {
 
     @Autowired
     private ServicioUsuario servicioUsuario;
