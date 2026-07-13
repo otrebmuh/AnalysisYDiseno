@@ -101,6 +101,7 @@ public class ServicioUsuario {
 		
 		List <Usuario> usuarios = new ArrayList<>();
 		
+		 
 		for(Usuario usuario:usuarioRepository.findAll()) {
 			usuarios.add(usuario);
 		}
