@@ -4,13 +4,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-
 public class Producto {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice a Spring que genere el id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idProducto;
 
     private String nombre;
@@ -21,61 +24,77 @@ public class Producto {
 
     private String marca;
 
-    //private categoria objeto;
-    /**
-     * @return the idProducto
-     */
+    // Constructor vacío requerido por JPA
+    public Producto() {
+    }
+
     public long getIdProducto() {
         return idProducto;
     }
 
-    /**
-     * @param idProducto the idUsuario to set
-     */
     public void setIdProducto(long idProducto) {
         this.idProducto = idProducto;
     }
 
-    /**
-     * @return the nombre
-     */
     public String getNombre() {
         return nombre;
     }
 
-    /**
-     * @param nombre the nombre to set
-     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    /**
-     * @return the apellido
-     */
-    public String gettipoProducto() {
+    public String getTipoProducto() {
         return tipoProducto;
     }
 
-    /**
-     * @param tipoProducto the apellido to set
-     */
-    public void settipoProducto(String tipoProducto) {
+    public void setTipoProducto(String tipoProducto) {
         this.tipoProducto = tipoProducto;
     }
 
-    /**
-     * @return the edad
-     */
     public Double getPrecio() {
         return precio;
     }
 
-    /**
-     * @param precio the edad to set
-     */
-    public Double setPrecio(Double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
-        return precio;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Producto other = (Producto) obj;
+
+        return idProducto == other.idProducto;
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(idProducto);
+    }
+
+    @Override
+    public String toString() {
+        return "Producto{" + "idProducto=" + idProducto +", nombre='" + nombre + '\'' +", tipoProducto='" + tipoProducto + '\'' +", precio=" + precio +", marca='" + marca + '\'' +'}';
     }
 }
