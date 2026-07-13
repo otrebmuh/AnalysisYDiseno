@@ -12,18 +12,18 @@ import java.util.Objects;
  * 
  * @author Lopez Flores Kevin Dydier 
  */
-@Entity // Le dice a Spring que esta es una entidad persistente
+@Entity 
 public class Venta {
 
-    @Id // El identificador único
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincrementable en la BD
     private long idVenta;
 
     private double total;
 
-    private LocalDateTime fecha; // Corrección: Usar tipos de fecha reales en lugar de String
+    private LocalDateTime fecha; 
 
-    private int idVendedor; // Representa el ID del usuario/empleado que realizó la venta
+    private int idVendedor; 
 
     /**
      * Constructor vacío requerido por JPA
@@ -60,28 +60,28 @@ public class Venta {
     }
 
     /**
-     * @return the fecha
+     * @return 
      */
     public LocalDateTime getFecha() {
         return fecha;
     }
 
     /**
-     * @param fecha the fecha to set
+     * @param fecha 
      */
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
     /**
-     * @return the idVendedor
+     * @return 
      */
     public int getIdVendedor() {
         return idVendedor;
     }
 
     /**
-     * @param idVendedor the idVendedor to set
+     * @param idVendedor 
      */
     public void setIdVendedor(int idVendedor) {
         this.idVendedor = idVendedor;
