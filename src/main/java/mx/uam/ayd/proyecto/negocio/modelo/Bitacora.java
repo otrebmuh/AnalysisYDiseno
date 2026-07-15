@@ -11,74 +11,67 @@ import jakarta.persistence.Id;
  * 
  * @author Larios Nepomuseno Yamelin
  */
-@Entity 
 
+@Entity
 public class Bitacora {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice a Spring que genere el id
-    private int idRegistro;
-    private int Devolucion;
-    private int Producto;
-    //private Date fechaHora;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Genera automáticamente el ID en la BD
+    private int idDevolucion;
+    
+    private int idProducto;
     private int cantidad;
     private String motivo;
-    private String descripcion;
+    private double precioAnterior;
+    private double precioNuevo;
 
-    //private categoria objeto;
-    /**
-     * @return the idRegistro
-     */
-    public int getIdRegistro() {
-        return idRegistro;
+    // --- GETTERS Y SETTERS ---
+
+    public int getIdDevolucion() {
+        return idDevolucion;
     }
 
-    /**
-     * @param idRegistro the idRegistro to set
-     */
-    public void setIdRegistro(int idRegistro) {
-        this.idRegistro = idRegistro;
+    public void setIdDevolucion(int idDevolucion) {
+        this.idDevolucion = idDevolucion;
     }
 
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
+    public int getIdProducto() {
+        return idProducto;
     }
 
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
-    /**
-     * @return the apellido
-     */
-    public String gettipoProducto() {
-        return tipoProducto;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    /**
-     * @param tipoProducto the apellido to set
-     */
-    public void settipoProducto(String tipoProducto) {
-        this.tipoProducto = tipoProducto;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
-    /**
-     * @return the edad
-     */
-    public Double getPrecio() {
-        return precio;
+    public String getMotivo() {
+        return motivo;
     }
 
-    /**
-     * @param precio the edad to set
-     */
-    public Double setPrecio(Double precio) {
-        this.precio = precio;
-        return precio;
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public double getPrecioAnterior() {
+        return precioAnterior;
+    }
+
+    public void setPrecioAnterior(double precioAnterior) {
+        this.precioAnterior = precioAnterior;
+    }
+
+    public double getPrecioNuevo() {
+        return precioNuevo;
+    }
+
+    public void setPrecioNuevo(double precioNuevo) {
+        this.precioNuevo = precioNuevo;
     }
 }
