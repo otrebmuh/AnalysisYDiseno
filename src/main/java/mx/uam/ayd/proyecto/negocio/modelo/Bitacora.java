@@ -1,5 +1,7 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
+import org.springframework.context.annotation.Primary;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,25 +9,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
- * Entidad de negocio DescripcionVenta (Detalle de la venta)
+ * Entidad de negocio Bitacora (Registro de actividades)
  * 
  * @author Larios Nepomuseno Yamelin
  */
 @Entity
 public class Bitacora {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //Define la llave primaria para que el sistema sepa qué registro está modificando o eliminando.
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //crear el ID a la base de datos
     private long idDevolucion;
-
     private int idProducto;
-
     private int cantidad;
-
     private String motivo;
-
     private Double precioAnterior;
-
     private Double precioNuevo;
 
     // Constructor vacío requerido por JPA
