@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 
 import jakarta.persistence.Id;
 
-@Entity
+@Entity Larios Nepomuseno Yamelin
 
 public class Bitacora {
 
