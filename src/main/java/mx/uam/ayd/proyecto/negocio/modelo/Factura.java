@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 /**
  * Entidad de negocio Usuario
  *
- * @author humbertocervantes
+ * @author JAVITOS 
  *
  */
 @Entity // Esto le dice a Spring que esta es una entidad persistente

@@ -3,35 +3,51 @@ package mx.uam.ayd.proyecto.negocio.modelo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-
 import jakarta.persistence.Id;
 
-@Entity
+/**
+ * Entidad de negocio Producto
+ * * @author Kevin Dydier López Flores
+ */
+@Entity // Define esta clase como una entidad persistente en la BD
+public class Producto {
 
-public class Bitacora {
+    @Id // Llave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincrementable
+    private long idProducto;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice a Spring que genere el id
-    private int idRegistro;
-    private int Devolucion;
-    private int Producto;
-    //private Date fechaHora;
-    private int cantidad;
-    private String motivo;
-    private String descripcion;
+    private String nombre;
 
-    //private categoria objeto;
+    private String tipoProducto; // Corrección: camelCase
+
+    private double precio; // Corrección: uso de double para precisión de dinero
+
+    private String marca;
+
+    private String categoria;
+
+    private int idCatalogo; // Corrección: camelCase
+
+    private int stock; // Representa las existencias físicas del producto
+
     /**
-     * @return the idRegistro
+     * Constructor vacío requerido por JPA
      */
-    public int getIdRegistro() {
-        return idRegistro;
+    public Producto() {
     }
 
     /**
-     * @param idRegistro the idRegistro to set
+     * @return the idProducto
      */
-    public void setIdRegistro(int idRegistro) {
-        this.idRegistro = idRegistro;
+    public long getIdProducto() {
+        return idProducto;
+    }
+
+    /**
+     * @param idProducto the idProducto to set
+     */
+    public void setIdProducto(long idProducto) {
+        this.idProducto = idProducto;
     }
 
     /**
@@ -49,31 +65,113 @@ public class Bitacora {
     }
 
     /**
-     * @return the apellido
+     * @return the tipoProducto
      */
-    public String gettipoProducto() {
+    public String getTipoProducto() {
         return tipoProducto;
     }
 
     /**
-     * @param tipoProducto the apellido to set
+     * @param tipoProducto the tipoProducto to set
      */
-    public void settipoProducto(String tipoProducto) {
+    public void setTipoProducto(String tipoProducto) {
         this.tipoProducto = tipoProducto;
     }
 
     /**
-     * @return the edad
+     * @return the precio
      */
-    public Double getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
     /**
-     * @param precio the edad to set
+     * @param precio the precio to set
      */
-    public Double setPrecio(Double precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
-        return precio;
+    }
+
+    /**
+     * @return the marca
+     */
+    public String getMarca() {
+        return marca;
+    }
+
+    /**
+     * @param marca the marca to set
+     */
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    /**
+     * @return the categoria
+     */
+    public String getCategoria() {
+        return categoria;
+    }
+
+    /**
+     * @param categoria the categoria to set
+     */
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    /**
+     * @return the idCatalogo
+     */
+    public int getIdCatalogo() {
+        return idCatalogo;
+    }
+
+    /**
+     * @param idCatalogo the idCatalogo to set
+     */
+    public void setIdCatalogo(int idCatalogo) {
+        this.idCatalogo = idCatalogo;
+    }
+
+    /**
+     * @return the stock
+     */
+    public int getStock() {
+        return stock;
+    }
+
+    /**
+     * @param stock the stock to set
+     */
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Producto other = (Producto) obj;
+        return idProducto == other.idProducto;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (31 * idProducto);
+    }
+
+    @Override
+    public String toString() {
+        return "Producto [idProducto=" + idProducto + ", nombre=" + nombre + ", tipoProducto=" + tipoProducto 
+                + ", precio=" + precio + ", marca=" + marca + ", categoria=" + categoria 
+                + ", idCatalogo=" + idCatalogo + ", stock=" + stock + "]";
     }
 }
