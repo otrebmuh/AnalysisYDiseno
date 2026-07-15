@@ -1,79 +1,109 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
+import org.springframework.context.annotation.Primary;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 import jakarta.persistence.Id;
 
-@Entity Larios Nepomuseno Yamelin
-
+/**
+ * Entidad de negocio Bitacora (Registro de actividades)
+ * 
+ * @author Larios Nepomuseno Yamelin
+ */
+@Entity
 public class Bitacora {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice a Spring que genere el id
-    private int idRegistro;
-    private int Devolucion;
-    private int Producto;
-    //private Date fechaHora;
+    @Id //llave primaria para que el sistema sepa qué registro está modificando o eliminando.
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //crear el ID a la base de datos
+    private long idDevolucion;
+    private int idProducto;
     private int cantidad;
     private String motivo;
-    private String descripcion;
+    private Double precioAnterior;
+    private Double precioNuevo;
 
-    //private categoria objeto;
-    /**
-     * @return the idRegistro
-     */
-    public int getIdRegistro() {
-        return idRegistro;
+    // Constructor vacío requerido por JPA
+    public Bitacora() {
     }
 
-    /**
-     * @param idRegistro the idRegistro to set
-     */
-    public void setIdRegistro(int idRegistro) {
-        this.idRegistro = idRegistro;
+    public long getIdDevolucion() {
+        return idDevolucion;
     }
 
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
+    public void setIdDevolucion(long idDevolucion) {
+        this.idDevolucion = idDevolucion;
     }
 
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public int getIdProducto() {
+        return idProducto;
     }
 
-    /**
-     * @return the apellido
-     */
-    public String gettipoProducto() {
-        return tipoProducto;
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
-    /**
-     * @param tipoProducto the apellido to set
-     */
-    public void settipoProducto(String tipoProducto) {
-        this.tipoProducto = tipoProducto;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    /**
-     * @return the edad
-     */
-    public Double getPrecio() {
-        return precio;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
-    /**
-     * @param precio the edad to set
-     */
-    public Double setPrecio(Double precio) {
-        this.precio = precio;
-        return precio;
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public Double getPrecioAnterior() {
+        return precioAnterior;
+    }
+
+    public void setPrecioAnterior(Double precioAnterior) {
+        this.precioAnterior = precioAnterior;
+    }
+
+    public Double getPrecioNuevo() {
+        return precioNuevo;
+    }
+
+    public void setPrecioNuevo(Double precioNuevo) {
+        this.precioNuevo = precioNuevo;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Bitacora other = (Bitacora) obj;
+
+        return idDevolucion == other.idDevolucion;
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(idDevolucion);
+    }
+
+    @Override
+    public String toString() {
+        return "Bitacora{" + "idDevolucion=" + idDevolucion + ", idProducto=" + idProducto + ", cantidad=" + cantidad + ", motivo='" + motivo + '\'' + ", precioAnterior=" + precioAnterior + ", precioNuevo=" + precioNuevo + '}';
     }
 }
