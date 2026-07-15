@@ -4,11 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+/**
+ * Entidad de negocio Producto
+ *
+ * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
+ *
+ */
 @Entity
 public class Producto {
 
