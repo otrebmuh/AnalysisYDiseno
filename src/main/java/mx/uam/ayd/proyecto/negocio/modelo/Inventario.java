@@ -6,127 +6,103 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
- * Entidad de negocio Pedido
+ * Entidad de negocio Inventario
  *
  * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
  *
  */
 @Entity // Esto le dice a Spring que esta es una entidad persistente
-public class Pedido {
+public class Inventario {
 
     @Id // Esto le dice a Spring que este es el identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice a Spring que genere el id
-    private long idPedido;
+    private long idProducto;
 
-    private String numeroPedido;
+    private int existenciaActual;
 
-    private int idProducto;
+    private int existenciaDisponible;
 
-    private String fecha;
-
-    private int cantidad;
-
-    private double total;
-
-    private int idProveedor;
-
-    /**
-     * @return the idPedido
-     */
-    public long getIdPedido() {
-        return idPedido;
-    }
-
-    /**
-     * @param idPedido the idPedido to set
-     */
-    public void setIdPedido(long idPedido) {
-        this.idPedido = idPedido;
-    }
-
-    /**
-     * @return the numeroPedido
-     */
-    public String getNumeroPedido() {
-        return numeroPedido;
-    }
-
-    /**
-     * @param numeroPedido the numeroPedido to set
-     */
-    public void setNumeroPedido(String numeroPedido) {
-        this.numeroPedido = numeroPedido;
-    }
+    private int stockMinimo;
 
     /**
      * @return the idProducto
      */
-    public int getIdProducto() {
+    public long getIdProducto() {
         return idProducto;
     }
 
     /**
      * @param idProducto the idProducto to set
      */
-    public void setIdProducto(int idProducto) {
+    public void setIdProducto(long idProducto) {
         this.idProducto = idProducto;
     }
 
     /**
-     * @return the fecha
+     * @return the existenciaActual
      */
-    public String getFecha() {
-        return fecha;
+    public int getExistenciaActual() {
+        return existenciaActual;
     }
 
     /**
-     * @param fecha the fecha to set
+     * @param existenciaActual the existenciaActual to set
      */
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setExistenciaActual(int existenciaActual) {
+        this.existenciaActual = existenciaActual;
     }
 
     /**
-     * @return the cantidad
+     * @return the existenciaDisponible
      */
-    public int getCantidad() {
-        return cantidad;
+    public int getExistenciaDisponible() {
+        return existenciaDisponible;
     }
 
     /**
-     * @param cantidad the cantidad to set
+     * @param existenciaDisponible the existenciaDisponible to set
      */
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setExistenciaDisponible(int existenciaDisponible) {
+        this.existenciaDisponible = existenciaDisponible;
     }
 
     /**
-     * @return the total
+     * @return the stockMinimo
      */
-    public double getTotal() {
-        return total;
+    public int getStockMinimo() {
+        return stockMinimo;
     }
 
     /**
-     * @param total the total to set
+     * @param stockMinimo the stockMinimo to set
      */
-    public void setTotal(double total) {
-        this.total = total;
+    public void setStockMinimo(int stockMinimo) {
+        this.stockMinimo = stockMinimo;
+    }
+
+    // ==========================================
+    // Métodos de negocio requeridos por el UML
+    // ==========================================
+
+    /**
+     * Método para obtener la existencia actual
+     * @return la existencia actual del inventario
+     */
+    public int obtenerExistenciaActual() {
+        return this.existenciaActual;
     }
 
     /**
-     * @return the idProveedor
+     * Método para actualizar la existencia
+     * @param cantidad el nuevo valor para la existencia actual
      */
-    public int getIdProveedor() {
-        return idProveedor;
+    public void actualizarExistencia(int cantidad) {
+        this.existenciaActual = cantidad;
     }
 
-    /**
-     * @param idProveedor the idProveedor to set
-     */
-    public void setIdProveedor(int idProveedor) {
-        this.idProveedor = idProveedor;
-    }
+    // ==========================================
+    // Métodos estándar (equals, hashCode, toString)
+    // ==========================================
 
     @Override
     public boolean equals(Object obj) {
@@ -139,19 +115,18 @@ public class Pedido {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Pedido other = (Pedido) obj;
-        return idPedido == other.idPedido;
+        Inventario other = (Inventario) obj;
+        return idProducto == other.idProducto;
     }
 
     @Override
     public int hashCode() {
-        return (int) (31 * idPedido);
+        return (int) (31 * idProducto);
     }
 
     @Override
     public String toString() {
-        return "Pedido [idPedido=" + idPedido + ", numeroPedido=" + numeroPedido + ", idProducto=" + idProducto
-                + ", fecha=" + fecha + ", cantidad=" + cantidad + ", total=" + total + ", idProveedor=" + idProveedor
-                + "]";
+        return "Inventario [idProducto=" + idProducto + ", existenciaActual=" + existenciaActual
+                + ", existenciaDisponible=" + existenciaDisponible + ", stockMinimo=" + stockMinimo + "]";
     }
 }
