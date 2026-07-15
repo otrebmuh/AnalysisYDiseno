@@ -16,7 +16,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Bitacora {
 
-    @Id //Define la llave primaria para que el sistema sepa qué registro está modificando o eliminando.
+    @Id //llave primaria para que el sistema sepa qué registro está modificando o eliminando.
     @GeneratedValue(strategy = GenerationType.IDENTITY) //crear el ID a la base de datos
     private long idDevolucion;
     private int idProducto;
