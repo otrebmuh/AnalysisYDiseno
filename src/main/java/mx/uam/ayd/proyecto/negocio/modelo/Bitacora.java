@@ -6,7 +6,12 @@ import jakarta.persistence.GenerationType;
 
 import jakarta.persistence.Id;
 
-@Entity Larios Nepomuseno Yamelin
+/**
+ * Entidad de negocio DescripcionVenta (Detalle de la venta)
+ * 
+ * @author Larios Nepomuseno Yamelin
+ */
+@Entity 
 
 public class Bitacora {
 
