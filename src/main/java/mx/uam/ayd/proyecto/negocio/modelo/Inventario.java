@@ -1,109 +1,157 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
-import org.springframework.context.annotation.Primary;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-
 import jakarta.persistence.Id;
 
 /**
- * Entidad de negocio Bitacora (Registro de actividades)
- * 
- * @author Larios Nepomuseno Yamelin
+ * Entidad de negocio Pedido
+ *
+ * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
+ *
  */
-@Entity
-public class Bitacora {
+@Entity // Esto le dice a Spring que esta es una entidad persistente
+public class Pedido {
 
-    @Id //llave primaria para que el sistema sepa qué registro está modificando o eliminando.
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //crear el ID a la base de datos
-    private long idDevolucion;
+    @Id // Esto le dice a Spring que este es el identificador
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice a Spring que genere el id
+    private long idPedido;
+
+    private String numeroPedido;
+
     private int idProducto;
+
+    private String fecha;
+
     private int cantidad;
-    private String motivo;
-    private Double precioAnterior;
-    private Double precioNuevo;
 
-    // Constructor vacío requerido por JPA
-    public Bitacora() {
+    private double total;
+
+    private int idProveedor;
+
+    /**
+     * @return the idPedido
+     */
+    public long getIdPedido() {
+        return idPedido;
     }
 
-    public long getIdDevolucion() {
-        return idDevolucion;
+    /**
+     * @param idPedido the idPedido to set
+     */
+    public void setIdPedido(long idPedido) {
+        this.idPedido = idPedido;
     }
 
-    public void setIdDevolucion(long idDevolucion) {
-        this.idDevolucion = idDevolucion;
+    /**
+     * @return the numeroPedido
+     */
+    public String getNumeroPedido() {
+        return numeroPedido;
     }
 
+    /**
+     * @param numeroPedido the numeroPedido to set
+     */
+    public void setNumeroPedido(String numeroPedido) {
+        this.numeroPedido = numeroPedido;
+    }
+
+    /**
+     * @return the idProducto
+     */
     public int getIdProducto() {
         return idProducto;
     }
 
+    /**
+     * @param idProducto the idProducto to set
+     */
     public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
     }
 
+    /**
+     * @return the fecha
+     */
+    public String getFecha() {
+        return fecha;
+    }
+
+    /**
+     * @param fecha the fecha to set
+     */
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    /**
+     * @return the cantidad
+     */
     public int getCantidad() {
         return cantidad;
     }
 
+    /**
+     * @param cantidad the cantidad to set
+     */
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
-    public String getMotivo() {
-        return motivo;
+    /**
+     * @return the total
+     */
+    public double getTotal() {
+        return total;
     }
 
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
+    /**
+     * @param total the total to set
+     */
+    public void setTotal(double total) {
+        this.total = total;
     }
 
-    public Double getPrecioAnterior() {
-        return precioAnterior;
+    /**
+     * @return the idProveedor
+     */
+    public int getIdProveedor() {
+        return idProveedor;
     }
 
-    public void setPrecioAnterior(Double precioAnterior) {
-        this.precioAnterior = precioAnterior;
-    }
-
-    public Double getPrecioNuevo() {
-        return precioNuevo;
-    }
-
-    public void setPrecioNuevo(Double precioNuevo) {
-        this.precioNuevo = precioNuevo;
+    /**
+     * @param idProveedor the idProveedor to set
+     */
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
     @Override
     public boolean equals(Object obj) {
-
         if (this == obj) {
             return true;
         }
-
         if (obj == null) {
             return false;
         }
-
         if (getClass() != obj.getClass()) {
             return false;
         }
-
-        Bitacora other = (Bitacora) obj;
-
-        return idDevolucion == other.idDevolucion;
+        Pedido other = (Pedido) obj;
+        return idPedido == other.idPedido;
     }
 
     @Override
     public int hashCode() {
-        return Long.hashCode(idDevolucion);
+        return (int) (31 * idPedido);
     }
 
     @Override
     public String toString() {
-        return "Bitacora{" + "idDevolucion=" + idDevolucion + ", idProducto=" + idProducto + ", cantidad=" + cantidad + ", motivo='" + motivo + '\'' + ", precioAnterior=" + precioAnterior + ", precioNuevo=" + precioNuevo + '}';
+        return "Pedido [idPedido=" + idPedido + ", numeroPedido=" + numeroPedido + ", idProducto=" + idProducto
+                + ", fecha=" + fecha + ", cantidad=" + cantidad + ", total=" + total + ", idProveedor=" + idProveedor
+                + "]";
     }
 }
