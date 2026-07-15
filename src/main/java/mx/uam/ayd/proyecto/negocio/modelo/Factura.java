@@ -6,39 +6,25 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
- * Entidad de negocio Usuario
+ * Entidad de negocio Factura
  *
- * @author humbertocervantes
+ * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
  *
  */
 @Entity // Esto le dice a Spring que esta es una entidad persistente
-
 public class Factura {
 
     @Id // Esto le dice a Spring que este es el identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice a Spring que genere el id
     private long idFactura;
 
-    private String nombre;
+    private int idProveedor;
 
-    private Double montoTotal;
+    private double montoTotal;
 
-    private Double saldoPendiente;
+    private double saldoPendiente;
 
-    //  private String status
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    private String estado;
 
     /**
      * @return the idFactura
@@ -55,34 +41,61 @@ public class Factura {
     }
 
     /**
+     * @return the idProveedor
+     */
+    public int getIdProveedor() {
+        return idProveedor;
+    }
+
+    /**
+     * @param idProveedor the idProveedor to set
+     */
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
+    /**
      * @return the montoTotal
      */
-    public Double getmontoTotal() {
+    public double getMontoTotal() {
         return montoTotal;
     }
 
     /**
      * @param montoTotal the montoTotal to set
      */
-    public Double setmontoTotal(Double montoTotal) {
-        return montoTotal;
+    public void setMontoTotal(double montoTotal) {
+        this.montoTotal = montoTotal;
     }
 
     /**
      * @return the saldoPendiente
      */
-    public Double getsaldoPendiente() {
+    public double getSaldoPendiente() {
         return saldoPendiente;
     }
 
     /**
      * @param saldoPendiente the saldoPendiente to set
      */
-    public Double setsaldoPendiente(Double montoTotal) {
-        return saldoPendiente;
+    public void setSaldoPendiente(double saldoPendiente) {
+        this.saldoPendiente = saldoPendiente;
     }
 
-    /*
+    /**
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -94,17 +107,18 @@ public class Factura {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Usuario other = (Usuario) obj;
-        return idUsuario == other.idUsuario;
+        Factura other = (Factura) obj;
+        return idFactura == other.idFactura;
     }
 
     @Override
     public int hashCode() {
-        return (int) (31 * idUsuario);
+        return (int) (31 * idFactura);
     }
 
     @Override
     public String toString() {
-        return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + "]";
-    }*/
+        return "Factura [idFactura=" + idFactura + ", idProveedor=" + idProveedor + ", montoTotal=" + montoTotal
+                + ", saldoPendiente=" + saldoPendiente + ", estado=" + estado + "]";
+    }
 }
