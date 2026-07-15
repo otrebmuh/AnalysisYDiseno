@@ -3,77 +3,139 @@ package mx.uam.ayd.proyecto.negocio.modelo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-
 import jakarta.persistence.Id;
 
-@Entity
+/**
+ * Entidad de negocio Proveedor
+ *
+ * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
+ *
+ */
+@Entity // Esto le dice a Spring que esta es una entidad persistente
+public class Proveedor {
 
-public class Bitacora {
-
+    @Id // Esto le dice a Spring que este es el identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice a Spring que genere el id
-    private int idRegistro;
-    private int Devolucion;
-    private int Producto;
-    //private Date fechaHora;
-    private int cantidad;
-    private String motivo;
-    private String descripcion;
+    private long idProveedor;
 
-    //private categoria objeto;
+    private String nombreCompleto;
+
+    private String corporativo;
+
+    private int idDevolucion;
+
+    private String telefono;
+
+    private String tipoProveedor;
+
     /**
-     * @return the idRegistro
+     * @return the idProveedor
      */
-    public int getIdRegistro() {
-        return idRegistro;
+    public long getIdProveedor() {
+        return idProveedor;
     }
 
     /**
-     * @param idRegistro the idRegistro to set
+     * @param idProveedor the idProveedor to set
      */
-    public void setIdRegistro(int idRegistro) {
-        this.idRegistro = idRegistro;
+    public void setIdProveedor(long idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
     /**
-     * @return the nombre
+     * @return the nombreCompleto
      */
-    public String getNombre() {
-        return nombre;
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param nombreCompleto the nombreCompleto to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
 
     /**
-     * @return the apellido
+     * @return the corporativo
      */
-    public String gettipoProducto() {
-        return tipoProducto;
+    public String getCorporativo() {
+        return corporativo;
     }
 
     /**
-     * @param tipoProducto the apellido to set
+     * @param corporativo the corporativo to set
      */
-    public void settipoProducto(String tipoProducto) {
-        this.tipoProducto = tipoProducto;
+    public void setCorporativo(String corporativo) {
+        this.corporativo = corporativo;
     }
 
     /**
-     * @return the edad
+     * @return the idDevolucion
      */
-    public Double getPrecio() {
-        return precio;
+    public int getIdDevolucion() {
+        return idDevolucion;
     }
 
     /**
-     * @param precio the edad to set
+     * @param idDevolucion the idDevolucion to set
      */
-    public Double setPrecio(Double precio) {
-        this.precio = precio;
-        return precio;
+    public void setIdDevolucion(int idDevolucion) {
+        this.idDevolucion = idDevolucion;
+    }
+
+    /**
+     * @return the telefono
+     */
+    public String getTelefono() {
+        return telefono;
+    }
+
+    /**
+     * @param telefono the telefono to set
+     */
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    /**
+     * @return the tipoProveedor
+     */
+    public String getTipoProveedor() {
+        return tipoProveedor;
+    }
+
+    /**
+     * @param tipoProveedor the tipoProveedor to set
+     */
+    public void setTipoProveedor(String tipoProveedor) {
+        this.tipoProveedor = tipoProveedor;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Proveedor other = (Proveedor) obj;
+        return idProveedor == other.idProveedor;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (31 * idProveedor);
+    }
+
+    @Override
+    public String toString() {
+        return "Proveedor [idProveedor=" + idProveedor + ", nombreCompleto=" + nombreCompleto + ", corporativo="
+                + corporativo + ", idDevolucion=" + idDevolucion + ", telefono=" + telefono + ", tipoProveedor="
+                + tipoProveedor + "]";
     }
 }

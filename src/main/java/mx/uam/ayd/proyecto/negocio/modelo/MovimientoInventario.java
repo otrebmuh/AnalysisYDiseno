@@ -3,77 +3,156 @@ package mx.uam.ayd.proyecto.negocio.modelo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-
 import jakarta.persistence.Id;
+import java.time.LocalDateTime;
 
-@Entity
+/**
+ * Entidad de negocio MovimientoInventario
+ *
+ * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
+ *
+ */
+@Entity // Esto le dice a Spring que esta es una entidad persistente
+public class MovimientoInventario {
 
-public class Bitacora {
-
+    @Id // Esto le dice a Spring que este es el identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice a Spring que genere el id
-    private int idRegistro;
-    private int Devolucion;
-    private int Producto;
-    //private Date fechaHora;
-    private int cantidad;
-    private String motivo;
-    private String descripcion;
+    private long idmovimiento;
 
-    //private categoria objeto;
+    private LocalDateTime fecha;
+
+    private String tipoMoviento;
+
+    private int cantidades;
+
+    private int existenciasanteriores;
+
+    private int existenciasActual;
+
+    private String obersevacion;
+
     /**
-     * @return the idRegistro
+     * @return the idmovimiento
      */
-    public int getIdRegistro() {
-        return idRegistro;
+    public long getIdmovimiento() {
+        return idmovimiento;
     }
 
     /**
-     * @param idRegistro the idRegistro to set
+     * @param idmovimiento the idmovimiento to set
      */
-    public void setIdRegistro(int idRegistro) {
-        this.idRegistro = idRegistro;
+    public void setIdmovimiento(long idmovimiento) {
+        this.idmovimiento = idmovimiento;
     }
 
     /**
-     * @return the nombre
+     * @return the fecha
      */
-    public String getNombre() {
-        return nombre;
+    public LocalDateTime getFecha() {
+        return fecha;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param fecha the fecha to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 
     /**
-     * @return the apellido
+     * @return the tipoMoviento
      */
-    public String gettipoProducto() {
-        return tipoProducto;
+    public String getTipoMoviento() {
+        return tipoMoviento;
     }
 
     /**
-     * @param tipoProducto the apellido to set
+     * @param tipoMoviento the tipoMoviento to set
      */
-    public void settipoProducto(String tipoProducto) {
-        this.tipoProducto = tipoProducto;
+    public void setTipoMoviento(String tipoMoviento) {
+        this.tipoMoviento = tipoMoviento;
     }
 
     /**
-     * @return the edad
+     * @return the cantidades
      */
-    public Double getPrecio() {
-        return precio;
+    public int getCantidades() {
+        return cantidades;
     }
 
     /**
-     * @param precio the edad to set
+     * @param cantidades the cantidades to set
      */
-    public Double setPrecio(Double precio) {
-        this.precio = precio;
-        return precio;
+    public void setCantidades(int cantidades) {
+        this.cantidades = cantidades;
+    }
+
+    /**
+     * @return the existenciasanteriores
+     */
+    public int getExistenciasanteriores() {
+        return existenciasanteriores;
+    }
+
+    /**
+     * @param existenciasanteriores the existenciasanteriores to set
+     */
+    public void setExistenciasanteriores(int existenciasanteriores) {
+        this.existenciasanteriores = existenciasanteriores;
+    }
+
+    /**
+     * @return the existenciasActual
+     */
+    public int getExistenciasActual() {
+        return existenciasActual;
+    }
+
+    /**
+     * @param existenciasActual the existenciasActual to set
+     */
+    public void setExistenciasActual(int existenciasActual) {
+        this.existenciasActual = existenciasActual;
+    }
+
+    /**
+     * @return the obersevacion
+     */
+    public String getObersevacion() {
+        return obersevacion;
+    }
+
+    /**
+     * @param obersevacion the obersevacion to set
+     */
+    public void setObersevacion(String obersevacion) {
+        this.obersevacion = obersevacion;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        MovimientoInventario other = (MovimientoInventario) obj;
+        return idmovimiento == other.idmovimiento;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (31 * idmovimiento);
+    }
+
+    @Override
+    public String toString() {
+        return "MovimientoInventario [idmovimiento=" + idmovimiento + ", fecha=" + fecha + ", tipoMoviento="
+                + tipoMoviento + ", cantidades=" + cantidades + ", existenciasanteriores=" + existenciasanteriores
+                + ", existenciasActual=" + existenciasActual + ", obersevacion=" + obersevacion + "]";
     }
 }

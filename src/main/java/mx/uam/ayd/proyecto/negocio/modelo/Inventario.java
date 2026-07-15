@@ -3,77 +3,130 @@ package mx.uam.ayd.proyecto.negocio.modelo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-
 import jakarta.persistence.Id;
 
-@Entity Larios Nepomuseno Yamelin
+/**
+ * Entidad de negocio Inventario
+ *
+ * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
+ *
+ */
+@Entity // Esto le dice a Spring que esta es una entidad persistente
+public class Inventario {
 
-public class Bitacora {
-
+    @Id // Esto le dice a Spring que este es el identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice a Spring que genere el id
-    private int idRegistro;
-    private int Devolucion;
-    private int Producto;
-    //private Date fechaHora;
-    private int cantidad;
-    private String motivo;
-    private String descripcion;
+    private long idProducto;
 
-    //private categoria objeto;
+    private int existenciaActual;
+
+    private int existenciaDisponible;
+
+    private int stockMinimo;
+
     /**
-     * @return the idRegistro
+     * @return the idProducto
      */
-    public int getIdRegistro() {
-        return idRegistro;
+    public long getIdProducto() {
+        return idProducto;
     }
 
     /**
-     * @param idRegistro the idRegistro to set
+     * @param idProducto the idProducto to set
      */
-    public void setIdRegistro(int idRegistro) {
-        this.idRegistro = idRegistro;
+    public void setIdProducto(long idProducto) {
+        this.idProducto = idProducto;
     }
 
     /**
-     * @return the nombre
+     * @return the existenciaActual
      */
-    public String getNombre() {
-        return nombre;
+    public int getExistenciaActual() {
+        return existenciaActual;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param existenciaActual the existenciaActual to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setExistenciaActual(int existenciaActual) {
+        this.existenciaActual = existenciaActual;
     }
 
     /**
-     * @return the apellido
+     * @return the existenciaDisponible
      */
-    public String gettipoProducto() {
-        return tipoProducto;
+    public int getExistenciaDisponible() {
+        return existenciaDisponible;
     }
 
     /**
-     * @param tipoProducto the apellido to set
+     * @param existenciaDisponible the existenciaDisponible to set
      */
-    public void settipoProducto(String tipoProducto) {
-        this.tipoProducto = tipoProducto;
+    public void setExistenciaDisponible(int existenciaDisponible) {
+        this.existenciaDisponible = existenciaDisponible;
     }
 
     /**
-     * @return the edad
+     * @return the stockMinimo
      */
-    public Double getPrecio() {
-        return precio;
+    public int getStockMinimo() {
+        return stockMinimo;
     }
 
     /**
-     * @param precio the edad to set
+     * @param stockMinimo the stockMinimo to set
      */
-    public Double setPrecio(Double precio) {
-        this.precio = precio;
-        return precio;
+    public void setStockMinimo(int stockMinimo) {
+        this.stockMinimo = stockMinimo;
+    }
+
+    // ==========================================
+    // Métodos de negocio requeridos por el UML
+    // ==========================================
+
+    /**
+     * Método para obtener la existencia actual
+     * @return la existencia actual del inventario
+     */
+    public int obtenerExistenciaActual() {
+        return this.existenciaActual;
+    }
+
+    /**
+     * Método para actualizar la existencia
+     * @param cantidad el nuevo valor para la existencia actual
+     */
+    public void actualizarExistencia(int cantidad) {
+        this.existenciaActual = cantidad;
+    }
+
+    // ==========================================
+    // Métodos estándar (equals, hashCode, toString)
+    // ==========================================
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Inventario other = (Inventario) obj;
+        return idProducto == other.idProducto;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (31 * idProducto);
+    }
+
+    @Override
+    public String toString() {
+        return "Inventario [idProducto=" + idProducto + ", existenciaActual=" + existenciaActual
+                + ", existenciaDisponible=" + existenciaDisponible + ", stockMinimo=" + stockMinimo + "]";
     }
 }
