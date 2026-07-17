@@ -4,28 +4,32 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 /**
- * Entidad de negocio Producto
- *
+ * 
  * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
- *
  */
 @Entity
 public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idProducto;
+    private long idProducto; 
 
     private String nombre;
 
     private String tipoProducto;
 
-    private Double precio;
+    private Double precio; 
 
     private String marca;
 
-    // Constructor vacío requerido por JPA
+    private Object categoria; 
+
+    private Double precioCompra; 
+
+    private int existenciaActual; 
+
     public Producto() {
     }
 
@@ -69,23 +73,35 @@ public class Producto {
         this.marca = marca;
     }
 
+    public Object getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Object categoria) {
+        this.categoria = categoria;
+    }
+
+    public Double getPrecioCompra() {
+        return precioCompra;
+    }
+
+    public void setPrecioCompra(Double precioCompra) {
+        this.precioCompra = precioCompra;
+    }
+
+    public int getExistenciaActual() {
+        return existenciaActual;
+    }
+
+    public void setExistenciaActual(int existenciaActual) {
+        this.existenciaActual = existenciaActual;
+    }
+
     @Override
     public boolean equals(Object obj) {
-
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
         Producto other = (Producto) obj;
-
         return idProducto == other.idProducto;
     }
 
@@ -95,7 +111,13 @@ public class Producto {
     }
 
     @Override
-    public String toString() {
-        return "Producto{" + "idProducto=" + idProducto +", nombre='" + nombre + '\'' +", tipoProducto='" + tipoProducto + '\'' +", precio=" + precio +", marca='" + marca + '\'' +'}';
-    }
+        public String toString() {
+        return "Producto{" +
+        "id=" + idProducto +
+        ", nombre='" + nombre + '\'' +
+        ", precioVenta=" + precio +
+        ", precioCompra=" + precioCompra +
+        ", stock=" + existenciaActual +
+        '}';
+        }
 }
