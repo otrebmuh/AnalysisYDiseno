@@ -1,158 +1,173 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
 
 /**
- * Entidad de negocio MovimientoInventario
+ * Entidad de negocio MovimientoInventario.
+ *
+ * Representa una entrada, salida o modificación realizada sobre
+ * las existencias de un producto.
  *
  * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
- *
  */
-@Entity // Esto le dice a Spring que esta es una entidad persistente
+@Entity
 public class MovimientoInventario {
 
-    @Id // Esto le dice a Spring que este es el identificador
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Le dice a Spring que genere el id
-    private long idmovimiento;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idMovimiento;
 
     private LocalDateTime fecha;
 
-    private String tipoMoviento;
+    private String tipoMovimiento;
 
-    private int cantidades;
+    private int cantidad;
 
-    private int existenciasanteriores;
+    private int existenciaAnterior;
 
-    private int existenciasActual;
+    private int existenciaActual;
 
-    private String obersevacion;
+    private String observacion;
 
     /**
-     * @return the idmovimiento
+     * Constructor vacío requerido por JPA.
      */
-    public long getIdmovimiento() {
-        return idmovimiento;
+    public MovimientoInventario() {
     }
 
     /**
-     * @param idmovimiento the idmovimiento to set
+     * @return identificador del movimiento
      */
-    public void setIdmovimiento(long idmovimiento) {
-        this.idmovimiento = idmovimiento;
+    public long getIdMovimiento() {
+        return idMovimiento;
     }
 
     /**
-     * @return the fecha
+     * @param idMovimiento identificador del movimiento
+     */
+    public void setIdMovimiento(long idMovimiento) {
+        this.idMovimiento = idMovimiento;
+    }
+
+    /**
+     * @return fecha y hora del movimiento
      */
     public LocalDateTime getFecha() {
         return fecha;
     }
 
     /**
-     * @param fecha the fecha to set
+     * @param fecha fecha y hora del movimiento
      */
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
     /**
-     * @return the tipoMoviento
+     * @return tipo de movimiento
      */
-    public String getTipoMoviento() {
-        return tipoMoviento;
+    public String getTipoMovimiento() {
+        return tipoMovimiento;
     }
 
     /**
-     * @param tipoMoviento the tipoMoviento to set
+     * @param tipoMovimiento tipo de movimiento
      */
-    public void setTipoMoviento(String tipoMoviento) {
-        this.tipoMoviento = tipoMoviento;
+    public void setTipoMovimiento(String tipoMovimiento) {
+        this.tipoMovimiento = tipoMovimiento;
     }
 
     /**
-     * @return the cantidades
+     * @return cantidad involucrada en el movimiento
      */
-    public int getCantidades() {
-        return cantidades;
+    public int getCantidad() {
+        return cantidad;
     }
 
     /**
-     * @param cantidades the cantidades to set
+     * @param cantidad cantidad involucrada en el movimiento
      */
-    public void setCantidades(int cantidades) {
-        this.cantidades = cantidades;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     /**
-     * @return the existenciasanteriores
+     * @return existencia antes del movimiento
      */
-    public int getExistenciasanteriores() {
-        return existenciasanteriores;
+    public int getExistenciaAnterior() {
+        return existenciaAnterior;
     }
 
     /**
-     * @param existenciasanteriores the existenciasanteriores to set
+     * @param existenciaAnterior existencia antes del movimiento
      */
-    public void setExistenciasanteriores(int existenciasanteriores) {
-        this.existenciasanteriores = existenciasanteriores;
+    public void setExistenciaAnterior(int existenciaAnterior) {
+        this.existenciaAnterior = existenciaAnterior;
     }
 
     /**
-     * @return the existenciasActual
+     * @return existencia después del movimiento
      */
-    public int getExistenciasActual() {
-        return existenciasActual;
+    public int getExistenciaActual() {
+        return existenciaActual;
     }
 
     /**
-     * @param existenciasActual the existenciasActual to set
+     * @param existenciaActual existencia después del movimiento
      */
-    public void setExistenciasActual(int existenciasActual) {
-        this.existenciasActual = existenciasActual;
+    public void setExistenciaActual(int existenciaActual) {
+        this.existenciaActual = existenciaActual;
     }
 
     /**
-     * @return the obersevacion
+     * @return observación asociada al movimiento
      */
-    public String getObersevacion() {
-        return obersevacion;
+    public String getObservacion() {
+        return observacion;
     }
 
     /**
-     * @param obersevacion the obersevacion to set
+     * @param observacion observación asociada al movimiento
      */
-    public void setObersevacion(String obersevacion) {
-        this.obersevacion = obersevacion;
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 
     @Override
     public boolean equals(Object obj) {
+
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
+
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+
         MovimientoInventario other = (MovimientoInventario) obj;
-        return idmovimiento == other.idmovimiento;
+
+        return idMovimiento == other.idMovimiento;
     }
 
     @Override
     public int hashCode() {
-        return (int) (31 * idmovimiento);
+        return Long.hashCode(idMovimiento);
     }
 
     @Override
     public String toString() {
-        return "MovimientoInventario [idmovimiento=" + idmovimiento + ", fecha=" + fecha + ", tipoMoviento="
-                + tipoMoviento + ", cantidades=" + cantidades + ", existenciasanteriores=" + existenciasanteriores
-                + ", existenciasActual=" + existenciasActual + ", obersevacion=" + obersevacion + "]";
+        return "MovimientoInventario [idMovimiento=" + idMovimiento
+                + ", fecha=" + fecha
+                + ", tipoMovimiento=" + tipoMovimiento
+                + ", cantidad=" + cantidad
+                + ", existenciaAnterior=" + existenciaAnterior
+                + ", existenciaActual=" + existenciaActual
+                + ", observacion=" + observacion
+                + "]";
     }
 }
