@@ -1,115 +1,67 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Entidad de negocio Venta
- * 
- * @author Lopez Flores Kevin Dydier 
+ * Entidad venta
+ * @author Kevin Dydier López Flores
  */
-@Entity 
+@Entity
 public class Venta {
 
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Autoincrementable en la BD
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idVenta;
+
+    private LocalDateTime fecha;
 
     private double total;
 
-    private LocalDateTime fecha; 
+    
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "idVenta") // Crea la llave foránea en la tabla DescripcionVenta
+    private List<DescripcionVenta> detalles = new ArrayList<>();
 
-    private int idVendedor; 
-
-    /**
-     * Constructor vacío requerido por JPA
-     */
     public Venta() {
     }
 
-    /**
-     * @return the idVenta
-     */
+    public void agregarDetalle(DescripcionVenta detalle) {
+        this.detalles.add(detalle);
+    }
+
+    // Getters y Setters
     public long getIdVenta() {
-        return idVenta;
-    }
-
-    /**
-     * @param idVenta the idVenta to set
-     */
+        return idVenta; }
     public void setIdVenta(long idVenta) {
-        this.idVenta = idVenta;
-    }
+        this.idVenta = idVenta; }
 
-    /**
-     * @return the total
-     */
-    public double getTotal() {
-        return total;
-    }
-
-    /**
-     * @param total the total to set
-     */
-    public void setTotal(double total) {
-        this.total = total;
-    }
-
-    /**
-     * @return 
-     */
     public LocalDateTime getFecha() {
-        return fecha;
-    }
-
-    /**
-     * @param fecha 
-     */
+        return fecha; }
     public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-    }
+        this.fecha = fecha; }
 
-    /**
-     * @return 
-     */
-    public int getIdVendedor() {
-        return idVendedor;
-    }
+    public double getTotal() {
+        return total; }
+    public void setTotal(double total) {
+        this.total = total; }
 
-    /**
-     * @param idVendedor 
-     */
-    public void setIdVendedor(int idVendedor) {
-        this.idVendedor = idVendedor;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Venta other = (Venta) obj;
-        return idVenta == other.idVenta;
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (31 * idVenta);
-    }
+    public List<DescripcionVenta> getDetalles() {
+        return detalles; }
+    public void setDetalles(List<DescripcionVenta> detalles) {
+        this.detalles = detalles; }
 
     @Override
     public String toString() {
-        return "Venta [idVenta=" + idVenta + ", total=" + total + ", fecha=" + fecha + ", idVendedor=" + idVendedor + "]";
+        return "Venta [id=" + idVenta + ", total=" + total + ", fecha=" + fecha + "]";
     }
 }
-
