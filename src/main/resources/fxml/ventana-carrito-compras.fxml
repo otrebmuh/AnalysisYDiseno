@@ -1,424 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="1050.0" style="-fx-background-color: #f4f6f9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   
-   <!-- BARRA LATERAL IZQUIERDA (Menú de Navegación Oscuro) -->
-   <left>
-      <VBox prefWidth="220.0" style="-fx-background-color: #111625;" BorderPane.alignment="CENTER">
+<AnchorPane prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uam.ayd.proyecto.presentacion.ControlRegistroVenta">
+   <children>
+      <!-- CORREGIDO: Removida la doble etiqueta font -->
+      <Label layoutX="25.0" layoutY="20.0" text="Registro de Ventas - Carrito" textFill="#2c3e50">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+
+      <!-- Selección de Productos -->
+      <Pane layoutX="25.0" layoutY="65.0" prefHeight="80.0" prefWidth="700.0" style="-fx-border-color: #bdc3c7; -fx-border-radius: 5;">
          <children>
-            <!-- Logo / Título del Sistema -->
-            <VBox alignment="CENTER_LEFT" prefHeight="80.0" spacing="5.0">
-               <padding>
-                  <Insets left="20.0" right="20.0" />
-               </padding>
-               <children>
-                  <Label text="La Nueva" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label text="HARDWARE MANAGEMENT" textFill="#7f8c8d">
-                     <font>
-                        <Font name="System Bold" size="9.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
+            <Label layoutX="15.0" layoutY="10.0" text="Producto:" />
+            <ComboBox fx:id="comboProductos" layoutX="15.0" layoutY="35.0" prefWidth="350.0" promptText="Seleccione un artículo..." />
             
-            <Separator opacity="0.1" prefWidth="200.0" />
+            <Label layoutX="380.0" layoutY="10.0" text="Cantidad:" />
+            <TextField fx:id="txtCantidad" layoutX="380.0" layoutY="35.0" prefWidth="80.0" text="1" />
             
-            <!-- Botones del Menú -->
-            <VBox spacing="5.0">
-               <padding>
-                  <Insets top="20.0" />
-               </padding>
-               <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: #1e2538; -fx-text-fill: #e67e22; -fx-border-color: #e67e22; -fx-border-width: 0 0 0 4;" text="🍊 Ventas (Sales)">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-text-fill: #95a5a6;" text="📦 Inventario (Inventory)">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-text-fill: #95a5a6;" text="🚚 Proveedores (Providers)">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-text-fill: #95a5a6;" text="👥 Empleados (Employees)">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-text-fill: #95a5a6;" text="📊 Reportes (Reports)">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </Button>
-               </children>
-            </VBox>
-            
-            <!-- Separador / Espaciador dinámico -->
-            <Pane VBox.vgrow="ALWAYS" />
-            
-            <!-- Botón Configuración al fondo -->
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-text-fill: #95a5a6;" text="⚙️ Configuración (Settings)">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="20.0" bottom="15.0" />
-               </padding>
-            </Button>
+            <Button layoutX="480.0" layoutY="35.0" mnemonicParsing="false" onAction="#onAgregarProducto" prefWidth="130.0" style="-fx-background-color: #3498db;" text="Añadir al Carrito" textFill="WHITE" />
          </children>
-      </VBox>
-   </left>
+      </Pane>
 
-   <!-- PANEL CENTRAL (Catálogo de Productos) -->
-   <center>
-      <VBox spacing="20.0" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
-         </padding>
-         <children>
-            <!-- Barra Superior del Centro (Título y Buscador) -->
-            <HBox alignment="CENTER_LEFT" spacing="15.0">
-               <children>
-                  <Label text="Punto de Venta" textFill="#2c3e50">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Label>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="txtBuscador" prefHeight="35.0" prefWidth="320.0" promptText="🔍 Buscar por nombre o SKU..." style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #ffffff; -fx-border-color: #e2e8f0;" />
-               </children>
-            </HBox>
-            
-            <!-- Subtítulo y Filtros -->
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
-               <children>
-                  <VBox>
-                     <children>
-                        <Label text="Catálogo de Productos" textFill="#34495e">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Selecciona los productos para la venta actual" textFill="#7f8c8d">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: #ffffff; -fx-border-color: #cbd5e1; -fx-border-radius: 5;" text="⏳ Filtrar" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: #ffffff; -fx-border-color: #cbd5e1; -fx-border-radius: 5;" text="📁 Categorías" />
-               </children>
-            </HBox>
-            
-            <!-- Zona de Scroll para las Tarjetas de Productos -->
-            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;" VBox.vgrow="ALWAYS">
-               <content>
-                  <TilePane hgap="15.0" prefColumns="3" style="-fx-background-color: transparent;" vgap="15.0">
-                     <children>
-                        
-                        <!-- TARJETA DE EJEMPLO 1: Martillo -->
-                        <VBox prefHeight="230.0" prefWidth="165.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-padding: 10;">
-                           <children>
-                              <Label style="-fx-background-color: #ffebd7; -fx-text-fill: #e67e22; -fx-background-radius: 3;" text=" POPULAR " textFill="#e67e22">
-                                 <font>
-                                    <Font name="System Bold" size="9.0" />
-                                 </font>
-                              </Label>
-                              <StackPane prefHeight="100.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 8;">
-                                 <children>
-                                    <Label text="🔨">
-                                       <font>
-                                          <Font size="32.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </StackPane>
-                              <Label text="HERRAMIENTAS" textFill="#bdc3c7">
-                                 <font>
-                                    <Font name="System Bold" size="9.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Martillo de Acero 16oz" textFill="#2c3e50" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Region VBox.vgrow="ALWAYS" />
-                              <HBox alignment="BOTTOM_LEFT">
-                                 <children>
-                                    <VBox>
-                                       <children>
-                                          <Label text="Precio" textFill="#95a5a6">
-                                             <font>
-                                                <Font size="10.0" />
-                                             </font>
-                                          </Label>
-                                          <Label text="\$245.00" textFill="#2c3e50">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                    <Region HBox.hgrow="ALWAYS" />
-                                    <Button minWidth="28.0" mnemonicParsing="false" prefHeight="28.0" style="-fx-background-color: #e67e22; -fx-background-radius: 5;" text="+" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
+      <!-- Tabla de Ventas (RN-10) -->
+      <TableView fx:id="tablaCarrito" layoutX="25.0" layoutY="160.0" prefHeight="280.0" prefWidth="700.0">
+      <columns>
+            <TableColumn fx:id="colNombre" prefWidth="300.0" text="Descripción del Producto" />
+            <TableColumn fx:id="colPrecio" prefWidth="120.0" text="Precio Unitario" />
+            <TableColumn fx:id="colCantidad" prefWidth="100.0" text="Cantidad" />
+            <TableColumn fx:id="colSubtotal" prefWidth="175.0" text="Subtotal" />
+      </columns>
+      </TableView>
 
-                        <!-- TARJETA DE EJEMPLO 2: Pintura -->
-                        <VBox prefHeight="230.0" prefWidth="165.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-padding: 10;">
-                           <children>
-                              <Region prefHeight="13.0" />
-                              <StackPane prefHeight="100.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 8;">
-                                 <children>
-                                    <Label text="🪣">
-                                       <font>
-                                          <Font size="32.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </StackPane>
-                              <Label text="PINTURAS" textFill="#bdc3c7">
-                                 <font>
-                                    <Font name="System Bold" size="9.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Pintura Vinílica Azul 4L" textFill="#2c3e50" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Region VBox.vgrow="ALWAYS" />
-                              <HBox alignment="BOTTOM_LEFT">
-                                 <children>
-                                    <VBox>
-                                       <children>
-                                          <Label text="Precio" textFill="#95a5a6">
-                                             <font>
-                                                <Font size="10.0" />
-                                             </font>
-                                          </Label>
-                                          <Label text="\$580.00" textFill="#2c3e50">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                    <Region HBox.hgrow="ALWAYS" />
-                                    <Button minWidth="28.0" mnemonicParsing="false" prefHeight="28.0" style="-fx-background-color: #e67e22; -fx-background-radius: 5;" text="+" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
+      <!-- Resumen y Acciones -->
+      <!-- CORREGIDO: Removida la doble etiqueta font -->
+      <Label layoutX="480.0" layoutY="460.0" text="TOTAL:">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTotal" layoutX="560.0" layoutY="460.0" text="\$0.00" textFill="#e67e22">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
 
-                     </children>
-                  </TilePane>
-               </content>
-            </ScrollPane>
-         </children>
-      </VBox>
-   </center>
-
-   <!-- PANEL DERECHO (Resumen del Carrito de Compras) -->
-   <right>
-      <VBox prefWidth="320.0" style="-fx-background-color: #ffffff; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 0 1;" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-         <children>
-            <!-- Encabezado Carrito -->
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
-               <children>
-                  <Label text="🛒 Carrito de Venta">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <Label style="-fx-background-color: #111625; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 3 8;" text="2 ITEMS" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="10.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="15.0" />
-               </VBox.margin>
-            </HBox>
-            
-            <!-- Lista de productos en el carrito -->
-            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;" VBox.vgrow="ALWAYS">
-               <content>
-                  <VBox spacing="10.0" style="-fx-background-color: transparent;">
-                     <children>
-                        
-                        <!-- Producto en Carrito 1 -->
-                        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-border-color: #f1f5f9; -fx-border-width: 1; -fx-border-radius: 5; -fx-padding: 8;">
-                           <children>
-                              <VBox HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label text="Martillo de Acero 16oz" textFill="#2c3e50">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="\$245.00 c/u" textFill="#7f8c8d">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Label>
-                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
-                                       <children>
-                                          <Button minWidth="20.0" prefHeight="20.0" style="-fx-background-color: #f1f5f9;" text="-" />
-                                          <Label text=" 1 " />
-                                          <Button minWidth="20.0" prefHeight="20.0" style="-fx-background-color: #f1f5f9;" text="+" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Label text="\$245.00" textFill="#2c3e50">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-
-                        <!-- Producto en Carrito 2 -->
-                        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-border-color: #f1f5f9; -fx-border-width: 1; -fx-border-radius: 5; -fx-padding: 8;">
-                           <children>
-                              <VBox HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label text="Pintura Vinílica Azul 4L" textFill="#2c3e50">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="\$580.00 c/u" textFill="#7f8c8d">
-                                       <font>
-                                          <Font size="11.0" />
-                                        </font>
-                                    </Label>
-                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
-                                       <children>
-                                          <Button minWidth="20.0" prefHeight="20.0" style="-fx-background-color: #f1f5f9;" text="-" />
-                                          <Label text=" 1 " />
-                                          <Button minWidth="20.0" prefHeight="20.0" style="-fx-background-color: #f1f5f9;" text="+" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Label text="\$580.00" textFill="#2c3e50">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-
-                     </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
-            
-            <Separator prefWidth="200.0">
-               <VBox.margin>
-                  <Insets bottom="15.0" top="15.0" />
-               </VBox.margin>
-            </Separator>
-            
-            <!-- Desglose de Precios Finales -->
-            <VBox spacing="8.0">
-               <children>
-                  <HBox>
-                     <children>
-                        <Label text="Subtotal" textFill="#7f8c8d" />
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Label text="\$711.20" textFill="#2c3e50" />
-                     </children>
-                  </HBox>
-                  <HBox>
-                     <children>
-                        <Label text="IVA (16%)" textFill="#7f8c8d" />
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Label text="\$113.80" textFill="#2c3e50" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT">
-                     <VBox.margin>
-                        <Insets top="5.0" bottom="15.0" />
-                     </VBox.margin>
-                     <children>
-                        <Label text="TOTAL A PAGAR" textFill="#2c3e50">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Label text="\$825.00" textFill="#2c3e50">
-                           <font>
-                              <Font name="System Bold" size="22.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            
-            <!-- Botón Naranja de Confirmación -->
-            <Button fx:id="btnConfirmarVenta" mnemonicParsing="false" prefHeight="45.0" prefWidth="300.0" style="-fx-background-color: #e67e22; -fx-background-radius: 8;" text="CONFIRMAR VENTA ➔" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
-   </right>
-</BorderPane>
+      <!-- CORREGIDO: Removida la doble etiqueta font -->
+      <Button layoutX="560.0" layoutY="500.0" mnemonicParsing="false" onAction="#onConfirmarVenta" prefHeight="35.0" prefWidth="165.0" style="-fx-background-color: #27ae60;" text="Confirmar y Cobrar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      
+      <Button layoutX="430.0" layoutY="500.0" mnemonicParsing="false" onAction="#onCancelarVenta" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #e74c3c;" text="Limpiar " textFill="WHITE" />
+   </children>
+</AnchorPane>
