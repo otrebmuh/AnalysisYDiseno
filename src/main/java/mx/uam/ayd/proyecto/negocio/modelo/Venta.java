@@ -28,11 +28,9 @@ public class Venta {
 
     private int idVendedor;
 
-    
     private double montoRecibido;
     
-    private double cambio; 
-
+    private double cambio;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "idVenta")
@@ -43,6 +41,23 @@ public class Venta {
 
     public void agregarDetalle(DescripcionVenta detalle) {
         this.productos.add(detalle);
+    }
+
+  /////////////////////////////////////////////////////////////////////////7 metodos que se ocupan en el servicio venta
+    
+    
+    public void addDetalle(DescripcionVenta detalle) {
+        this.agregarDetalle(detalle);
+    }
+
+    
+    public void setFecha(LocalDateTime fecha) {
+        this.date = fecha;
+    }
+
+    
+    public void setPago(double pago) {
+        this.montoRecibido = pago;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////7

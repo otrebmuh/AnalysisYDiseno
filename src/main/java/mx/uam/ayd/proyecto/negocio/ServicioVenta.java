@@ -1,122 +1,66 @@
 package mx.uam.ayd.proyecto.negocio;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import mx.uam.ayd.proyecto.datos.ProductoRepository;
 import mx.uam.ayd.proyecto.datos.VentaRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.DescripcionVenta;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 import mx.uam.ayd.proyecto.negocio.modelo.Venta;
-////////////////////////////////////////////////////////////////////////////////////////77
+
 @Service
 public class ServicioVenta {
 
-    private static final Logger log = LoggerFactory.getLogger(ServicioVenta.class);
-
-    private final VentaRepository ventaRepository;
-    private final ProductoRepository productoRepository;
+    @Autowired
+    private VentaRepository ventaRepository;
 
     @Autowired
-    public ServicioVenta(VentaRepository ventaRepository, ProductoRepository productoRepository) {
-        this.ventaRepository = ventaRepository;
-        this.productoRepository = productoRepository;
-    }
+    private ProductoRepository productoRepository;
 
     /**
-     * Registra una venta completa, calcula el cambio y actualiza el inventario.
+     * Registra una nueva venta, calcula el cambio y actualiza el stock [1].
      *
-     * @param detalles Lista de productos y cantidades seleccionados.
-     * @param montoRecibido Cantidad de dinero con la que paga el cliente.
-     * @return La venta registrada con sus cálculos de cambio.
-     * @throws IllegalArgumentException si hay errores de validación o pago insuficiente.
+     * @param detalles Lista de productos y cantidades procesadas en la HU-05.
+     * @param montoRecibido Cantidad con la que pagó el cliente (Escenario 1).
+     * @return El objeto Venta persistido.
      */
+    @Transactional // Asegura que si algo falla, no se descuente el stock ni se guarde la venta
     public Venta registrarVenta(List<DescripcionVenta> detalles, double montoRecibido) {
-
-
-        if (detalles == null || detalles.isEmpty()) {
-            throw new IllegalArgumentException("No se puede registrar una venta sin productos");
-        }
-
+        
         double totalVenta = 0;
-        double gananciaVenta = 0;
-//////////////////////////////////////////////////////////////////////////// VALIDAR REGLAS DE NEGOCIO
+
+        // 1. Procesar cada detalle para actualizar el inventario (RN-10) [2, 3]
         for (DescripcionVenta detalle : detalles) {
             Producto producto = detalle.getProducto();
-
-            if (producto == null) {
-                throw new IllegalArgumentException("Uno de los productos en la lista no existe");
-            }
-
-            // El precio debe ser mayor a cero RN-04
-            if (detalle.getPrecioUnitario() <= 0) {
-                throw new IllegalArgumentException("El precio de " + producto.getNombre() + " debe ser mayor a cero");
-            }
-
-            // No hay transacción si no hay stock suficiente RN-09
-            if (producto.getExistenciaActual() < detalle.getCantidad()) {
-                throw new IllegalArgumentException("Stock insuficiente para " + producto.getNombre() + ". Disponibles: " + producto.getExistenciaActual());
-            }
+            
+            // Recuperación y actualización técnica según la Guía [1]
+            int nuevaExistencia = producto.getExistenciaActual() - detalle.getCantidad();
+            producto.setExistenciaActual(nuevaExistencia);
+            
+            // Persistir el cambio en el stock del producto
+            productoRepository.save(producto);
             
             totalVenta += (detalle.getPrecioUnitario() * detalle.getCantidad());
         }
 
-        //VALIDACIÓN DEL PAGO
-        if (montoRecibido < totalVenta) {
-            throw new IllegalArgumentException("El monto recibido ($" + montoRecibido + ") es insuficiente para cubrir el total de $" + totalVenta);
-        }
-
-        log.info("Registrando nueva venta con " + detalles.size() + " partidas.");
-
-        //CREAR OBJETO VENTA Y CALCULAR CAMBIO
-        Venta venta = new Venta();
-        venta.setDate(LocalDateTime.now());
-        venta.setTotal(totalVenta);
-        venta.setMontoRecibido(montoRecibido);
-        venta.setCambio(montoRecibido - totalVenta); // Escenario 1
-
-        //ACTUALIZACIÓN DE STOCK Y PROCESAMIENTO
-        for (DescripcionVenta detalle : detalles) {
-            Producto producto = detalle.getProducto();
-
-            // Actualiza el Stock en el objeto
-            int nuevoStock = producto.getExistenciaActual() - detalle.getCantidad();
-            producto.setExistenciaActual(nuevoStock);
-            
-            // Persistir el cambio de stock (Update) [5]
-            productoRepository.save(producto);
-
-            // Cálculos para utilidad (Opcional según Guía de Implementación) [1]
-            gananciaVenta += (detalle.getPrecioUnitario() - producto.getPrecioCompra()) * detalle.getCantidad();
-
-            venta.agregarDetalle(detalle);
-        }
-
-        //PERSISTENCIA DEFINITIVA DE LA VENTA
-        Venta ventaRegistrada = ventaRepository.save(venta);
+        // 2. Instanciar y llenar el objeto Venta [1]
+        Venta nuevaVenta = new Venta();
+        nuevaVenta.setFecha(LocalDateTime.now());
+        nuevaVenta.setTotal(totalVenta);
+        nuevaVenta.setPago(montoRecibido);
+        nuevaVenta.setCambio(montoRecibido - totalVenta);
         
-        log.info("Venta registrada exitosamente con ID: " + ventaRegistrada.getIdVenta() +  ". Cambio a entregar: $" + ventaRegistrada.getCambio() +
-". Ganancia obtenida: $" + gananciaVenta);
-
-        return ventaRegistrada;
-    }
-
-    /**
-     * Recupera todas las ventas realizadas.
-     *
-     * @return Lista de ventas registradas en el historial.
-     */
-    public List<Venta> recuperaVentas() {
-        List<Venta> ventas = new ArrayList<>();
-        for (Venta v : ventaRepository.findAll()) {
-            ventas.add(v);
+        // Vincular los detalles a la venta
+        for (DescripcionVenta detalle : detalles) {
+            nuevaVenta.addDetalle(detalle);
         }
-        return ventas;
+
+        // 3. Persistir la venta en el repositorio [1, 4]
+        return ventaRepository.save(nuevaVenta);
     }
 }
