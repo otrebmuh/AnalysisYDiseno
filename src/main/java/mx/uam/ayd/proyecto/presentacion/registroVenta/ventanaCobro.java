@@ -18,10 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- * Vista para el proceso de cobro (HU-04).
- * Implementa la lógica visual del Escenario 1: Calcular el cambio.
- */
 @Component
 public class VentanaCobro {
 
@@ -32,12 +28,12 @@ public class VentanaCobro {
     private Stage stage;
     private boolean initialized = false;
 
-    // Elementos FXML vinculados (Fuente 6, Código 2)
+    // Elementos FXML vinculados
     @FXML private Label lblTotalCobro;
     @FXML private TextField txtPago;
     @FXML private Label lblCambio;
 
-    // Constructor sin inicialización de UI (Estilo del profesor)
+    // Constructor sin inicialización
     public VentanaCobro() {
     }
 
@@ -54,7 +50,7 @@ public class VentanaCobro {
         }
 
         try {
-            // Carga del archivo FXML de la pantalla de cobro [4]
+            // Carga del archivo FXML de la pantalla de cobro
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ventana-cobro.fxml"));
             loader.setController(this);
             Parent root = loader.load();
@@ -90,7 +86,7 @@ public class VentanaCobro {
     }
 
     /**
-     * Actualiza el cambio en pantalla (Escenario 1) [3]
+     * Actualiza el cambio en pantalla
      */
     public void actualizaCambio(double cambio, String mensaje) {
         if (!Platform.isFxApplicationThread()) {
@@ -125,7 +121,7 @@ public class VentanaCobro {
         else stage.hide();
     }
 
-    // --- Manejadores de Eventos FXML ---
+    
 
     @FXML
     private void onCalcularCambio() {
@@ -148,7 +144,7 @@ public class VentanaCobro {
         }
         try {
             double efectivo = Double.parseDouble(txtPago.getText());
-            // El controlador finalizará la compra y actualizará el inventario (RN-10) [5]
+            // El controlador finalizará la compra y actualizará el inventario
             control.finalizarCompra(efectivo);
         } catch (NumberFormatException e) {
             muestraDialogoConMensaje("Ingrese un número válido.");

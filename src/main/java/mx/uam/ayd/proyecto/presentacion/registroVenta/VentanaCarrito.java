@@ -20,10 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import mx.uam.ayd.proyecto.negocio.modelo.DescripcionVenta;
 
-/**
- * Vista de Confirmación para el Carrito de Compras (HU-04).
- * Ajustada para mostrar únicamente el resumen recibido de la HU-05.
- */
+
 @Component
 public class VentanaCarrito {
 
@@ -31,7 +28,7 @@ public class VentanaCarrito {
 	private ControlRegistroVenta control;
 	private boolean initialized = false;
 
-	// Elementos FXML que se mantienen para el resumen (Fuente 6, Código 1)
+	// Elementos FXML
 	@FXML private TableView<DescripcionVenta> tablaCarrito;
 	@FXML private TableColumn<DescripcionVenta, String> colNombre;
 	@FXML private TableColumn<DescripcionVenta, Double> colPrecio;
@@ -55,7 +52,7 @@ public class VentanaCarrito {
 		}
 
 		try {
-			// Carga el FXML simplificado (sin controles de búsqueda)
+			// Carga el FXMl
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ventana-carrito.fxml"));
 			loader.setController(this);
 			Parent root = loader.load();
@@ -64,7 +61,7 @@ public class VentanaCarrito {
 			stage.setTitle("Confirmación de Venta - Resumen");
 			stage.setScene(new Scene(root));
 			
-			// Configuración de columnas (RN-10)
+			// Configuración de columnas
 			colNombre.setCellValueFactory(new PropertyValueFactory<>("productoNombre")); 
 			colPrecio.setCellValueFactory(new PropertyValueFactory<>("precioUnitario"));
 			colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
@@ -76,9 +73,8 @@ public class VentanaCarrito {
 		}
 	}
 
-	/**
-	 * MODIFICACIÓN: Ahora recibe directamente el carrito lleno y el total calculado.
-	 */
+	//recibe directamente el carrito lleno y el total calculado.
+
 	public void muestra(List<DescripcionVenta> detalles, double total) {
 		if (!Platform.isFxApplicationThread()) {
 			Platform.runLater(() -> this.muestra(detalles, total));
@@ -115,17 +111,16 @@ public class VentanaCarrito {
 		else stage.hide();
 	}
 
-	// --- Manejadores de Eventos FXML ---
 
 	@FXML
 	private void onConfirmarVenta() {
-		// Avisa al control que el propietario verificó el total y desea cobrar [3]
+		// Avisa al control que el propietario verificó el total y desea cobrar
 		control.procesarConfirmacionVenta();
 	}
 
 	@FXML
 	private void onCancelarVenta() {
-		// Limpia la interfaz sin alterar el sistema (RN-12) [6]
+		// Limpia la interfaz sin alterar el sistema
 		control.termina();
 	}
 }
