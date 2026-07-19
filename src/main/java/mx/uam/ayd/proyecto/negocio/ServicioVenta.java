@@ -14,14 +14,10 @@ import mx.uam.ayd.proyecto.datos.VentaRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.DescripcionVenta;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 import mx.uam.ayd.proyecto.negocio.modelo.Venta;
-
-/**
- * @author KEVIN DYDIER
- */
+////////////////////////////////////////////////////////////////////////////////////////77
 @Service
 public class ServicioVenta {
 
-    // Define a static logger field
     private static final Logger log = LoggerFactory.getLogger(ServicioVenta.class);
 
     private final VentaRepository ventaRepository;
@@ -34,25 +30,23 @@ public class ServicioVenta {
     }
 
     /**
-     * Registra una venta completa y actualiza el inventario.
+     * Registra una venta completa, calcula el cambio y actualiza el inventario.
      *
      * @param detalles Lista de productos y cantidades seleccionados.
-     * @return La venta registrada.
-     * @throws IllegalArgumentException si la lista es nula, vacía o viola reglas de negocio.
+     * @param montoRecibido Cantidad de dinero con la que paga el cliente.
+     * @return La venta registrada con sus cálculos de cambio.
+     * @throws IllegalArgumentException si hay errores de validación o pago insuficiente.
      */
+    public Venta registrarVenta(List<DescripcionVenta> detalles, double montoRecibido) {
 
-///////////////////////////////////7Validación de Reglas de Negocio
 
-    public Venta registrarVenta(List<DescripcionVenta> detalles) {
-
-        // Validar que la lista de detalles no sea nula o vacía
         if (detalles == null || detalles.isEmpty()) {
             throw new IllegalArgumentException("No se puede registrar una venta sin productos");
         }
 
         double totalVenta = 0;
         double gananciaVenta = 0;
-
+//////////////////////////////////////////////////////////////////////////// VALIDAR REGLAS DE NEGOCIO
         for (DescripcionVenta detalle : detalles) {
             Producto producto = detalle.getProducto();
 
@@ -60,57 +54,63 @@ public class ServicioVenta {
                 throw new IllegalArgumentException("Uno de los productos en la lista no existe");
             }
 
-            //El precio debe ser mayor a cero RN-04
+            // El precio debe ser mayor a cero RN-04
             if (detalle.getPrecioUnitario() <= 0) {
                 throw new IllegalArgumentException("El precio de " + producto.getNombre() + " debe ser mayor a cero");
             }
 
-            //No hay transacción si no hay stock suficiente RN-09
+            // No hay transacción si no hay stock suficiente RN-09
             if (producto.getExistenciaActual() < detalle.getCantidad()) {
-                throw new IllegalArgumentException("Stock insuficiente para " + producto.getNombre() +". Disponibles: " + producto.getExistenciaActual());
+                throw new IllegalArgumentException("Stock insuficiente para " + producto.getNombre() + ". Disponibles: " + producto.getExistenciaActual());
             }
+            
+            totalVenta += (detalle.getPrecioUnitario() * detalle.getCantidad());
         }
 
-        // Se validaron correctamente las reglas de negocio
+        //VALIDACIÓN DEL PAGO
+        if (montoRecibido < totalVenta) {
+            throw new IllegalArgumentException("El monto recibido ($" + montoRecibido + ") es insuficiente para cubrir el total de $" + totalVenta);
+        }
 
-        // Bitácora del inicio de la operación
         log.info("Registrando nueva venta con " + detalles.size() + " partidas.");
 
-        //cREAR VENTA
+        //CREAR OBJETO VENTA Y CALCULAR CAMBIO
         Venta venta = new Venta();
         venta.setDate(LocalDateTime.now());
+        venta.setTotal(totalVenta);
+        venta.setMontoRecibido(montoRecibido);
+        venta.setCambio(montoRecibido - totalVenta); // Escenario 1
 
+        //ACTUALIZACIÓN DE STOCK Y PROCESAMIENTO
         for (DescripcionVenta detalle : detalles) {
             Producto producto = detalle.getProducto();
 
-            //Actualiza el Stock
+            // Actualiza el Stock en el objeto
             int nuevoStock = producto.getExistenciaActual() - detalle.getCantidad();
             producto.setExistenciaActual(nuevoStock);
             
-            // Esto es el update
+            // Persistir el cambio de stock (Update) [5]
             productoRepository.save(producto);
 
-            // Cálculos para ele total y ganancia
-            totalVenta += (detalle.getPrecioUnitario() * detalle.getCantidad());
+            // Cálculos para utilidad (Opcional según Guía de Implementación) [1]
             gananciaVenta += (detalle.getPrecioUnitario() - producto.getPrecioCompra()) * detalle.getCantidad();
 
             venta.agregarDetalle(detalle);
         }
 
-        venta.setTotal(totalVenta);
-
-        //Persistencia definitiva de la venta
+        //PERSISTENCIA DEFINITIVA DE LA VENTA
         Venta ventaRegistrada = ventaRepository.save(venta);
         
-        log.info("Venta registrada exitosamente con ID: " + ventaRegistrada.getIdVenta() + ". Ganancia obtenida: $" + gananciaVenta);
+        log.info("Venta registrada exitosamente con ID: " + ventaRegistrada.getIdVenta() +  ". Cambio a entregar: $" + ventaRegistrada.getCambio() +
+". Ganancia obtenida: $" + gananciaVenta);
 
         return ventaRegistrada;
     }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
-     * Recupera todas las ventas
+     * Recupera todas las ventas realizadas.
      *
-     * @return Lista de ventas
+     * @return Lista de ventas registradas en el historial.
      */
     public List<Venta> recuperaVentas() {
         List<Venta> ventas = new ArrayList<>();
