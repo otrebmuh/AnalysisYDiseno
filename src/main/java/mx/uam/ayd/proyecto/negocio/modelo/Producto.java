@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
- * 
  * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
  */
 @Entity
@@ -14,22 +13,21 @@ public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idProducto; 
+    private long idProducto;
 
     private String nombre;
 
     private String tipoProducto;
 
-    private Double precio; 
+    private Double precio;
 
     private String marca;
 
-    private Object categoria; 
+    private String categoria;
 
-    private Double precioCompra; 
-
+    private Double precioCompra;
     private int existenciaActual; 
-
+///////////////////////////////////////////////////////////////////////////////////////////////7
     public Producto() {
     }
 
@@ -73,11 +71,11 @@ public class Producto {
         this.marca = marca;
     }
 
-    public Object getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Object categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
 
@@ -97,6 +95,8 @@ public class Producto {
         this.existenciaActual = existenciaActual;
     }
 
+    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -110,14 +110,15 @@ public class Producto {
         return Long.hashCode(idProducto);
     }
 
+
     @Override
-        public String toString() {
+    public String toString() {
         return "Producto{" +
-        "id=" + idProducto +
-        ", nombre='" + nombre + '\'' +
-        ", precioVenta=" + precio +
-        ", precioCompra=" + precioCompra +
-        ", stock=" + existenciaActual +
-        '}';
-        }
+                "id=" + idProducto +
+                ", nombre='" + nombre + '\'' +
+                ", precioVenta=" + precio +
+                ", precioCompra=" + precioCompra +
+                ", stock=" + existenciaActual +
+                '}';
+    }
 }
