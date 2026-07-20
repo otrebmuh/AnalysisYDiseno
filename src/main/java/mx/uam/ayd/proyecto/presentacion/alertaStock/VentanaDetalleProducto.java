@@ -85,7 +85,7 @@ public class VentanaDetalleProducto {
 	 * Muestra el diálogo y establece los datos del producto seleccionado
 	 * 
 	 * @param producto El producto con bajo stock
-	 * @param stockMinimo El límite mínimo configurado en el inventario [2]
+	 * @param stockMinimo El límite mínimo configurado en el inventario
 	 */
 
 
