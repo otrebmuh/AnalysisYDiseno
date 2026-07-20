@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.ServicioInventario;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
+import mx.uam.ayd.proyecto.presentacion.revisionExistencia.VistaRevisionExistencia;
 
 /**
  * Módulo Controlador para la HU-03: Recepción de Alertas de Inventario.
