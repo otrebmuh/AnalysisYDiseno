@@ -6,9 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
- * Entidad de negocio que representa un producto en el sistema de la tlapalería.
- * Incluye correcciones para cumplir con las Reglas de Negocio RN-08 y RN-14.
- * 
  * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
  */
 @Entity
