@@ -23,10 +23,10 @@ public class ServicioVenta {
     private ProductoRepository productoRepository;
 
     /**
-     * Registra una nueva venta, calcula el cambio y actualiza el stock [1].
+     * Registra una nueva venta, calcula el cambio y actualiza el stock
      *
      * @param detalles Lista de productos y cantidades procesadas en la HU-05.
-     * @param montoRecibido Cantidad con la que pagó el cliente (Escenario 1).
+     * @param montoRecibido Cantidad con la que pagó el cliente
      * @return El objeto Venta persistido.
      */
     @Transactional // Asegura que si algo falla, no se descuente el stock ni se guarde la venta
@@ -34,11 +34,11 @@ public class ServicioVenta {
         
         double totalVenta = 0;
 
-        // 1. Procesar cada detalle para actualizar el inventario (RN-10) [2, 3]
+        //Procesar cada detalle para actualizar el inventario
         for (DescripcionVenta detalle : detalles) {
             Producto producto = detalle.getProducto();
             
-            // Recuperación y actualización técnica según la Guía [1]
+            // Recuperación y actualización técnica según la Guía
             int nuevaExistencia = producto.getExistenciaActual() - detalle.getCantidad();
             producto.setExistenciaActual(nuevaExistencia);
             
@@ -48,7 +48,7 @@ public class ServicioVenta {
             totalVenta += (detalle.getPrecioUnitario() * detalle.getCantidad());
         }
 
-        // 2. Instanciar y llenar el objeto Venta [1]
+        //Instanciar y llenar el objeto Venta
         Venta nuevaVenta = new Venta();
         nuevaVenta.setFecha(LocalDateTime.now());
         nuevaVenta.setTotal(totalVenta);
@@ -60,7 +60,7 @@ public class ServicioVenta {
             nuevaVenta.addDetalle(detalle);
         }
 
-        // 3. Persistir la venta en el repositorio [1, 4]
+        //Persistir la venta en el repositorio
         return ventaRepository.save(nuevaVenta);
     }
 }
