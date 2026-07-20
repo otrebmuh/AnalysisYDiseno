@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="500.0" prefWidth="700.0" spacing="15.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<children>
+    <!-- Encabezado de la Ventana -->
+    <Label text="Alertas de Inventario - Revisión de Existencias">
+        <font>
+            <Font name="System Bold" size="18.0" />
+        </font>
+    </Label>
+
+    <!-- Barra de herramientas: Búsqueda y Filtros (Conversación HU-03) -->
+    <HBox spacing="10.0" alignment="CENTER_LEFT">
+        <children>
+            <Label text="Buscar Producto:" />
+            <TextField fx:id="txtBusqueda" promptText="Nombre o clave..." prefWidth="200.0" />
+            
+            <Separator orientation="VERTICAL" prefHeight="20.0" />
+            
+            <Label text="Reabastecimiento:" />
+            <ComboBox fx:id="comboFiltro" prefWidth="150.0" promptText="Todos" />
+        </children>
+    </HBox>
+
+    <!-- Tabla de Alertas (Punto central de la HU-03) -->
+    <TableView fx:id="tablaAlertas" VBox.vgrow="ALWAYS">
+        <columns>
+        <!-- Columna Clave Única (Obligatoria por RN-08) -->
+        <TableColumn fx:id="colClave" prefWidth="120.0" text="Clave Única" />
+        
+        <TableColumn fx:id="colNombre" prefWidth="250.0" text="Nombre del Producto" />
+        
+        <!-- Columna Stock (Fundamental para RN-14) -->
+        <TableColumn fx:id="colStock" prefWidth="120.0" text="Existencia Actual" />
+        
+        <TableColumn fx:id="colEstado" prefWidth="150.0" text="Estado / Alerta" />
+        </columns>
+    </TableView>
+
+    <!-- Botonera Inferior -->
+    <HBox alignment="CENTER_RIGHT" spacing="15.0">
+        <children>
+            <Button fx:id="btnDetalle" mnemonicParsing="false" onAction="#handleVerDetalle" text="Ver Detalle de Stock" />
+            <Button fx:id="btnCerrar" mnemonicParsing="false" onAction="#handleCerrar" text="Cerrar" />
+        </children>
+    </HBox>
+</children>
+<padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+</padding>
+</VBox>
