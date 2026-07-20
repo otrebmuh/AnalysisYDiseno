@@ -39,8 +39,6 @@ public class ServicioInventario {
     }
 
     /**
-     * Consulta y filtra los productos que han alcanzado su nivel mínimo de existencias.
-     * Cumple con la RN-14 (Emisión de alertas) y RN-02 (Registro en bitácora).
      *
      * @return Lista de productos que requieren reabastecimiento (resaltados en rojo).
      */
