@@ -24,7 +24,7 @@ public class Producto {
 
     private String marca;
 
-    private Object categoria; 
+    private String categoria; 
 
     private Double precioCompra; 
 
@@ -73,11 +73,11 @@ public class Producto {
         this.marca = marca;
     }
 
-    public Object getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Object categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
 

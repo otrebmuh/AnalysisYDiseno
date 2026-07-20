@@ -100,4 +100,11 @@ public class VentanaPrincipal {
 			control.listarGrupos();
 		}
 	}
+
+	@FXML
+    private void handleListarInventario() {
+        if (control != null) {
+            control.listarInventario();
+    }
+}
 }

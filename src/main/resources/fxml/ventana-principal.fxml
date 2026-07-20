@@ -11,11 +11,15 @@
     
     <Button text="Agregar usuario" onAction="#handleAgregarUsuario" 
             style="-fx-min-width: 200px; -fx-min-height: 30px;"/>
-    
+
+    <Button text="Consultar Bajo Stock"
+            onAction="#handleListarInventario"
+            style="-fx-min-width: 200px; -fx-min-height: 30px;"/>
+
     <Button text="Listar usuarios" onAction="#handleListarUsuarios" 
             style="-fx-min-width: 200px; -fx-min-height: 30px;"/>
     
     <Button text="Listar grupos" onAction="#handleListarGrupos" 
             style="-fx-min-width: 200px; -fx-min-height: 30px;"/>
     
-</VBox> 
+</VBox>  

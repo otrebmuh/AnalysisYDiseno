@@ -15,7 +15,7 @@
 	<description>Arquitectura de base para el proyecto</description>
 
 	<properties>
-		<java.version>25</java.version>
+		<java.version>17</java.version>
 		<javafx.version>21.0.2</javafx.version>
 		<jacoco.minimum.coverage>0.80</jacoco.minimum.coverage>
 	</properties>

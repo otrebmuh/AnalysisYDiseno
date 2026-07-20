@@ -17,3 +17,5 @@ public interface ProductoRepository extends CrudRepository<Producto, Long> {
      */
     public Producto findByNombre(String nombre);
 }
+
+ 
