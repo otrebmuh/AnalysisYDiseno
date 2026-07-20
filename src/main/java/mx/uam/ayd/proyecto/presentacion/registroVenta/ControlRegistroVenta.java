@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.ServicioVenta;
 import mx.uam.ayd.proyecto.negocio.modelo.DescripcionVenta;
-import mx.uam.ayd.proyecto.negocio.modelo.Venta;
 
 @Component
 public class ControlRegistroVenta {

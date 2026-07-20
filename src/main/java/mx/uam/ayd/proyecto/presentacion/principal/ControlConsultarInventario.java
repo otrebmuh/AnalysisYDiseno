@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.registroVenta;
+package mx.uam.ayd.proyecto.presentacion.principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
