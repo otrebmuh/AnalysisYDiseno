@@ -25,7 +25,7 @@ public class Bitacora {
 
     private int idDevolucion;
 
-    private int idProducto;
+    private long idProducto;
 
     private LocalDateTime fechaHora;
 
@@ -92,14 +92,14 @@ public class Bitacora {
     /**
      * @return the idProducto
      */
-    public int getIdProducto() {
+    public long getIdProducto() {
         return idProducto;
     }
 
     /**
      * @param idProducto the idProducto to set
      */
-    public void setIdProducto(int idProducto) {
+    public void setIdProducto(long idProducto) {
         this.idProducto = idProducto;
     }
 
