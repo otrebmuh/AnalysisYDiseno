@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.ConsultarInventario;
+package mx.uam.ayd.proyecto.presentacion.consultarInventario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
