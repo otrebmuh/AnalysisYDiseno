@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.revisionExistencia;
+package mx.uam.ayd.proyecto.presentacion.alertaStock;
 
 import java.util.List;
 
@@ -7,74 +7,56 @@ import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.ServicioInventario;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
-import mx.uam.ayd.proyecto.presentacion.revisionExistencia.VistaRevisionExistencia;
 
 /**
- * Módulo Controlador para la HU-03: Recepción de Alertas de Inventario.
- * Se encarga de coordinar la navegación y la comunicación entre la 
- * lógica de negocio y la interfaz de usuario.
- * 
- * @author JAVITOS
+ * @author kevin dydier
  */
 @Component
 public class ControlRevisarExistencia {
 
-	// Dependencia de la capa de negocio (Inyección de Dependencias)
 	private final ServicioInventario servicioInventario;
-	
-	// Referencia a la vista asociada a esta historia de usuario
-	private VistaRevisionExistencia vista;
+	////////////////////////////////////////////////////////////////////// referencias a las vistas
+	private VentanaRevisionExistencia ventanaRevision;
+	private VentanaDetalleProducto ventanaDetalle;
 
-	/**
-	 * Constructor que externaliza la creación de módulos (IoC) [4, 5].
-	 * 
-	 * @param servicioInventario El servicio que maneja la lógica de alertas.
-	 */
+	///////////////////////////////////////////////////////////////////////////// constructori para inyeccin de dependencia s
 	@Autowired
-	public ControlRevisarExistencia(ServicioInventario servicioInventario) {
+	public ControlRevisarExistencia(ServicioInventario servicioInventario, VentanaRevisionExistencia ventanaRevision, VentanaDetalleProducto ventanaDetalle) {
 		this.servicioInventario = servicioInventario;
+		this.ventanaRevision = ventanaRevision;
+		this.ventanaDetalle = ventanaDetalle;
 	}
 
-	/**
-	 * Inicia el flujo de la historia de usuario.
-	 * De acuerdo al diseño, el control pide a la vista que se muestre [3, 6].
-	 * 
-	 * @param vista Referencia a la vista que será gestionada por este control.
-	 */
-	public void inicia(VistaRevisionExistencia vista) {
-		this.vista = vista;
-		
-		// 1. El controlador ordena a la vista mostrarse [6, 7]
-		this.vista.muestra(this);
-		
-		// 2. Al iniciar, se cargan las alertas automáticamente para cumplir con RN-14
+//////////////////////////////////////////////////////////////////////////////////////Metodos del controlador 
+	public void inicia() {
+		this.ventanaRevision.muestra(this);
 		this.consultarAlertas();
 	}
 
-	/**
-	 * Coordina la obtención de productos con stock bajo o agotados.
-	 * Satisface la RN-14 (Emisión de alerta) y RN-08 (Identificación por clave) [8-10].
-	 */
+////////////////////////////////////////////////////////////////////////////////////////////// obtiene los productos con bajo stock 
 	public void consultarAlertas() {
-		// El controlador delega la lógica pesada al servicio (Slide 85) [3]
-		List<Producto> productos = servicioInventario.consultarAlertas();
+		List<Producto> productosAlerta = servicioInventario.consultarAlertas();
 		
-		if (productos.isEmpty()) {
-			vista.mostrarMensajeSinAlertas();
+		if (productosAlerta.isEmpty()) {
+			ventanaRevision.mostrarMensajeSinAlertas();
 		} else {
-			// Pasa los datos a la vista para su visualización prioritaria en rojo [6, 8, 11]
-			vista.mostrarAlertas(productos);
+			// Envía la lista a la vista para el resaltar en rojo los productos con bajo stock
+			ventanaRevision.mostrarAlertas(productosAlerta);
 		}
 	}
 
 	/**
-	 * Permite consultar el detalle de un producto específico al hacer clic 
-	 * sobre una advertencia de la lista [6, 12].
+	 * Despliega el detalle del stock actual y el límite mínimo configurado.
+	 * Se ejecuta cuando el usuario hace clic sobre una advertencia en rojo
 	 *
-	 * @param idProducto Identificador técnico del producto seleccionado.
+	 * @param idProducto Identificador técnico para recuperar el detalle.
 	 */
 	public void consultarDetalleProducto(long idProducto) {
+		// Recupera el producto y su stock mínimo desde el negocio
 		Producto producto = servicioInventario.obtenerDetalleProducto(idProducto);
-		vista.mostrarDetalleProducto(producto);
+        
+        // En un diseño real, el stock mínimo se recupera del objeto Inventario asociado
+        // aquí simplificamos el paso de datos al diálogo de detalle
+		ventanaDetalle.muestra(producto, 10); // Ejemplo: 10 como stock mínimo
 	}
 }
