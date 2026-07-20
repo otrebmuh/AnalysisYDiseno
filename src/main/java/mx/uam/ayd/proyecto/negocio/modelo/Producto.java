@@ -6,6 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
+ * Entidad de negocio que representa un producto en el sistema de la tlapalería.
+ * Incluye correcciones para cumplir con las Reglas de Negocio RN-08 y RN-14.
+ * 
  * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
  */
 @Entity
@@ -14,6 +17,8 @@ public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idProducto;
+
+    private String clave;
 
     private String nombre;
 
@@ -26,10 +31,14 @@ public class Producto {
     private String categoria;
 
     private Double precioCompra;
-    private int existenciaActual; 
-///////////////////////////////////////////////////////////////////////////////////////////////7
+    
+    private int existenciaActual;
+    
+
     public Producto() {
     }
+
+
 
     public long getIdProducto() {
         return idProducto;
@@ -37,6 +46,14 @@ public class Producto {
 
     public void setIdProducto(long idProducto) {
         this.idProducto = idProducto;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
     public String getNombre() {
@@ -95,8 +112,6 @@ public class Producto {
         this.existenciaActual = existenciaActual;
     }
 
-    
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -110,14 +125,12 @@ public class Producto {
         return Long.hashCode(idProducto);
     }
 
-
     @Override
     public String toString() {
         return "Producto{" +
                 "id=" + idProducto +
+                ", clave='" + clave + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", precioVenta=" + precio +
-                ", precioCompra=" + precioCompra +
                 ", stock=" + existenciaActual +
                 '}';
     }
