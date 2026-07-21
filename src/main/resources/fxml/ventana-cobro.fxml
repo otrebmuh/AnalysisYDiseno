@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="300.0" prefWidth="450.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uam.ayd.proyecto.presentacion.ControlRegistroVenta">
+   <children>
+       <!-- CORREGIDO: Fuente limpia -->
+       <Label layoutX="140.0" layoutY="20.0" text="Proceso de Cobro" textFill="#2980b9">
+           <font>
+               <Font name="System Bold" size="18.0" />
+           </font>
+       </Label>
+
+       <!-- Datos de la transacción (Escenario 1) -->
+       <VBox layoutX="50.0" layoutY="65.0" prefWidth="350.0" spacing="15.0">
+           <children>
+               <!-- Total a Pagar -->
+               <HBox alignment="CENTER_LEFT" spacing="10.0">
+                  <children>
+                     <Label text="Total a Pagar:">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="lblTotalCobro" text="\$0.00">
+                        <font>
+                           <Font name="System Bold" size="24.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </HBox>
+
+               <!-- Efectivo Recibido -->
+               <HBox alignment="CENTER_LEFT" spacing="10.0">
+                  <children>
+                     <Label text="Efectivo Recibido:">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="txtPago" onKeyReleased="#onCalcularCambio" prefHeight="40.0" prefWidth="150.0" promptText="0.00">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </TextField>
+                  </children>
+               </HBox>
+
+               <!-- Cambio a entregar -->
+               <HBox alignment="CENTER_LEFT" spacing="10.0">
+                  <children>
+                     <Label text="Cambio a entregar:">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="lblCambio" text="\$0.00" textFill="#27ae60">
+                        <font>
+                           <Font name="System Bold" size="24.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </HBox>
+            </children>
+       </VBox>
+
+       <!-- Botón de finalización (Escenario 2 y 3) -->
+       <Button layoutX="125.0" layoutY="235.0" mnemonicParsing="false" onAction="#onRegistrarVenta" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #27ae60;" text="FINALIZAR VENTA" textFill="WHITE">
+          <font>
+             <Font name="System Bold" size="14.0" />
+          </font>
+       </Button>
+   </children>
+</AnchorPane>

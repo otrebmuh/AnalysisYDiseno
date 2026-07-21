@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
- * 
  * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
  */
 @Entity
@@ -14,24 +13,29 @@ public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idProducto; 
+    private long idProducto;
+
+    private String clave;
 
     private String nombre;
 
     private String tipoProducto;
 
-    private Double precio; 
+    private Double precio;
 
     private String marca;
 
-    private String categoria; 
+    private String categoria;
 
-    private Double precioCompra; 
-
-    private int existenciaActual; 
+    private Double precioCompra;
+    
+    private int existenciaActual;
+    
 
     public Producto() {
     }
+
+
 
     public long getIdProducto() {
         return idProducto;
@@ -39,6 +43,14 @@ public class Producto {
 
     public void setIdProducto(long idProducto) {
         this.idProducto = idProducto;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
     public String getNombre() {
@@ -111,13 +123,12 @@ public class Producto {
     }
 
     @Override
-        public String toString() {
+    public String toString() {
         return "Producto{" +
-        "id=" + idProducto +
-        ", nombre='" + nombre + '\'' +
-        ", precioVenta=" + precio +
-        ", precioCompra=" + precioCompra +
-        ", stock=" + existenciaActual +
-        '}';
-        }
+                "id=" + idProducto +
+                ", clave='" + clave + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", stock=" + existenciaActual +
+                '}';
+    }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.uam.ayd.proyecto.presentacion.registroVenta.VentanaCarrito">
+   <children>
+      <!-- Título de la Ventana (Refinado para confirmación) -->
+      <Label layoutX="25.0" layoutY="20.0" text="Confirmación de Venta - Resumen del Carrito" textFill="#2c3e50">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+
+      <!-- Tabla de Ventas (Se mantiene para RN-10 y visualización de detalles) -->
+      <TableView fx:id="tablaCarrito" layoutX="25.0" layoutY="75.0" prefHeight="365.0" prefWidth="700.0">
+      <columns>
+         <TableColumn fx:id="colNombre" prefWidth="300.0" text="Descripción del Producto" />
+         <TableColumn fx:id="colPrecio" prefWidth="120.0" text="Precio Unitario" />
+         <TableColumn fx:id="colCantidad" prefWidth="100.0" text="Cantidad" />
+         <TableColumn fx:id="colSubtotal" prefWidth="175.0" text="Subtotal" />
+   </columns>
+      </TableView>
+
+      <!-- Sección de Totales (Fundamental para Escenario 1 de HU-04) -->
+      <Label layoutX="480.0" layoutY="460.0" text="TOTAL A COBRAR:">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTotal" layoutX="660.0" layoutY="460.0" text="\$0.00" textFill="#e67e22">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+
+      <!-- Botones de Acción (Transición a la Pantalla de Cobro) -->
+      <Button layoutX="560.0" layoutY="500.0" mnemonicParsing="false" onAction="#onConfirmarVenta" prefHeight="35.0" prefWidth="165.0" style="-fx-background-color: #27ae60;" text="Confirmar y Cobrar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      
+      <Button layoutX="430.0" layoutY="500.0" mnemonicParsing="false" onAction="#onCancelarVenta" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #e74c3c;" text="Limpiar (RN-12)" textFill="WHITE" />
+   </children>
+</AnchorPane>

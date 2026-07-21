@@ -1,79 +1,90 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+
 /**
-* @author Kevin Dydier López Flores
-*/
+ * @author Kevin Dydier López Flores
+ */
 @Entity
 public class DescripcionVenta {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idDetalle;
 
     private int cantidad;
 
+
     private Double precioUnitario;
-@ManyToOne
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////77
+    @ManyToOne
     private Producto producto;
+
 
     public DescripcionVenta() {
     }
 
-        public long getIdDetalle() {
+    // --- Getters y Setters ---
+
+    public long getIdDetalle() {
         return idDetalle;
-        }
+    }
 
-        public void setIdDetalle(long idDetalle) {
+    public void setIdDetalle(long idDetalle) {
         this.idDetalle = idDetalle;
-        }
+    }
 
-        public int getCantidad() {
+    public int getCantidad() {
         return cantidad;
-        }
+    }
 
-        public void setCantidad(int cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-        }
+    }
 
-        public Double getPrecioUnitario() {
+    public Double getPrecioUnitario() {
         return precioUnitario;
-        }
+    }
 
-        public void setPrecioUnitario(Double precioUnitario) {
+    public void setPrecioUnitario(Double precioUnitario) {
         this.precioUnitario = precioUnitario;
-        }
+    }
 
-        public Producto getProducto() {
+    public Producto getProducto() {
         return producto;
-        }
+    }
 
-        public void setProducto(Producto producto) {
+    public void setProducto(Producto producto) {
         this.producto = producto;
-        }
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////7777
 
     @Override
     public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null || getClass() != obj.getClass()) return false;
-    DescripcionVenta other = (DescripcionVenta) obj;
-    return idDetalle == other.idDetalle;
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        DescripcionVenta other = (DescripcionVenta) obj;
+        return idDetalle == other.idDetalle;
     }
     
     @Override
     public int hashCode() {
-    return Long.hashCode(idDetalle);
+        return Long.hashCode(idDetalle);
     }
 
     @Override
     public String toString() {
-    return "DescripcionVenta{" +
-    "id=" + idDetalle +
-    ", cantidad=" + cantidad +
-    ", precioUnitario=" + precioUnitario +
-    '}';
+        return "DescripcionVenta{" +
+                "id=" + idDetalle +
+                ", producto=" + (producto != null ? producto.getNombre() : "null") +
+                ", cantidad=" + cantidad +
+                ", precioUnitario=" + precioUnitario +
+                '}';
     }
-    
-    }
+}
