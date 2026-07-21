@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -51,31 +52,30 @@ public class VentanaHistorialMovimientos {
     private TableColumn<MovimientoInventario, Integer> colCantidad;
 
     @FXML
-    private TableColumn<MovimientoInventario, Integer> colExistenciaAnterior;
+    private TableColumn<MovimientoInventario, Integer>
+            colExistenciaAnterior;
 
     @FXML
-    private TableColumn<MovimientoInventario, Integer> colExistenciaActual;
+    private TableColumn<MovimientoInventario, Integer>
+            colExistenciaActual;
 
     @FXML
     private TextField txtBuscar;
 
-    /**
-     * Formato utilizado para mostrar la fecha y hora.
-     */
     private final DateTimeFormatter formatoFecha =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     /**
      * Asigna el controlador de la historia de usuario.
      *
-     * @param control controlador de historial de movimientos
+     * @param control controlador del historial
      */
     public void setControl(ControlHistorialMovimientos control) {
         this.control = control;
     }
 
     /**
-     * Carga y muestra la ventana.
+     * Carga el archivo FXML y muestra la ventana.
      */
     public void muestra() {
 
@@ -92,18 +92,24 @@ public class VentanaHistorialMovimientos {
             escenario = new Stage();
             escenario.setTitle("Historial de Movimientos");
             escenario.setScene(new Scene(root));
-
-            inicializaTabla();
-
             escenario.show();
 
         } catch (IOException e) {
 
             System.err.println(
-                    "No se pudo cargar la ventana de historial de movimientos.");
+                    "No se pudo cargar la ventana "
+                    + "de historial de movimientos.");
 
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Se ejecuta automáticamente después de cargar el FXML.
+     */
+    @FXML
+    private void initialize() {
+        inicializaTabla();
     }
 
     /**
@@ -113,79 +119,102 @@ public class VentanaHistorialMovimientos {
 
         colId.setCellValueFactory(data ->
                 new SimpleLongProperty(
-                        data.getValue().getIdMovimiento()).asObject());
+                        data.getValue()
+                                .getIdMovimiento())
+                        .asObject());
 
         colFecha.setCellValueFactory(data -> {
 
-            MovimientoInventario movimiento = data.getValue();
+            MovimientoInventario movimiento =
+                    data.getValue();
 
             if (movimiento.getFecha() == null) {
                 return new SimpleStringProperty("");
             }
 
             return new SimpleStringProperty(
-                    movimiento.getFecha().format(formatoFecha));
+                    movimiento.getFecha()
+                            .format(formatoFecha));
         });
 
         colTipo.setCellValueFactory(data -> {
 
             String tipoMovimiento =
-                    data.getValue().getTipoMovimiento();
+                    data.getValue()
+                            .getTipoMovimiento();
 
             if (tipoMovimiento == null) {
                 tipoMovimiento = "";
             }
 
-            return new SimpleStringProperty(tipoMovimiento);
+            return new SimpleStringProperty(
+                    tipoMovimiento);
         });
 
         colProducto.setCellValueFactory(data -> {
 
-            MovimientoInventario movimiento = data.getValue();
+            MovimientoInventario movimiento =
+                    data.getValue();
 
             if (movimiento.getProducto() == null
-                    || movimiento.getProducto().getNombre() == null) {
+                    || movimiento.getProducto()
+                            .getNombre() == null) {
 
                 return new SimpleStringProperty(
                         "Producto no especificado");
             }
 
             return new SimpleStringProperty(
-                    movimiento.getProducto().getNombre());
+                    movimiento.getProducto()
+                            .getNombre());
         });
 
         colCantidad.setCellValueFactory(data ->
                 new SimpleIntegerProperty(
-                        data.getValue().getCantidad()).asObject());
+                        data.getValue()
+                                .getCantidad())
+                        .asObject());
 
         colExistenciaAnterior.setCellValueFactory(data ->
                 new SimpleIntegerProperty(
-                        data.getValue().getExistenciaAnterior()).asObject());
+                        data.getValue()
+                                .getExistenciaAnterior())
+                        .asObject());
 
         colExistenciaActual.setCellValueFactory(data ->
                 new SimpleIntegerProperty(
-                        data.getValue().getExistenciaActual()).asObject());
+                        data.getValue()
+                                .getExistenciaActual())
+                        .asObject());
     }
 
     /**
-     * Coloca los movimientos recibidos en la tabla.
+     * Muestra los movimientos recibidos en la tabla.
      *
      * @param movimientos lista de movimientos
      */
     public void muestraMovimientos(
             List<MovimientoInventario> movimientos) {
 
+        if (tblMovimientos == null) {
+            return;
+        }
+
         if (movimientos == null) {
-            tblMovimientos.setItems(FXCollections.observableArrayList());
+
+            tblMovimientos.setItems(
+                    FXCollections.observableArrayList());
+
             return;
         }
 
         tblMovimientos.setItems(
-                FXCollections.observableArrayList(movimientos));
+                FXCollections.observableArrayList(
+                        movimientos));
     }
 
     /**
-     * Busca movimientos utilizando el texto escrito por el usuario.
+     * Busca movimientos utilizando el texto escrito.
      */
     @FXML
     private void buscar() {
@@ -194,7 +223,8 @@ public class VentanaHistorialMovimientos {
             return;
         }
 
-        control.buscarMovimiento(txtBuscar.getText());
+        control.buscarMovimiento(
+                txtBuscar.getText());
     }
 
     /**
@@ -213,20 +243,142 @@ public class VentanaHistorialMovimientos {
     }
 
     /**
-     * Consulta el detalle del movimiento seleccionado.
+     * Muestra el detalle del movimiento seleccionado.
      */
     @FXML
     private void verDetalle() {
 
         MovimientoInventario movimientoSeleccionado =
-                tblMovimientos.getSelectionModel().getSelectedItem();
+                tblMovimientos
+                        .getSelectionModel()
+                        .getSelectedItem();
 
-        if (movimientoSeleccionado == null || control == null) {
+        if (movimientoSeleccionado == null) {
+
+            muestraAlerta(
+                    Alert.AlertType.WARNING,
+                    "Movimiento no seleccionado",
+                    "Selecciona un movimiento "
+                    + "para consultar su detalle.");
+
             return;
         }
 
-        control.consultarDetalleMovimiento(
-                movimientoSeleccionado.getIdMovimiento());
+        if (control == null) {
+            return;
+        }
+
+        MovimientoInventario movimiento =
+                control.consultarDetalleMovimiento(
+                        movimientoSeleccionado
+                                .getIdMovimiento());
+
+        if (movimiento == null) {
+
+            muestraAlerta(
+                    Alert.AlertType.ERROR,
+                    "Movimiento no encontrado",
+                    "No fue posible recuperar "
+                    + "el movimiento seleccionado.");
+
+            return;
+        }
+
+        muestraDetalleMovimiento(movimiento);
+    }
+
+    /**
+     * Muestra los datos completos de un movimiento.
+     *
+     * @param movimiento movimiento consultado
+     */
+    private void muestraDetalleMovimiento(
+            MovimientoInventario movimiento) {
+
+        String fecha;
+
+        if (movimiento.getFecha() == null) {
+            fecha = "No especificada";
+        } else {
+            fecha = movimiento.getFecha()
+                    .format(formatoFecha);
+        }
+
+        String producto;
+
+        if (movimiento.getProducto() == null
+                || movimiento.getProducto()
+                        .getNombre() == null) {
+
+            producto = "No especificado";
+
+        } else {
+
+            producto = movimiento.getProducto()
+                    .getNombre();
+        }
+
+        String tipo = movimiento.getTipoMovimiento();
+
+        if (tipo == null || tipo.trim().isEmpty()) {
+            tipo = "No especificado";
+        }
+
+        String observacion =
+                movimiento.getObservacion();
+
+        if (observacion == null
+                || observacion.trim().isEmpty()) {
+
+            observacion = "Sin observaciones";
+        }
+
+        String detalle =
+                "ID: "
+                + movimiento.getIdMovimiento()
+                + "\nFecha: "
+                + fecha
+                + "\nProducto: "
+                + producto
+                + "\nTipo de movimiento: "
+                + tipo
+                + "\nCantidad: "
+                + movimiento.getCantidad()
+                + "\nExistencia anterior: "
+                + movimiento.getExistenciaAnterior()
+                + "\nExistencia actual: "
+                + movimiento.getExistenciaActual()
+                + "\nObservación: "
+                + observacion;
+
+        Alert alerta =
+                new Alert(Alert.AlertType.INFORMATION);
+
+        alerta.setTitle("Detalle del movimiento");
+        alerta.setHeaderText(
+                "Información del movimiento seleccionado");
+        alerta.setContentText(detalle);
+        alerta.showAndWait();
+    }
+
+    /**
+     * Muestra una alerta.
+     *
+     * @param tipo tipo de alerta
+     * @param titulo título de la alerta
+     * @param mensaje mensaje de la alerta
+     */
+    private void muestraAlerta(
+            Alert.AlertType tipo,
+            String titulo,
+            String mensaje) {
+
+        Alert alerta = new Alert(tipo);
+
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 
     /**

@@ -2,12 +2,10 @@ package mx.uam.ayd.proyecto.presentacion.ControlHistorialMovimientos;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.ServicioMovimientoInventario;
 import mx.uam.ayd.proyecto.negocio.modelo.MovimientoInventario;
-import mx.uam.ayd.proyecto.negocio.modelo.Venta;
 
 /**
  * Controlador de la ventana Historial de Movimientos.
@@ -19,54 +17,78 @@ import mx.uam.ayd.proyecto.negocio.modelo.Venta;
 @Component
 public class ControlHistorialMovimientos {
 
-    @Autowired
-    private ServicioMovimientoInventario servicioMovimientoInventario;
+    private final ServicioMovimientoInventario
+            servicioMovimientoInventario;
+
+    private final VentanaHistorialMovimientos
+            ventanaHistorialMovimientos;
 
     /**
-     * Inicia la ventana.
+     * Constructor utilizado por Spring para inyectar dependencias.
+     *
+     * @param servicioMovimientoInventario servicio de movimientos
+     * @param ventanaHistorialMovimientos ventana del historial
+     */
+    public ControlHistorialMovimientos(
+            ServicioMovimientoInventario servicioMovimientoInventario,
+            VentanaHistorialMovimientos ventanaHistorialMovimientos) {
+
+        this.servicioMovimientoInventario =
+                servicioMovimientoInventario;
+
+        this.ventanaHistorialMovimientos =
+                ventanaHistorialMovimientos;
+    }
+
+    /**
+     * Inicia la ventana y carga los movimientos registrados.
      */
     public void inicia() {
 
-        Venta.setControl(this);
-        Venta.muestra();
+        ventanaHistorialMovimientos.setControl(this);
+
+        ventanaHistorialMovimientos.muestra();
 
         cargarMovimientos();
     }
 
     /**
-     * Recupera todos los movimientos y los muestra.
+     * Recupera todos los movimientos y los muestra en la ventana.
      */
     public void cargarMovimientos() {
 
         List<MovimientoInventario> movimientos =
                 servicioMovimientoInventario.obtenerMovimientos();
 
-        Venta.muestraMovimientos(movimientos);
+        ventanaHistorialMovimientos
+                .muestraMovimientos(movimientos);
     }
 
     /**
-     * Busca movimientos usando un filtro.
+     * Busca movimientos utilizando el filtro recibido.
      *
      * @param filtro texto escrito por el usuario
      */
     public void buscarMovimiento(String filtro) {
 
         List<MovimientoInventario> movimientos =
-                servicioMovimientoInventario.buscarMovimiento(filtro);
+                servicioMovimientoInventario
+                        .buscarMovimiento(filtro);
 
-        Venta.muestraMovimientos(movimientos);
+        ventanaHistorialMovimientos
+                .muestraMovimientos(movimientos);
     }
 
     /**
      * Consulta el detalle de un movimiento.
      *
-     * @param idMovimiento identificador
-     * @return movimiento encontrado
+     * @param idMovimiento identificador del movimiento
+     * @return movimiento encontrado o null
      */
-    public MovimientoInventario consultarDetalleMovimiento(long idMovimiento) {
+    public MovimientoInventario consultarDetalleMovimiento(
+            long idMovimiento) {
 
         return servicioMovimientoInventario
                 .consultarDetalleMovimiento(idMovimiento);
     }
-
 }
