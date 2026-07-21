@@ -22,7 +22,7 @@ public class Venta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idVenta;
 
-    private Double total;
+    private Double total = 0.0;
 
     private LocalDateTime date;
 
@@ -37,6 +37,45 @@ public class Venta {
     private List<DescripcionVenta> productos = new ArrayList<>();
 
     public Venta() {
+    }
+/**
+     * Agrega un producto y su cantidad a la venta actual.
+     * Crea un nuevo objeto DescripcionVenta, lo asocia al producto y actualiza
+     * el total de la venta.
+     
+     * @param producto El objeto Producto que se va a agregar a la venta.
+     * @param cantidad La cantidad de unidades del producto.
+     * @return true si el producto se agregó correctamente; false si el producto es nulo o la cantidad es menor o igual a cero.
+     */
+
+    public boolean agregaProducto(Producto producto, int cantidad) {
+        if (producto == null || cantidad <= 0) {    //Valida que el producto exista y que la cantidad sea mayor a 0
+            return false;
+        }
+
+        // Crea el detalle/descripción de la venta
+        DescripcionVenta detalle = new DescripcionVenta();
+        detalle.setProducto(producto);
+        detalle.setCantidad(cantidad);
+
+        // Agrega a la lista
+        this.productos.add(detalle);
+
+        // Recalcula el total de la venta
+        calculaTotal();
+
+        return true;
+    }
+
+    public void calculaTotal() {
+        double acumulado = 0.0;
+        for (DescripcionVenta detalle : productos) {
+            if (detalle.getProducto() != null) {
+                acumulado += detalle.getProducto().getPrecio() * detalle.getCantidad();
+            }
+        }
+        //Asigna el valor final a total
+        this.total = acumulado;
     }
 
     public void agregarDetalle(DescripcionVenta detalle) {
