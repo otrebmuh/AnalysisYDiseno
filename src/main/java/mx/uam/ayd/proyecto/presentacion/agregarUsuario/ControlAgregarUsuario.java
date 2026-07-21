@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import mx.uam.ayd.proyecto.negocio.ServicioGrupo;
 import mx.uam.ayd.proyecto.negocio.ServicioUsuario;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
-import mx.uam.ayd.proyecto.presentacion.listarGrupos.ControlListarGrupos;
 
 /**
  * 
@@ -24,18 +23,15 @@ public class ControlAgregarUsuario {
 	private final ServicioUsuario servicioUsuario;
 	private final ServicioGrupo servicioGrupo;
 	private final VentanaAgregarUsuario ventana;
-	private final ControlListarGrupos controlListarGrupos;
 	
 	@Autowired
 	public ControlAgregarUsuario(
 			ServicioUsuario servicioUsuario,
 			ServicioGrupo servicioGrupo,
-			VentanaAgregarUsuario ventana,
-			ControlListarGrupos controlListarGrupos) {
+			VentanaAgregarUsuario ventana) {
 		this.servicioUsuario = servicioUsuario;
 		this.servicioGrupo = servicioGrupo;
 		this.ventana = ventana;
-		this.controlListarGrupos = controlListarGrupos;
 	}
 	
 	/**

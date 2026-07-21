@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.ConsultarInventario;
+package mx.uam.ayd.proyecto.presentacion.consultarInventario;
 
 import java.io.IOException;
 
