@@ -40,4 +40,32 @@ public class ServicioProducto {
         log.info("Buscando producto por nombre: {}", nombre);
         return productoRepository.findByNombre(nombre);
     }
+
+    /**
+     * Verifica si hay suficiente stock disponible para la venta.
+     * Corresponde a la llamada verificaDisponibilidad(producto, cantidad)
+     * 
+     * @param producto El producto a verificar.
+     * @param cantidad La cantidad solicitada por el cliente.
+     * @return true si hay suficiente stock, false en caso contrario.
+     */
+    public boolean verificaDisponibilidad(Producto producto, int cantidad) {
+        log.info("Verificando disponibilidad para el producto: {} (Cantidad solicitada: {})", 
+                 producto != null ? producto.getNombre() : "null", cantidad);
+
+        if (producto == null || cantidad <= 0) {
+            log.warn("Producto nulo o cantidad inválida");
+            return false;
+        }
+
+        // Verifica si el stock existente cubre la cantidad deseada
+        boolean disponible = producto.getExistenciaActual() >= cantidad;
+        
+        if (!disponible) {
+            log.warn("Stock insuficiente para {}. Disponible: {}, Solicitado: {}", 
+                     producto.getNombre(), producto.getExistenciaActual(), cantidad);
+        }
+
+        return disponible;
+    }
 }

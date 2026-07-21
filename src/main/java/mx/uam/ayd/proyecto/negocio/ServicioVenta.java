@@ -63,4 +63,39 @@ public class ServicioVenta {
         //Persistir la venta en el repositorio
         return ventaRepository.save(nuevaVenta);
     }
+
+    /**
+     * Inicia una nueva instancia de Venta en memoria.
+     * Corresponde a iniciarVenta() .
+     */
+    public Venta iniciarVenta() {
+        return new Venta();
+    }
+
+    /**
+     * Agrega un producto a la venta recibida.
+     * Corresponde a agregarProducto(producto, cantidad, venta)
+     */
+    public Venta agregarProducto(Producto producto, int cantidad, Venta venta) {
+        if (venta == null) {
+            venta = iniciarVenta();
+        }
+
+        venta.agregaProducto(producto, cantidad);
+
+        return venta;
+    }
+
+    /**
+     * Actualiza venta en la base de datos.
+     * Corresponde a actualizarVenta(venta) en el diagrama de secuencia.
+     */
+    public boolean actualizarVenta(Venta venta) {
+        if (venta == null) {
+            return false;
+        }
+
+        ventaRepository.save(venta);
+        return true;
+    }
 }
