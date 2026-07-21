@@ -3,9 +3,12 @@ package mx.uam.ayd.proyecto.negocio.modelo;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 /**
  * Entidad de negocio MovimientoInventario.
@@ -33,6 +36,15 @@ public class MovimientoInventario {
     private int existenciaActual;
 
     private String observacion;
+
+    /**
+     * Producto afectado por el movimiento.
+     *
+     * Muchos movimientos pueden pertenecer al mismo producto.
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_producto", nullable = false)
+    private Producto producto;
 
     /**
      * Constructor vacío requerido por JPA.
@@ -138,6 +150,20 @@ public class MovimientoInventario {
         this.observacion = observacion;
     }
 
+    /**
+     * @return producto afectado por el movimiento
+     */
+    public Producto getProducto() {
+        return producto;
+    }
+
+    /**
+     * @param producto producto afectado por el movimiento
+     */
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
     @Override
     public boolean equals(Object obj) {
 
@@ -168,6 +194,7 @@ public class MovimientoInventario {
                 + ", existenciaAnterior=" + existenciaAnterior
                 + ", existenciaActual=" + existenciaActual
                 + ", observacion=" + observacion
+                + ", producto=" + producto
                 + "]";
     }
 }
