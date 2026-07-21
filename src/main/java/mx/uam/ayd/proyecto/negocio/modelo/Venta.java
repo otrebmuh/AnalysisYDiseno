@@ -8,6 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import mx.uam.ayd.proyecto.presentacion.ControlHistorialMovimientos.ControlHistorialMovimientos;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -180,5 +182,17 @@ public class Venta {
                 ", date=" + date +
                 ", idVendedor=" + idVendedor +
                 '}';
+    }
+    public static void muestraMovimientos(List<MovimientoInventario> movimientos) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'muestraMovimientos'");
+    }
+    public static void muestra() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'muestra'");
+    }
+    public static void setControl(ControlHistorialMovimientos controlHistorialMovimientos) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setControl'");
     }
 }
