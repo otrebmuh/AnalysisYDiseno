@@ -19,7 +19,6 @@ public class Bitacora { // Clase pública para que las demás capas interactúen
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Indica que el ID se autoincrementará solo en la BD
     private long idBitacora; 
 
-    // Atributos privados (Principio de Encapsulamiento)
     // Clases (variables) ocupadas para la HU-09
     private double precioAnterior;
     private double precioNuevo;
@@ -34,7 +33,7 @@ public class Bitacora { // Clase pública para que las demás capas interactúen
     private LocalDateTime fechaHora;    
 
 
-    // MÉTODOS DE ACCESO: GETTERS
+    // étodos de acceso: getters
     // Los Getters leen o recuperan el valor de un atributo. No modifican nada, solo "muestran" el dato.
 
     public long getIdBitacora() {
@@ -70,7 +69,7 @@ public class Bitacora { // Clase pública para que las demás capas interactúen
     }
 
 
-    // MÉTODOS DE ACCESO: SETTERS
+    // Métodos de acceso: setters
     // Los Setters establecen, asignan o modifican el valor de un atributo privado desde el exterior.
 
     public void setIdBitacora(long idBitacora) {
@@ -106,7 +105,7 @@ public class Bitacora { // Clase pública para que las demás capas interactúen
     }
 
 
-    //          MÉTODOS SOBREESCRITOS (@Override)
+    //Métodos sobreescritos (@Override)
 
     /**
      * @Override indica que estamos rediseñando un método que ya viene de la clase padre Object.
@@ -115,18 +114,19 @@ public class Bitacora { // Clase pública para que las demás capas interactúen
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) { // Si apuntan a la misma dirección de memoria, son iguales
+        if (this == obj) { // Si apuntan a la misma dirección de memoria, son idénticos y se detiene la validación devolviendo verdadero
             return true;
         }
-        if (obj == null) { // Si el otro objeto es nulo, no son iguales
+        if (obj == null) { // Si el objeto a comparar es nulo, no son iguales y devuelve falso
             return false;
         }
-        if (getClass() != obj.getClass()) { // Si son de clases diferentes, no son iguales
+        if (getClass() != obj.getClass()) { // Si son de clases diferentes, no son iguales y devuelve falso
             return false;
         }
         Bitacora other = (Bitacora) obj;
-        return idBitacora == other.idBitacora; // Compara finalmente sus llaves primarias
+        return idBitacora == other.idBitacora; // Compara si su ID es idéntico al de la bitácora actual para detectar registros duplicados
     }
+
 
     /**
      * El método 'hashCode' genera un número entero único (un hash) basado en la llave primaria.
