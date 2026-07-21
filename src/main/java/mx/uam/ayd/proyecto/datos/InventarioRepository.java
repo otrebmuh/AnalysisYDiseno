@@ -6,7 +6,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Inventario;
 /**
  * Repositorio para el control de Inventario
  *
- * @author KEVIN DYDIER
+ * @author KEVIN DYDIER, yael Mora Simón
  */
 public interface InventarioRepository extends CrudRepository<Inventario, Long> {
 

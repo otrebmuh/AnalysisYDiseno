@@ -12,7 +12,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.MovimientoInventario;
  *
  * Se encarga de comunicar la interfaz con la lógica de negocio.
  *
- * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
+ * @author Yael Mora Simón
  */
 @Component
 public class ControlHistorialMovimientos {

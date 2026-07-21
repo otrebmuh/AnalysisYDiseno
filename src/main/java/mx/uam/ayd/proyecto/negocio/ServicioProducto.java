@@ -7,7 +7,11 @@ import org.slf4j.LoggerFactory;
 
 import mx.uam.ayd.proyecto.datos.ProductoRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
-
+/**
+ * Servicio encargado de la lógica de negocio de los productos.
+ *
+ * @author Javitos
+ */
 @Service
 public class ServicioProducto {
 

@@ -24,7 +24,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.MovimientoInventario;
 /**
  * Ventana para consultar el historial de movimientos de inventario.
  *
- * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
+ * @author Yael Mora Simón
  */
 @Component
 public class VentanaHistorialMovimientos {

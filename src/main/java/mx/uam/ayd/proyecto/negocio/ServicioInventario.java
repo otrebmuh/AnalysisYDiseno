@@ -18,7 +18,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 
 /**
  *
- * @author Kevin Dydier
+ * @author Kevin Dydier y yael Mora Simón
  */
 @Service
 public class ServicioInventario {
