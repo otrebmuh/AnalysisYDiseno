@@ -19,7 +19,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
-
+/**
+ * Ventana para consultar el inventario.
+ *
+ * @author Yael Mora Simón
+ */
 @Component
 public class VentanaConsultarInventario {
 

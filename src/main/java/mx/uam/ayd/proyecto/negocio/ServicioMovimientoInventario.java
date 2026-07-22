@@ -13,7 +13,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.MovimientoInventario;
  * Servicio encargado de la lógica de negocio de los movimientos
  * de inventario.
  *
- * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
+ * @author Yael Mora Simón
  */
 @Service
 public class ServicioMovimientoInventario {

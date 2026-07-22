@@ -87,4 +87,27 @@ public class DescripcionVenta {
                 ", precioUnitario=" + precioUnitario +
                 '}';
     }
+
+    // --- Constructor parametrizado requerido por Venta.java ---
+    public DescripcionVenta(Producto producto, int cantidad) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.precioUnitario = (producto != null && producto.getPrecio() != null) ? producto.getPrecio() : 0.0;
+    }
+
+    // --- Métodos Helper para JavaFX (PropertyValueFactory) ---
+    
+    /**
+     * Requerido por la columna colNombre de la TableView
+     */
+    public String getProductoNombre() {
+        return producto != null ? producto.getNombre() : "";
+    }
+
+    /**
+     * Requerido por la columna colSubtotal de la TableView
+     */
+    public double getSubtotal() {
+        return (precioUnitario != null ? precioUnitario : 0.0) * cantidad;
+    }
 }

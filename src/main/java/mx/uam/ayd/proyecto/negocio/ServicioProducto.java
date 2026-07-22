@@ -7,7 +7,11 @@ import org.slf4j.LoggerFactory;
 
 import mx.uam.ayd.proyecto.datos.ProductoRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
-
+/**
+ * Servicio encargado de la lógica de negocio de los productos.
+ *
+ * @author Javitos
+ */
 @Service
 public class ServicioProducto {
 
@@ -40,43 +44,32 @@ public class ServicioProducto {
         log.info("Buscando producto por nombre: {}", nombre);
         return productoRepository.findByNombre(nombre);
     }
+
     /**
- * Busca un producto por su clave.
- *
- * @param clave Clave del producto.
- * @return Producto encontrado o null si no existe.
- */
-public Producto buscaProductoPorClave(String clave) {
+     * Verifica si hay suficiente stock disponible para la venta.
+     * Corresponde a la llamada verificaDisponibilidad(producto, cantidad)
+     * 
+     * @param producto El producto a verificar.
+     * @param cantidad La cantidad solicitada por el cliente.
+     * @return true si hay suficiente stock, false en caso contrario.
+     */
+    public boolean verificaDisponibilidad(Producto producto, int cantidad) {
+        log.info("Verificando disponibilidad para el producto: {} (Cantidad solicitada: {})", 
+                 producto != null ? producto.getNombre() : "null", cantidad);
 
-    log.info("Buscando producto por clave: {}", clave);
+        if (producto == null || cantidad <= 0) {
+            log.warn("Producto nulo o cantidad inválida");
+            return false;
+        }
 
-    return productoRepository.findByClave(clave);
-}
+        // Verifica si el stock existente cubre la cantidad deseada
+        boolean disponible = producto.getExistenciaActual() >= cantidad;
+        
+        if (!disponible) {
+            log.warn("Stock insuficiente para {}. Disponible: {}, Solicitado: {}", 
+                     producto.getNombre(), producto.getExistenciaActual(), cantidad);
+        }
 
-/**
- * Registra la entrada de mercancía.
- *
- * @param clave Clave del producto.
- * @param cantidad Cantidad a agregar.
- * @return true si se actualizó correctamente, false si no existe.
- */
-public boolean registrarMercancia(String clave, int cantidad) {
-
-    Producto producto = productoRepository.findByClave(clave);
-
-    if (producto == null) {
-        return false;
+        return disponible;
     }
-
-    producto.setExistenciaActual(
-            producto.getExistenciaActual() + cantidad);
-
-    productoRepository.save(producto);
-
-    log.info("Se registró entrada de {} unidades para el producto {}",
-            cantidad, clave);
-
-    return true;
-}
-
 }

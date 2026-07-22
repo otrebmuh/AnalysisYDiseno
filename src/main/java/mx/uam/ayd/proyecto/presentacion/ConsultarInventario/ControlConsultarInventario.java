@@ -6,7 +6,11 @@ import org.springframework.stereotype.Component;
 import jakarta.annotation.PostConstruct;
 import mx.uam.ayd.proyecto.negocio.ServicioProducto;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
-
+/**
+ * Control para la ventana de consulta de inventario.
+ *
+ * @author Yael Mora Simón
+ */
 @Component
 public class ControlConsultarInventario {
 
