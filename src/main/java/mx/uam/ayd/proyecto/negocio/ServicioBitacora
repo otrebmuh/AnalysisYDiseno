@@ -1,46 +1,48 @@
 package mx.uam.ayd.proyecto.negocio;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import mx.uam.ayd.proyecto.datos.BitacoraRepository;
+import mx.uam.ayd.proyecto.datos.ProductoRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Bitacora;
+import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 
 /**
- * Servicio para gestionar la lógica de negocio de la Bitácora.
- *
- * Se encarga de registrar y persistir los eventos del sistema.
- *
- * @author Yamelin Larios Nepomuseno
+ * Servicio para gestionar la lógica de negocio de los productos.
  */
 @Service
-public class ServicioBitacora {
+public class ServicioProducto {
+
+    private final ProductoRepository productoRepository;
+    private final ServicioBitacora servicioBitacora; // <--- Se agrega esta declaración
 
     @Autowired
-    private BitacoraRepository bitacoraRepository;
+    public ServicioProducto(ProductoRepository productoRepository, ServicioBitacora servicioBitacora) {
+        this.productoRepository = productoRepository;
+        this.servicioBitacora = servicioBitacora;
+    }
 
     /**
-     * Registra un cambio de precio de un producto en la bitácora para la HU-09.
-     *
-     * @param idProducto Identificador del producto modificado
-     * @param precioAnterior Precio previo a la actualización
-     * @param precioNuevo Nuevo precio asignado
-     * @return El objeto Bitacora persistido.
+     * Actualiza el precio de un producto y registra el movimiento en la bitácora (HU-09).
+     * 
+     * @param idProducto Identificador del producto
+     * @param nuevoPrecio Nuevo precio a asignar
+     * @return El objeto Bitacora con el registro del cambio
      */
     @Transactional
-    public Bitacora registrarCambioPrecio(long idProducto, double precioAnterior, double precioNuevo) {
-        
-        // Instanciar y llenar el objeto Bitacora
-        Bitacora bitacora = new Bitacora();
-        bitacora.setIdProducto((int) idProducto);
-        bitacora.setPrecioAnterior(precioAnterior);
-        bitacora.setPrecioNuevo(precioNuevo);
-        bitacora.setFechaHora(LocalDateTime.now());
+    public Bitacora actualizarPrecioProducto(long idProducto, double nuevoPrecio) {
+        // 1. Buscar el producto
+        Producto producto = productoRepository.findById(idProducto)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró el producto con ID: " + idProducto));
 
-        // Persistir el registro en el repositorio
-        return bitacoraRepository.save(bitacora);
+        double precioAnterior = producto.getPrecio(); // Asegúrate de ajustar el getter según tu entidad Producto
+
+        // 2. Actualizar el precio del producto y guardarlo
+        producto.setPrecio(nuevoPrecio); // Ajusta el setter según tu entidad Producto
+        productoRepository.save(producto);
+
+        // 3. Registrar en la bitácora a través del servicio inyectado
+        return servicioBitacora.registrarCambioPrecio(idProducto, precioAnterior, nuevoPrecio);
     }
 }
