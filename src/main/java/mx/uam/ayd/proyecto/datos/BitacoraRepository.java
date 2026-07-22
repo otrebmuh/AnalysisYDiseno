@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Bitacora;
 
 /**
- * Repositorio de datos para la entidad Bitacora
+ * Repositorio de datos para la entidad Bitacora a
  *
  * @author Yamelin Larios Nepomuseno
  *
