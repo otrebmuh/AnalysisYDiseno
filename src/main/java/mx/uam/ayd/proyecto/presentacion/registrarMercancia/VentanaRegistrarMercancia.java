@@ -129,8 +129,11 @@ public class VentanaRegistrarMercancia {
 
         if (exito) {
 
-            lblExistencia.setText(
-                    String.valueOf(productoActual.getExistenciaActual()));
+              productoActual = control.buscarProducto(productoActual.getClave());
+
+              lblExistencia.setText(
+                   String.valueOf(productoActual.getExistenciaActual()));
+
 
         }
 

@@ -72,4 +72,42 @@ public class ServicioProducto {
 
         return disponible;
     }
+        /**
+     * Busca un producto por su clave.
+     *
+     * @param clave Clave del producto.
+     * @return Producto encontrado o null si no existe.
+     */
+    public Producto buscaProductoPorClave(String clave) {
+
+        log.info("Buscando producto por clave: {}", clave);
+
+        return productoRepository.findByClave(clave);
+    }
+
+    /**
+     * Registra la entrada de mercancía.
+     *
+     * @param clave Clave del producto.
+     * @param cantidad Cantidad a agregar.
+     * @return true si se actualizó correctamente.
+     */
+    public boolean registrarMercancia(String clave, int cantidad) {
+
+        Producto producto = productoRepository.findByClave(clave);
+
+        if (producto == null) {
+            return false;
+        }
+
+        producto.setExistenciaActual(
+                producto.getExistenciaActual() + cantidad);
+
+        productoRepository.save(producto);
+
+        log.info("Se registró entrada de {} unidades para el producto {}",
+                cantidad, clave);
+
+        return true;
+    }
 }
