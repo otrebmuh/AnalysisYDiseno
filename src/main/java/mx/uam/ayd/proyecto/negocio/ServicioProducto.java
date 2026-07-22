@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import mx.uam.ayd.proyecto.datos.ProductoRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
+import mx.uam.ayd.proyecto.negocio.ServicioBitacora; // <--- Import explícito agregado
 
 /**
  * Servicio encargado de la lógica de negocio de los productos.
@@ -113,7 +114,7 @@ public class ServicioProducto {
         return true;
     }
 
-    //                    MÉTODOS PARA LA HISTORIA DE USUARIO 09 (HU09)
+    //                     MÉTODOS PARA LA HISTORIA DE USUARIO 09 (HU09)
 
     /**
      * Busca un producto por su ID único.
