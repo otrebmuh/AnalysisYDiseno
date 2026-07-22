@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import mx.uam.ayd.proyecto.datos.ProductoRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
-import mx.uam.ayd.proyecto.negocio.ServicioBitacora; // <--- Import explícito agregado
+//port mx.uam.ayd.proyecto.negocio.ServicioBitacora;
 
 /**
  * Servicio encargado de la lógica de negocio de los productos.
