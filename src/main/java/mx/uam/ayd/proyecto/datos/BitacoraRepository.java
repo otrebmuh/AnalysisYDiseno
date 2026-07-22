@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Bitacora;
 
 /**
- * Repositorio para el registro de acciones en Bitácora
+ * Repositorio para el registro de acciones en Bitácora a
  * @author KEVIN DYDIER *
  */
 public interface BitacoraRepository extends CrudRepository <Bitacora, Long> {
