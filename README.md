@@ -5,7 +5,7 @@ Este proyecto es una aplicación JavaFX con Spring Boot que implementa un sistem
 ## Tecnologías Utilizadas
 
 - **Spring Boot 3.2.12** - Framework de aplicación
-- **Java 17** - Lenguaje de programación
+- **Java 25** - Lenguaje de programación
 - **JavaFX 21.0.2** - Framework de interfaz gráfica
 - **Spring Data JPA** - Persistencia de datos
 - **H2 Database** - Base de datos en memoria
@@ -24,7 +24,7 @@ Este proyecto es una aplicación JavaFX con Spring Boot que implementa un sistem
 ```bash
 java -version
 ```
-Asegúrate de tener Java 17 o superior instalado.
+Asegúrate de tener Java 25 o superior instalado.
 
 ### 2. Clonar el repositorio
 ```bash
