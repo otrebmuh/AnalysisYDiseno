@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,14 +31,22 @@ class ServicioUsuarioTest {
 	private ServicioUsuario servicioUsuario;
 
 	@Test
-	void testRecuperaUsuarios() {
-		// Caso 1: No hay usuarios guardados, regresa lista vacía
+	@DisplayName("Debería regresar una lista vacía cuando no hay usuarios guardados")
+	void recuperaUsuariosSinUsuariosRegresaListaVacia() {
+		// Given
+		//when(usuarioRepository.findAll()).thenReturn(new ArrayList<>());
+
+		// When
 		List<Usuario> usuarios = servicioUsuario.recuperaUsuarios();
+
+		// Then
 		assertEquals(0, usuarios.size());
+	}
 
-		// Caso 2: Hay usuarios guardados, regresa lista con usuarios
-		ArrayList<Usuario> lista = new ArrayList<>();
-
+	@Test
+	@DisplayName("Debería regresar la lista de usuarios cuando existen usuarios guardados")
+	void recuperaUsuariosConUsuariosRegresaListaConUsuarios() {
+		// Given
 		Usuario usuario1 = new Usuario();
 		usuario1.setNombre("Juan");
 		usuario1.setApellido("Perez");
@@ -45,13 +54,17 @@ class ServicioUsuarioTest {
 		Usuario usuario2 = new Usuario();
 		usuario2.setNombre("María");
 		usuario2.setApellido("Ramírez");
-		
+
+		ArrayList<Usuario> lista = new ArrayList<>();
 		lista.add(usuario1);
 		lista.add(usuario2);
 
 		when(usuarioRepository.findAll()).thenReturn(lista);
-		
-		usuarios = servicioUsuario.recuperaUsuarios();
+
+		// When
+		List<Usuario> usuarios = servicioUsuario.recuperaUsuarios();
+
+		// Then
 		assertEquals(2, usuarios.size());
 	}
 
