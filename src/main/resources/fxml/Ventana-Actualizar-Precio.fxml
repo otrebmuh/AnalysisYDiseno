@@ -1,151 +1,117 @@
-package mx.uam.ayd.proyecto.presentacion.actualizarPrecio;
+<?xml version="1.0" encoding="UTF-8"?>
 
-import org.springframework.stereotype.Component;
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import mx.uam.ayd.proyecto.negocio.modelo.Producto;
+<VBox prefHeight="450.0" prefWidth="480.0" spacing="15.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #03a9f4;">
+         <children>
+            <Label text="Actualizar Precio de Producto" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      
+      <VBox spacing="15.0">
+         <children>
+            <Label text="1. Buscar Producto" textFill="#555555">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <HBox spacing="10.0">
+               <children>
+                  <TextField fx:id="txtIdProducto" prefHeight="30.0" promptText="ID del Producto" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#onBuscarProducto" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #03a9f4;" text="Buscar" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            
+            <Separator prefWidth="200.0" />
 
-/**
- * Ventana JavaFX para la Actualización de Precios (HU09).
- *
- * @author Yamelin Larios Nepomuseno
- */
-@Component
-public class VentanaActualizarPrecio {
+            <Label text="2. Datos del Producto" textFill="#555555">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <GridPane hgap="10.0" style="-fx-background-color: #ffffff; -fx-padding: 10; -fx-background-radius: 5; -fx-border-color: #e0e0e0; -fx-border-radius: 5;" vgap="10.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="120.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblNombreProducto" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                  
+                  <Label text="Precio Actual:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPrecioActual" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            
+            <Separator prefWidth="200.0" />
 
-    private ControlActualizarPrecio control;
+            <Label text="3. Modificar Costo" textFill="#555555">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Label text="Nuevo Precio: $">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtNuevoPrecio" prefHeight="30.0" prefWidth="150.0" promptText="0.00" />
+               </children>
+            </HBox>
+            
+            <Label fx:id="lblFeedback" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="30.0" style="-fx-background-radius: 3;" text="" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
 
-    // Componentes inyectados desde el archivo FXML
-    @FXML
-    private TextField txtIdProducto;
-
-    @FXML
-    private Button btnBuscar;
-
-    @FXML
-    private Label lblNombreProducto;
-
-    @FXML
-    private Label lblPrecioActual;
-
-    @FXML
-    private TextField txtNuevoPrecio;
-
-    @FXML
-    private Label lblFeedback;
-
-    @FXML
-    private Button btnActualizar;
-
-    /**
-     * Asigna el control que manejará las acciones de esta ventana.
-     * 
-     * @param control
-     */
-    public void setControl(ControlActualizarPrecio control) {
-        this.control = control;
-    }
-
-    /**
-     * Muestra la ventana y resetea los campos.
-     */
-    public void muestra() {
-        limpiarCampos();
-        // Aquí agregas la lógica para hacer visible el Stage de JavaFX si tu proyecto usa Stage
-    }
-
-    /**
-     * Evento asociado al botón "Buscar" (#onBuscarProducto)
-     */
-    @FXML
-    public void onBuscarProducto() {
-        String textoId = txtIdProducto.getText().trim();
-
-        if (textoId.isEmpty()) {
-            mostrarMensaje("Por favor ingresa un ID de producto.", true);
-            return;
-        }
-
-        try {
-            long idProducto = Long.parseLong(textoId);
-            Producto producto = control.buscarProducto(idProducto);
-
-            if (producto == null) {
-                mostrarMensaje("No se encontró ningún producto con ID: " + idProducto, true);
-                lblNombreProducto.setText("-");
-                lblPrecioActual.setText("-");
-            } else {
-                lblNombreProducto.setText(producto.getNombre());
-                lblPrecioActual.setText("$" + String.format("%.2f", producto.getPrecio()));
-                ocultarMensaje();
-            }
-
-        } catch (NumberFormatException e) {
-            mostrarMensaje("El ID de producto debe ser un número entero válido.", true);
-        }
-    }
-
-    /**
-     * Evento asociado al botón "Actualizar Precio" (#onActualizarPrecio)
-     */
-    @FXML
-    public void onActualizarPrecio() {
-        String textoId = txtIdProducto.getText().trim();
-        String textoNuevoPrecio = txtNuevoPrecio.getText().trim();
-
-        if (textoId.isEmpty() || textoNuevoPrecio.isEmpty()) {
-            mostrarMensaje("Por favor busca un producto y captura el nuevo precio.", true);
-            return;
-        }
-
-        try {
-            long idProducto = Long.parseLong(textoId);
-            double nuevoPrecio = Double.parseDouble(textoNuevoPrecio);
-
-            // Invocación al control
-            Producto productoActualizado = control.actualizarPrecio(idProducto, nuevoPrecio);
-
-            // Actualizar la interfaz
-            lblPrecioActual.setText("$" + String.format("%.2f", productoActualizado.getPrecio()));
-            txtNuevoPrecio.clear();
-            mostrarMensaje("¡Precio actualizado correctamente a $" + productoActualizado.getPrecio() + "!", false);
-
-        } catch (NumberFormatException e) {
-            mostrarMensaje("El nuevo precio debe ser un número decimal válido (ej. 15.50).", true);
-        } catch (IllegalArgumentException e) {
-            mostrarMensaje(e.getMessage(), true);
-        }
-    }
-
-    /**
-     * Limpia el formulario
-     */
-    private void limpiarCampos() {
-        txtIdProducto.clear();
-        lblNombreProducto.setText("-");
-        lblPrecioActual.setText("-");
-        txtNuevoPrecio.clear();
-        ocultarMensaje();
-    }
-
-    /**
-     * Muestra mensajes de error o éxito en el Label de Feedback
-     */
-    private void mostrarMensaje(String mensaje, boolean esError) {
-        lblFeedback.setText(mensaje);
-        lblFeedback.setVisible(true);
-        if (esError) {
-            lblFeedback.setStyle("-fx-background-color: #ffcdd2; -fx-text-fill: #b71c1c; -fx-padding: 5;");
-        } else {
-            lblFeedback.setStyle("-fx-background-color: #c8e6c9; -fx-text-fill: #1b5e20; -fx-padding: 5;");
-        }
-    }
-
-    private void ocultarMensaje() {
-        lblFeedback.setVisible(false);
-        lblFeedback.setText("");
-    }
-}
+            <HBox alignment="CENTER_RIGHT" prefHeight="50.0" spacing="10.0">
+               <children>
+                  <Button fx:id="btnActualizar" mnemonicParsing="false" onAction="#onActualizarPrecio" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #4caf50;" text="Actualizar Precio" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</VBox>
