@@ -107,4 +107,13 @@ public class VentanaPrincipal {
             control.listarInventario();
     }
 }
+    @FXML
+    private void handleRegistrarMercancia() {
+
+        if (control != null) {
+            control.registrarMercancia();
+    }
+
+}
+
 }

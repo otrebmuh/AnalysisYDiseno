@@ -89,4 +89,40 @@ public class ServicioInventario {
     public Producto obtenerDetalleProducto(long idProducto) {
         return productoRepository.findById(idProducto).orElse(null);
     }
+     
+    /**
+ * Recupera todos los registros del inventario.
+ *
+ * @return Lista de inventarios.
+ */
+public List<Inventario> recuperaInventario() {
+
+    List<Inventario> inventarios = new ArrayList<>();
+
+    for (Inventario inventario : inventarioRepository.findAll()) {
+        inventarios.add(inventario);
+    }
+
+    return inventarios;
+}
+
+/**
+ * Recupera únicamente los productos con bajo stock.
+ *
+ * @return Lista de inventarios con bajo stock.
+ */
+public List<Inventario> obtenerProductosBajoStock() {
+
+    List<Inventario> productosBajoStock = new ArrayList<>();
+
+    for (Inventario inventario : inventarioRepository.findAll()) {
+
+        if (inventario.getExistenciaActual() <= inventario.getStockMinimo()) {
+            productosBajoStock.add(inventario);
+        }
+    }
+
+    return productosBajoStock;
+}
+
 }

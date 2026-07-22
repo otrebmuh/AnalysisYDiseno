@@ -16,6 +16,10 @@
             onAction="#handleListarInventario"
             style="-fx-min-width: 200px; -fx-min-height: 30px;"/>
 
+    <Button text="Registrar mercancía"
+            onAction="#handleRegistrarMercancia"
+            style="-fx-min-width: 200px; -fx-min-height: 30px;"/>
+
     <Button text="Listar usuarios" onAction="#handleListarUsuarios" 
             style="-fx-min-width: 200px; -fx-min-height: 30px;"/>
     
