@@ -5,7 +5,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 
 /**
  * Repositorio para la entidad Producto.
- * @author JAVITOS
+ * @author JAVITOS, Yamelin Larios Nepomuseno
  */
 public interface ProductoRepository extends CrudRepository<Producto, Long> {
 
@@ -23,6 +23,12 @@ public interface ProductoRepository extends CrudRepository<Producto, Long> {
      * @return el producto o null si no existe
      */
     public Producto findByClave(String clave);
+
+    /**
+     * Busca un producto específico por su idProducto.
+     * Indispensable para la actualización de precios en la HU09.
+     * @param idProducto El identificador único del producto
+     * @return el producto o null si no existe
+     */
+    public Producto findByIdProducto(long idProducto);
 }
-
-

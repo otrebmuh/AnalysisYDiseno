@@ -11,7 +11,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 
 @Service
 /**
- * Servicio relacionado con los grupos
+ * Clase con Servicio relacionado con los grupos
  * 
  * @author humbertocervantes
  *

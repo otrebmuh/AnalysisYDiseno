@@ -25,6 +25,11 @@ class GrupoTest {
 	@Test
 	@DisplayName("Debería agregar un usuario exitosamente al grupo")
 	void testAgregarUsuarioExitosamente() {
+		
+		//Given 
+		// Grupo vacio
+		// Usuario creado
+		
 		// When
 		boolean resultado = grupoPrueba.addUsuario(usuarioPrueba);
 		
