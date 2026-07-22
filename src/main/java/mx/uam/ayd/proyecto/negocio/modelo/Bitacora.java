@@ -104,7 +104,6 @@ public class Bitacora { // Clase pública para que las demás capas interactúen
         this.fechaHora = fechaHora;
     }
 
-
     //Métodos sobreescritos (@Override)
 
     /**
