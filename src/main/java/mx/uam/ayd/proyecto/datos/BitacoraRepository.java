@@ -2,22 +2,14 @@ package mx.uam.ayd.proyecto.datos;
 
 import org.springframework.data.repository.CrudRepository;
 
-import mx.uam.ayd.proyecto.negocio.modelo.Producto;
+import mx.uam.ayd.proyecto.negocio.modelo.Bitacora;
 
 /**
- * Repositorio para Producto
+ * Repositorio para Bitacora
  * 
  * @author Yamelin Larios Nepomuseno
  *
  */
-public interface ProductoRepository extends CrudRepository <Producto, Long> {
-    
-    /**
-     * Encuentra un producto a partir de su idProducto
-     * 
-     * @param idProducto
-     * @return
-     */
-    public Producto findByIdProducto(long idProducto);
+public interface BitacoraRepository extends CrudRepository <Bitacora, Long> {
 
 }
