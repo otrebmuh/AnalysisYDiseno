@@ -3,6 +3,7 @@ package mx.uam.ayd.proyecto.datos;
 import org.springframework.data.repository.CrudRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Producto;
 
+
 /**
  * Repositorio para la entidad Producto.
  * @author JAVITOS, Yamelin Larios Nepomuseno
