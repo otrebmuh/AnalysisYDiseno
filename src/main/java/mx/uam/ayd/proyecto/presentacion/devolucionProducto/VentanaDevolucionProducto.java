@@ -194,9 +194,7 @@ public class VentanaDevolucionProducto {
         if (textAreaMotivo != null) textAreaMotivo.setText("");
     }
     
-    // ==========================================
     // Manejadores de eventos FXML
-    // ==========================================
     
     @FXML
     private void handleBuscarProducto() {
