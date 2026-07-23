@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import mx.uam.ayd.proyecto.presentacion.HistorialMovimientos.ControlHistorialMovimientos;
+import mx.uam.ayd.proyecto.presentacion.historialMovimientos.ControlHistorialMovimientos;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
