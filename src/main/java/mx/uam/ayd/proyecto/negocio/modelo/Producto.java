@@ -18,12 +18,13 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idProducto; 
 
+    private String clave;
     private String nombre;
     private String tipoProducto;
     private Double precio; // Usado para HU09 (Precio de Venta a actualizar)
     private String marca;
     private String categoria; // Se cambió de Object a String para evitar problemas de persistencia en JPA
-    
+
     // Atributos colaborativos (HU de tus compañeros)
     private Double precioCompra; 
     private int existenciaActual; 
@@ -37,6 +38,10 @@ public class Producto {
     public long getIdProducto() {
         return idProducto;
     }
+
+    public String getClave() {
+    return clave;
+   }
 
     public String getNombre() {
         return nombre;
@@ -71,6 +76,10 @@ public class Producto {
 
     public void setIdProducto(long idProducto) {
         this.idProducto = idProducto;
+    }
+
+    public void setClave(String clave) {
+    this.clave = clave;
     }
 
     public void setNombre(String nombre) {
