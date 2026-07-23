@@ -100,4 +100,20 @@ public class VentanaPrincipal {
 			control.listarGrupos();
 		}
 	}
+
+	@FXML
+    private void handleListarInventario() {
+        if (control != null) {
+            control.listarInventario();
+    }
+}
+    @FXML
+    private void handleRegistrarMercancia() {
+
+        if (control != null) {
+            control.registrarMercancia();
+    }
+
+}
+
 }

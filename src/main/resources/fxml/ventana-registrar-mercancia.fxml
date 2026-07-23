@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <VBox spacing="10" style="-fx-padding: 10px;">
+            <Label text="Registrar Entrada de Mercancía"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <GridPane hgap="10" vgap="10" style="-fx-padding: 15px;">
+
+            <Label text="Clave del producto:"
+                   GridPane.rowIndex="0"
+                   GridPane.columnIndex="0"/>
+
+            <TextField fx:id="txtClave"
+                       GridPane.rowIndex="0"
+                       GridPane.columnIndex="1"/>
+
+            <Button text="Buscar"
+                    onAction="#handleBuscar"
+                    GridPane.rowIndex="0"
+                    GridPane.columnIndex="2"/>
+
+            <Label text="Nombre:"
+                   GridPane.rowIndex="1"
+                   GridPane.columnIndex="0"/>
+
+            <Label fx:id="lblNombre"
+                   text="-"
+                   GridPane.rowIndex="1"
+                   GridPane.columnIndex="1"/>
+
+            <Label text="Existencia actual:"
+                   GridPane.rowIndex="2"
+                   GridPane.columnIndex="0"/>
+
+            <Label fx:id="lblExistencia"
+                   text="-"
+                   GridPane.rowIndex="2"
+                   GridPane.columnIndex="1"/>
+
+            <Label text="Cantidad a ingresar:"
+                   GridPane.rowIndex="3"
+                   GridPane.columnIndex="0"/>
+
+            <TextField fx:id="txtCantidad"
+                       GridPane.rowIndex="3"
+                       GridPane.columnIndex="1"/>
+
+        </GridPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="10"
+              alignment="CENTER"
+              style="-fx-padding: 10px;">
+
+            <Button text="Registrar"
+                    onAction="#handleRegistrar"/>
+
+            <Button text="Cerrar"
+                    onAction="#handleCerrar"/>
+
+        </HBox>
+    </bottom>
+
+</BorderPane>
