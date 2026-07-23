@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.ControlHistorialMovimientos;
+package mx.uam.ayd.proyecto.presentacion.historialMovimientos;
 
 import java.util.List;
 
