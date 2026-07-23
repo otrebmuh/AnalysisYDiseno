@@ -72,7 +72,7 @@ public class ServicioInventario {
 
     private void registrarEventoAlerta(long idProducto, String claveProducto) {
         Bitacora evento = new Bitacora();
-        evento.setIdProducto(idProducto);
+        evento.setIdProducto((int) idProducto);
         evento.setFechaHora(LocalDateTime.now());
         evento.setMotivo("Emisión de alerta visual por stock bajo: " + claveProducto);
         
