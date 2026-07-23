@@ -3,7 +3,7 @@ package mx.uam.ayd.proyecto.datos;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+
 
 import mx.uam.ayd.proyecto.negocio.modelo.MovimientoInventario;
 
@@ -12,9 +12,8 @@ import mx.uam.ayd.proyecto.negocio.modelo.MovimientoInventario;
  *
  * @author Yamelin, Guillermo, Dydier, Yael, Sheyla
  */
-@Repository
-public interface MovimientoInventarioRepository
-        extends CrudRepository<MovimientoInventario, Long> {
+
+public interface MovimientoInventarioRepository extends CrudRepository<MovimientoInventario, Long> {
 
     /**
      * Recupera los movimientos cuyo tipo contiene el texto indicado.

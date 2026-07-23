@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.actualizarPrecio;
+package mx.uam.ayd.proyecto.presentacion.controlActualizarPrecio;
 
 import org.springframework.stereotype.Component;
 
