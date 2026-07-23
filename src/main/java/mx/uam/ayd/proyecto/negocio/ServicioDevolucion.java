@@ -78,7 +78,8 @@ public class ServicioDevolucion {
         devolucion.setIdProducto(idProducto);
         devolucion.setCantidad(cantidad);
         devolucion.setMotivo(motivo);
-        devolucion.setFechaHora(LocalDateTime.now());
+        devolucion.setTipoDevolucion("DAÑADO");
+        devolucion.setFecha(LocalDateTime.now()); // Correcto: se utiliza setFecha() en lugar de setFechaHora()
 
         Devolucion devolucionGuardada = devolucionRepository.save(devolucion);
         log.info("Devolución registrada exitosamente con ID: {} para el producto {}", 
