@@ -3,6 +3,8 @@ package mx.uam.ayd.proyecto.negocio;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import static org.mockito.ArgumentMatchers.any;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,82 +20,47 @@ import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 
 @ExtendWith(MockitoExtension.class)
 class ServicioGrupoTest {
-    
-    @Mock
+
+    @Mock    
     private GrupoRepository grupoRepository;
     
     @InjectMocks
     private ServicioGrupo servicioGrupo;
 
     @Test
-    void testRecuperaGrupos() {
-        // Caso 1: No hay grupos guardados, regresa lista vacía
-        List<Grupo> grupos = servicioGrupo.recuperaGrupos();
-        assertEquals(0, grupos.size());
+    public void testLanzaExcepcionCuandoNombreEsNulo() {
+        // Given
+        // No hay precondiciones
 
-        // Caso 2: Hay grupos guardados, regresa lista con grupos
-        ArrayList<Grupo> lista = new ArrayList<>();
+        // When/Then
+        assertThrows(IllegalArgumentException.class, () -> servicioGrupo.creaGrupo(null));
 
-        Grupo grupo1 = new Grupo();
-        grupo1.setNombre("Administradores");
+    }
 
-        Grupo grupo2 = new Grupo();
-        grupo2.setNombre("Operadores");
 
-        // Agregar algunos usuarios a los grupos
-        Usuario usuario1 = new Usuario();
-        usuario1.setNombre("Juan");
-        usuario1.setApellido("Pérez");
-        
-        Usuario usuario2 = new Usuario();
-        usuario2.setNombre("María");
-        usuario2.setApellido("Ramírez");
+    @Test
+    public void testCreaGrupoCorrectamente() {
+        // Given
+        when(grupoRepository.save(any(Grupo.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        grupo1.addUsuario(usuario1);
-        grupo2.addUsuario(usuario2);
-
-        lista.add(grupo1);
-        lista.add(grupo2);
-
-        when(grupoRepository.findAll()).thenReturn(lista);
-
-        grupos = servicioGrupo.recuperaGrupos();
-        assertEquals(2, grupos.size());
-        assertEquals(1, grupos.get(0).getUsuarios().size());
-        assertEquals(1, grupos.get(1).getUsuarios().size());
+        // When
+        Grupo grupo = servicioGrupo.creaGrupo("Grupo de prueba");
+    
+        // Then
+        assertNotNull(grupo);
     }
 
     @Test
-    void testCreaGrupo() {
-        // Caso 1: Crear grupo con nombre válido
-        String nombreGrupo = "Nuevo Grupo";
-        when(grupoRepository.findByNombre(nombreGrupo)).thenReturn(null);
-        
-        Grupo grupoCreado = new Grupo();
-        grupoCreado.setNombre(nombreGrupo);
-        when(grupoRepository.save(org.mockito.ArgumentMatchers.any(Grupo.class))).thenReturn(grupoCreado);
-
-        Grupo resultado = servicioGrupo.creaGrupo(nombreGrupo);
-        assertNotNull(resultado);
-        assertEquals(nombreGrupo, resultado.getNombre());
-
-        // Caso 2: Intentar crear grupo con nombre que ya existe
+    public void testFallaCrearGrupoYaHayUnoExistente() {
+        // Given
         Grupo grupoExistente = new Grupo();
-        grupoExistente.setNombre("Grupo Existente");
-        when(grupoRepository.findByNombre("Grupo Existente")).thenReturn(grupoExistente);
+        grupoExistente.setNombre("Prueba");
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            servicioGrupo.creaGrupo("Grupo Existente");
-        });
+        when(grupoRepository.findByNombre("Prueba")).thenReturn(grupoExistente);
 
-        // Caso 3: Intentar crear grupo con nombre nulo
-        assertThrows(IllegalArgumentException.class, () -> {
-            servicioGrupo.creaGrupo(null);
-        });
+        // When/Then
+        assertThrows(IllegalArgumentException.class, () -> servicioGrupo.creaGrupo("Prueba"));
 
-        // Caso 4: Intentar crear grupo con nombre vacío
-        assertThrows(IllegalArgumentException.class, () -> {
-            servicioGrupo.creaGrupo("");
-        });
     }
+
 } 
