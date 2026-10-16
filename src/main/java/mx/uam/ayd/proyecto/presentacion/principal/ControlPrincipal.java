@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.ControlAgregarUsuario;
 import mx.uam.ayd.proyecto.presentacion.listarUsuarios.ControlListarUsuarios;
 import mx.uam.ayd.proyecto.presentacion.listarGrupos.ControlListarGrupos;
+import mx.uam.ayd.proyecto.presentacion.listarInventario.ControlListarInventario;
+import mx.uam.ayd.proyecto.presentacion.registrarMercancia.ControlRegistrarMercancia;
 
 /**
  * Esta clase lleva el flujo de control de la ventana principal
@@ -22,18 +24,25 @@ public class ControlPrincipal {
 	private final ControlListarUsuarios controlListarUsuarios;
 	private final ControlListarGrupos controlListarGrupos;
 	private final VentanaPrincipal ventana;
-	
-	@Autowired
-	public ControlPrincipal(
-			ControlAgregarUsuario controlAgregarUsuario,
-			ControlListarUsuarios controlListarUsuarios,
-			ControlListarGrupos controlListarGrupos,
-			VentanaPrincipal ventana) {
-		this.controlAgregarUsuario = controlAgregarUsuario;
-		this.controlListarUsuarios = controlListarUsuarios;
-		this.controlListarGrupos = controlListarGrupos;
-		this.ventana = ventana;
-	}
+	private final ControlListarInventario controlListarInventario;
+	private final ControlRegistrarMercancia controlRegistrarMercancia;
+
+    @Autowired
+    public ControlPrincipal(
+        ControlAgregarUsuario controlAgregarUsuario,
+        ControlListarUsuarios controlListarUsuarios,
+        ControlListarGrupos controlListarGrupos,
+        ControlListarInventario controlListarInventario,
+        ControlRegistrarMercancia controlRegistrarMercancia,
+        VentanaPrincipal ventana) {
+
+    this.controlAgregarUsuario = controlAgregarUsuario;
+    this.controlListarUsuarios = controlListarUsuarios;
+    this.controlListarGrupos = controlListarGrupos;
+    this.controlListarInventario = controlListarInventario;
+    this.controlRegistrarMercancia = controlRegistrarMercancia;
+    this.ventana = ventana;
+}
 	
 	/**
 	 * Método que se ejecuta después de la construcción del bean
@@ -75,4 +84,18 @@ public class ControlPrincipal {
 	public void listarGrupos() {
 		controlListarGrupos.inicia();
 	}
+
+	/**
+    * Método que arranca la historia de usuario "listar inventario"
+    */
+    public void listarInventario() {
+        controlListarInventario.inicia();
+    }
+	/**
+    * Método que arranca la historia de usuario
+    * "Registrar mercancía".
+    */
+    public void registrarMercancia() {
+        controlRegistrarMercancia.inicia();
+    }
 }

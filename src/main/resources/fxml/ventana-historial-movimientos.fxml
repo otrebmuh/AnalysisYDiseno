@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <!-- ======================= -->
+    <!-- Encabezado -->
+    <!-- ======================= -->
+
+    <top>
+
+        <VBox spacing="10">
+
+            <padding>
+                <Insets top="15"
+                        right="15"
+                        bottom="15"
+                        left="15"/>
+            </padding>
+
+            <Label text="Historial de Movimientos"
+                   style="-fx-font-size:20px;
+                          -fx-font-weight:bold;" />
+
+            <HBox spacing="10">
+
+                <Label text="Buscar:" />
+
+                <TextField fx:id="txtBuscar"
+                           promptText="Tipo de movimiento..." />
+
+                <Button text="Buscar"
+                        onAction="#buscar"/>
+
+                <Button text="Actualizar"
+                        onAction="#actualizar"/>
+
+            </HBox>
+
+        </VBox>
+
+    </top>
+
+    <!-- ======================= -->
+    <!-- Tabla -->
+    <!-- ======================= -->
+
+    <center>
+
+        <TableView fx:id="tblMovimientos">
+
+            <columns>
+
+                <TableColumn
+                        fx:id="colId"
+                        text="ID"
+                        prefWidth="60"/>
+
+                <TableColumn
+                        fx:id="colFecha"
+                        text="Fecha"
+                        prefWidth="170"/>
+
+                <TableColumn
+                        fx:id="colTipo"
+                        text="Tipo"
+                        prefWidth="120"/>
+
+                <TableColumn
+                        fx:id="colProducto"
+                        text="Producto"
+                        prefWidth="220"/>
+
+                <TableColumn
+                        fx:id="colCantidad"
+                        text="Cantidad"
+                        prefWidth="90"/>
+
+                <TableColumn
+                        fx:id="colExistenciaAnterior"
+                        text="Existencia Anterior"
+                        prefWidth="140"/>
+
+                <TableColumn
+                        fx:id="colExistenciaActual"
+                        text="Existencia Actual"
+                        prefWidth="140"/>
+
+            </columns>
+
+        </TableView>
+
+    </center>
+
+    <!-- ======================= -->
+    <!-- Botones inferiores -->
+    <!-- ======================= -->
+
+    <bottom>
+
+        <HBox spacing="10"
+              alignment="CENTER_RIGHT">
+
+            <padding>
+                <Insets top="15"
+                        right="15"
+                        bottom="15"
+                        left="15"/>
+            </padding>
+
+            <Button text="Ver detalle"
+                    onAction="#verDetalle"/>
+
+            <Button text="Cerrar"
+                    onAction="#cerrar"/>
+
+        </HBox>
+
+    </bottom>
+
+</BorderPane>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+   <top>
+      <VBox spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleNuevaVenta" text="Nueva Venta" />
+                  <Label text="Producto:" />
+                  <ComboBox fx:id="comboProductos" prefWidth="200.0" promptText="Seleccionar producto..." />
+                  <Label text="Cantidad:" />
+                  <TextField fx:id="txtCantidad" prefWidth="60.0" text="1" />
+                  <Button mnemonicParsing="false" onAction="#handleAgregarProducto" text="Agregar" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </top>
+   <center>
+      <TableView fx:id="tablaCarrito" prefHeight="300.0" prefWidth="670.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="colNombre" prefWidth="250.0" text="Producto" />
+          <TableColumn fx:id="colPrecio" prefWidth="120.0" text="Precio Unitario" />
+            <TableColumn fx:id="colCantidad" prefWidth="100.0" text="Cantidad" />
+            <TableColumn fx:id="colSubtotal" prefWidth="150.0" text="Subtotal" />
+        </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Total:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTotal" text="\$0.00">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="10.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane>
