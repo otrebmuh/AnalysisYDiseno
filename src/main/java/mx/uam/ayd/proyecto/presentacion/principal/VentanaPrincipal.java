@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+
 /**
  * Ventana principal usando JavaFX con FXML
  * 
